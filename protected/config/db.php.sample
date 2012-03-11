@@ -1,0 +1,17 @@
+<?php
+
+return array(
+   'components'=>array(
+        'db'=>array(
+            'connectionString' => 'pgsql:host=db1.cogini.com;dbname=cogini_music_dev',
+            #'emulatePrepare' => true,
+            'username' => 'cogini_music_dev',
+            'password' => 'secret',
+            'charset' => 'utf8',
+            # turn on schema caching to improve performance
+            # 'schemaCachingDuration'=>3600,
+        ),
+    ),
+);
+
+?>
