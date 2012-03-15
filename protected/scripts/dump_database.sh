@@ -1,11 +1,7 @@
 #!/bin/sh
 
-DB_HOST=localhost
-DB_NAME=cogini_music_dev
-DB_USER=cogini_music_dev
-DB_PASS=secret
+bin_dir=$(dirname $0)
+. $bin_dir/set_env.sh
 
-#export PATH=$PATH:`pwd`/utils
 /usr/bin/mysqldump -d -h $DB_HOST -u $DB_USER -p${DB_PASS} $DB_NAME > $DB_NAME.sql
 /usr/bin/mysqldump -h $DB_HOST -u $DB_USER -p${DB_PASS} $DB_NAME > $DB_NAME.dump
-
