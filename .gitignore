@@ -1,0 +1,6 @@
+.*.swp
+*~
+/index.php
+/protected/config/local.php
+/protected/runtime/
+/protected/scripts/set_env.sh
