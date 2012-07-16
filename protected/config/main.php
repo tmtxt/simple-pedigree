@@ -1,5 +1,6 @@
 <?php
 
+$dbConfig = json_decode(file_get_contents(dirname(__FILE__).'/db.json'), true);
 $pre_config = require(dirname(__FILE__).'/local.php');
 
 // Location where user images are stored
@@ -8,7 +9,7 @@ $pre_config = require(dirname(__FILE__).'/local.php');
 
 return CMap::mergeArray(array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name'=>'Music',
+    'name'=>'Lewis Iselin',
 
     'preload'=>array('log'),
 
@@ -21,6 +22,16 @@ return CMap::mergeArray(array(
     ),
 
     'components'=>array(
+        'db'=>array(
+            'class'=>'system.db.CDbConnection',
+            'connectionString'=>"pgsql:dbname={$dbConfig['database']};host={$dbConfig['host']}",
+            'username'=>$dbConfig['user'],
+            'password'=>$dbConfig['password'],
+            'charset'=>'utf8',
+            'persistent'=>true,
+            'enableParamLogging'=>true,
+            'schemaCachingDuration'=>30
+        ),
         'cache' => array(
             'class' => 'system.caching.CFileCache'
         ),
@@ -73,7 +84,7 @@ return CMap::mergeArray(array(
         'js_date_format' => 'dd-mm-yy',
         'db_date_format' => "%Y-%m-%d",
         'display_date_format' => "%d-%m-%Y",
-        'display_short_date_format' => "%d-%m", 
+        'display_short_date_format' => "%d-%m",
    ),
 ), $pre_config);
 

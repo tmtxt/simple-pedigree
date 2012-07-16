@@ -1,0 +1,20 @@
+server {
+    listen      80;
+    server_name <%= node[:lewisiselin][:server_names].join(" ") %>;
+
+    root        <%= node[:lewisiselin][:root_dir] %>;
+    access_log  <%= node[:lewisiselin][:log_dir] %>/access.log;
+    error_log   <%= node[:lewisiselin][:log_dir] %>/error.log;
+
+    location ~ \.php$ {
+        include       fastcgi_params;
+        fastcgi_pass  unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location / {
+        index index.php;
+        try_files $uri $uri/ /index.php?$args;
+    }
+}

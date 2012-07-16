@@ -15,8 +15,8 @@ $pre_config = CMap::mergeArray(
 // Any writable CConsoleApplication properties can be configured here.
 return CMap::mergeArray($pre_config, array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Music',
-    
+	'name'=>'Lewis Iselin',
+
     # preloading 'log' component
     'preload'=>array('log'),
 
@@ -45,16 +45,6 @@ return CMap::mergeArray($pre_config, array(
             #'defaultRoles'=>array('end_user'),
             'connectionID'=>'db',
         ),
-#        'db'=>array(
-#            'connectionString' => 'mysql:host=db1.cogini.com;dbname=bnb_dev',
-#            #'connectionString' => 'mysql:host=192.168.1.79;dbname=wsf_boardnotice',
-#            'emulatePrepare' => true,
-#            'username' => 'cogini_music_dev',
-#            'password' => 'secret',
-#            'charset' => 'utf8',
-#            # turn on schema caching to improve performance
-#            # 'schemaCachingDuration'=>3600,
-#        ),
        'image'=>array(
             'class'=>'application.extensions.image.CImageComponent',
             # GD or ImageMagick
@@ -67,7 +57,7 @@ return CMap::mergeArray($pre_config, array(
     # using Yii::app()->params['paramName']
     'params'=>array(
         #'home_url' => 'http://www.cogini.com', # Where top level link goes to
-        'app_email_name' => 'music',
+        'app_email_name' => 'lewisiselin',
         'app_email' => 'support@cogini.com',
         'reply_to_email' => 'support@cogini.com',
     ),

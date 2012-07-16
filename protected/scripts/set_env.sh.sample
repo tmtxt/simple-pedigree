@@ -1,8 +1,8 @@
 #!/bin/sh
 
 export DB_HOST=localhost
-export DB_NAME=cogini_music_dev
-export DB_USER=cogini_music_dev
+export DB_NAME=lewisiselin
+export DB_USER=lewisiselin
 export DB_PASS=secret
 
 export PGDATABASE=$DATABASE

@@ -14,7 +14,7 @@ return array(
     ),
 
     'params'=>array(
-        'home_url' => 'http://gigadb.cogini.com', // Where top level link goes to
+        'home_url' => 'http://lewisiselin.cogini.com', // Where top level link goes to
 
         'timezone'=>"Asia/Taipei",
 
@@ -22,9 +22,9 @@ return array(
         'adminEmail'=>'support@cogini.com',
 
         // This is used as the sender of emails
-        'app_email_name' => 'Giga DB',
+        'app_email_name' => 'Lewis Iselin',
         'app_email' => 'support@cogini.com',
-        'email_prefix' => '[Giga DB] ',
+        'email_prefix' => '[Lewis Iselin] ',
 
         'support_email' => 'support@cogini.com',
         'email_prefix' => '', // put at the begining of the subject line
