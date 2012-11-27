@@ -11,6 +11,7 @@ include_recipe 'apt'
 include_recipe 'php::fpm'
 include_recipe 'php::module_pgsql'
 include_recipe 'nginx'
+include_recipe 'postgresql::client'
 
 
 tbbc = node[:tbbc]
@@ -53,22 +54,29 @@ end
 
 template '/etc/nginx/sites-available/tbbc' do
     source 'nginx-tbbc.erb'
-    mode '0644'
+    mode '0444'
 end
 
 template "#{site_dir}/index.php" do
     source 'yii-index.php.erb'
-    mode '0644'
+    mode '0444'
 end
 
 template "#{site_dir}/protected/config/local.php" do
     source 'yii-local.php.erb'
-    mode '0644'
+    mode '0444'
 end
 
 template "#{site_dir}/protected/config/db.json" do
     source 'yii-db.json.erb'
-    mode '0644'
+    mode '0444'
+end
+
+template "#{site_dir}/protected/scripts/set_env.sh" do
+    source 'set_env.sh.erb'
+    owner app_user
+    group app_user
+    mode '0444'
 end
 
 
