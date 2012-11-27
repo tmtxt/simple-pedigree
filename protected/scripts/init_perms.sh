@@ -2,25 +2,13 @@
 
 # Set up permissions
 
-if [ -f /etc/redhat-release ] ; then
-    # RedHat/CentOS
-    GROUP=apache
-else
-    # Debian/Ubuntu
-    GROUP=www-data
-fi
-
-OWNER=lewisiselin
-
 set -e
 
-CURDIR=$PWD
-BINDIR=`dirname $0`
-cd $BINDIR; BINDIR=$PWD; cd $CURDIR
+GROUP=www-data
+OWNER=tbbc
 
-BASEDIR="$BINDIR/../.."
-
-cd $BASEDIR; BASEDIR=$PWD; cd $CURDIR
+BINDIR=$(cd `dirname $0`; pwd)
+BASEDIR=$(cd "$BINDIR/../.."; pwd)
 
 echo "BASEDIR=$BASEDIR"
 

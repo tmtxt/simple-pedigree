@@ -1,6 +1,7 @@
+<% db = node[:tbbc][:db] -%>
 {
-    "database": "tbbc",
-    "host"    : "127.0.0.1",
-    "user"    : "tbbc",
-    "password": "vagrant"
+    "database": "<%= db[:database] %>",
+    "host"    : "<%= db[:host] %>",
+    "user"    : "<%= db[:username] %>",
+    "password": "<%= db[:password] %>"
 }

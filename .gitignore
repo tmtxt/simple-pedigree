@@ -1,9 +1,10 @@
-.*.swp
 *~
+.*.swp
+/.vagrant
 /assets
 /index.php
+/logs
+/protected/config/db.json
 /protected/config/local.php
 /protected/runtime/
 /protected/scripts/set_env.sh
-/.vagrant
-/logs

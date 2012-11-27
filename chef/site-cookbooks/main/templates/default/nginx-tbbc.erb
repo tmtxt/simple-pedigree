@@ -2,13 +2,13 @@ server {
     listen      80;
     server_name <%= node[:tbbc][:server_names].join(" ") %>;
 
-    root        <%= node[:tbbc][:root_dir] %>;
-    access_log  <%= node[:tbbc][:log_dir] %>/access.log;
+    root        <%= node[:tbbc][:site_dir] %>;
+    access_log  <%= node[:tbbc][:log_dir] %>/access.log json;
     error_log   <%= node[:tbbc][:log_dir] %>/error.log;
 
     location ~ \.php$ {
         include       fastcgi_params;
-        fastcgi_pass  unix:/var/run/php5-fpm.sock;
+        fastcgi_pass  127.0.0.1:9000;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }

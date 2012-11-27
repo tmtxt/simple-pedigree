@@ -1,23 +1,25 @@
+<% tbbc = node[:tbbc] -%>
+<% admin_email = tbbc[:admin_email] -%>
 <?php
 
 return array(
     'params'=>array(
-        'home_url' => 'http://tbbc.cogini.com', // Where top level link goes to
+        'home_url' => 'http://<%= tbbc[:server_names][0] %>', // Where top level link goes to
 
         // Used in the contact page
-        'adminEmail'=>'support@vagrant.local',
+        'adminEmail'=>'<%= admin_email %>',
 
         // This is used as the sender of emails
-        'app_email_name' => 'Lewis Iselin',
-        'app_email' => 'support@vagrant.local',
-        'email_prefix' => '[Lewis Iselin] ',
+        'app_email_name' => 'TBBC',
+        'app_email' => '<%= admin_email %>',
+        'email_prefix' => '[TBBC] ',
 
-        'support_email' => 'support@vagrant.local',
+        'support_email' => '<%= admin_email %>',
         'email_prefix' => '', // put at the begining of the subject line
-        'contact_email' => 'support@vagrant.local', // this is used in the contact page
+        'contact_email' => '<%= admin_email %>', // this is used in the contact page
 
         // Notified when a new user signs up
-        'notify_email' => 'support@vagrant.local',
+        'notify_email' => '<%= admin_email %>',
 
         // Cogini
         'recaptcha_publickey' => '6LdkzgsAAAAAAGFJ5GdJyXf4JvFqKJe5N0-F3IRt',

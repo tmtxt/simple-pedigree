@@ -7,59 +7,77 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "apt"
-include_recipe "yii"
-include_recipe "php::fpm"
-include_recipe "php::module_pgsql"
-include_recipe "nginx"
-include_recipe "postgresql::server"
+include_recipe 'apt'
+include_recipe 'php::fpm'
+include_recipe 'php::module_pgsql'
+include_recipe 'nginx'
 
 
-pgsql_user "tbbc" do
-    password "vagrant"
+tbbc = node[:tbbc]
+db = node[:tbbc][:db]
+app_user = tbbc[:user]
+site_dir = tbbc[:site_dir]
+
+
+yii_framework tbbc[:yii_version] do
+    action :install
 end
 
-pgsql_db "tbbc" do
-    owner "tbbc"
+
+if db[:host] == 'localhost'
+
+    include_recipe 'postgresql::server'
+
+    pgsql_user db[:user] do
+        password db[:password]
+    end
+
+    pgsql_db db[:database] do
+        owner db[:user]
+    end
 end
 
-user "tbbc" do
+
+user app_user do
     action :create
     supports :managed_home => true
 end
 
 
-directory node[:tbbc][:log_dir] do
+directory tbbc[:log_dir] do
     action :create
     recursive true
 end
 
-template "/etc/nginx/sites-available/tbbc" do
-    source "nginx-tbbc.erb"
-    mode "0644"
+
+template '/etc/nginx/sites-available/tbbc' do
+    source 'nginx-tbbc.erb'
+    mode '0644'
 end
 
-template "/vagrant/index.php" do
-    source "yii-index.php.erb"
-    mode "0644"
+template "#{site_dir}/index.php" do
+    source 'yii-index.php.erb'
+    mode '0644'
 end
 
-template "/vagrant/protected/config/local.php" do
-    source "yii-local.php.erb"
-    mode "0644"
+template "#{site_dir}/protected/config/local.php" do
+    source 'yii-local.php.erb'
+    mode '0644'
 end
 
-template "/vagrant/protected/config/db.json" do
-    source "yii-db.json.erb"
-    mode "0644"
+template "#{site_dir}/protected/config/db.json" do
+    source 'yii-db.json.erb'
+    mode '0644'
 end
 
-execute "/vagrant/protected/scripts/init_perms.sh"
 
-nginx_site "default" do
+execute "#{site_dir}/protected/scripts/init_perms.sh"
+
+
+nginx_site 'default' do
     action :disable
 end
 
-nginx_site "tbbc" do
+nginx_site 'tbbc' do
     action :enable
 end
