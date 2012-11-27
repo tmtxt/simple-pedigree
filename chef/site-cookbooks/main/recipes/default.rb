@@ -41,8 +41,10 @@ end
 
 
 user app_user do
+    home "/home/#{app_user}"
+    shell '/bin/bash'
+    supports :manage_home => true
     action :create
-    supports :managed_home => true
 end
 
 
