@@ -15,27 +15,27 @@ include_recipe "nginx"
 include_recipe "postgresql::server"
 
 
-pgsql_user "lewisiselin" do
+pgsql_user "tbbc" do
     password "vagrant"
 end
 
-pgsql_db "lewisiselin" do
-    owner "lewisiselin"
+pgsql_db "tbbc" do
+    owner "tbbc"
 end
 
-user "lewisiselin" do
+user "tbbc" do
     action :create
     supports :managed_home => true
 end
 
 
-directory node[:lewisiselin][:log_dir] do
+directory node[:tbbc][:log_dir] do
     action :create
     recursive true
 end
 
-template "/etc/nginx/sites-available/lewisiselin" do
-    source "nginx-lewisiselin.erb"
+template "/etc/nginx/sites-available/tbbc" do
+    source "nginx-tbbc.erb"
     mode "0644"
 end
 
@@ -60,6 +60,6 @@ nginx_site "default" do
     action :disable
 end
 
-nginx_site "lewisiselin" do
+nginx_site "tbbc" do
     action :enable
 end

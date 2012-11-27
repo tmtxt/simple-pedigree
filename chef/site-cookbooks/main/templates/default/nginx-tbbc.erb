@@ -1,10 +1,10 @@
 server {
     listen      80;
-    server_name <%= node[:lewisiselin][:server_names].join(" ") %>;
+    server_name <%= node[:tbbc][:server_names].join(" ") %>;
 
-    root        <%= node[:lewisiselin][:root_dir] %>;
-    access_log  <%= node[:lewisiselin][:log_dir] %>/access.log;
-    error_log   <%= node[:lewisiselin][:log_dir] %>/error.log;
+    root        <%= node[:tbbc][:root_dir] %>;
+    access_log  <%= node[:tbbc][:log_dir] %>/access.log;
+    error_log   <%= node[:tbbc][:log_dir] %>/error.log;
 
     location ~ \.php$ {
         include       fastcgi_params;
