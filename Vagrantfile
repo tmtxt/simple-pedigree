@@ -4,7 +4,7 @@
 Vagrant::Config.run do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = 'lucid32'
+  config.vm.box = 'precise32'
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -40,13 +40,23 @@ Vagrant::Config.run do |config|
           'chef/site-cookbooks',
       ]
       chef.json = {
-          :lewisiselin => {
-              :server_names => ['lewisiselin.cogini.com'],
+          :tbbc => {
+              :server_names => ['tbbc.cogini.com'],
               :root_dir => '/vagrant',
               :log_dir => '/vagrant/logs',
               :yii_path => '/opt/yii/framework/yii.php',
+              :site_dir => '/vagrant',
+              :admin_email => 'support@cogini.com',
+              :db => {
+                 #:database => "tbbc_dev",
+                 #:host => "192.168.1.21",
+                 #:password => "ySBpPDF228Uc",
+                 :password => "vagrant",
+                 #:username => "tbbc_dev"
+              },
           }
       }
+
       chef.add_recipe 'vagrant'
 
       #chef.roles_path = '../my-recipes/roles'

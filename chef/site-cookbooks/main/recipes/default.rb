@@ -12,6 +12,7 @@ include_recipe 'php::fpm'
 include_recipe 'php::module_pgsql'
 include_recipe 'nginx'
 include_recipe 'postgresql::client'
+include_recipe 'git'
 
 
 tbbc = node[:tbbc]
