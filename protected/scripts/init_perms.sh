@@ -18,7 +18,7 @@ if [ ! -d $BASEDIR/protected ] ; then
 fi
 
 # Yii runtime directories
-for component in $(echo protected/runtime assets images images/uploads)
+for component in $(echo protected/runtime assets images/uploads)
 do
     the_dir=$BASEDIR/$component
     mkdir -p $the_dir
