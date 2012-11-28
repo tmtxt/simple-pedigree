@@ -5,7 +5,7 @@
 set -e
 
 GROUP=www-data
-OWNER=tbbc
+OWNER=<%= node[:tbbc][:user] %>
 
 BINDIR=$(cd `dirname $0`; pwd)
 BASEDIR=$(cd "$BINDIR/../.."; pwd)

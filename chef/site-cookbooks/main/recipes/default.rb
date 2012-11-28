@@ -83,7 +83,14 @@ template "#{site_dir}/protected/scripts/set_env.sh" do
 end
 
 
-execute "#{site_dir}/protected/scripts/init_perms.sh"
+permission_script = "#{site_dir}/protected/scripts/init_perms.sh"
+
+template "#{permission_script}" do
+    source 'init_perms.sh.erb'
+    mode '0555'
+end
+
+execute "#{permission_script}"
 
 
 nginx_site 'default' do
