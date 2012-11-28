@@ -44,7 +44,7 @@ Vagrant::Config.run do |config|
               :server_names => ['tbbc.cogini.com'],
               :root_dir => '/vagrant',
               :log_dir => '/vagrant/logs',
-              :yii_path => '/opt/yii/framework/yii.php',
+              :yii_path => '/opt/yii-1.1.12/framework/yii.php',
               :site_dir => '/vagrant',
               :admin_email => 'support@cogini.com',
               :db => {
