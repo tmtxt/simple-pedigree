@@ -39,21 +39,20 @@ Vagrant::Config.run do |config|
           'chef/chef-cookbooks',
           'chef/site-cookbooks',
       ]
+
       chef.json = {
           :tbbc => {
               :server_names => ['tbbc.cogini.com'],
-              :root_dir => '/vagrant',
               :log_dir => '/vagrant/logs',
-              :yii_path => '/opt/yii-1.1.12/framework/yii.php',
               :site_dir => '/vagrant',
-              :admin_email => 'support@cogini.com',
+              :admin_email => 'support@vagrant.local',
               :db => {
-                 #:database => "tbbc_dev",
-                 #:host => "192.168.1.21",
-                 #:password => "ySBpPDF228Uc",
-                 :password => "vagrant",
-                 #:username => "tbbc_dev"
+                 :database => 'tbbc_dev',
+                 :host => 'localhost',
+                 :password => 'secret',
+                 :username => 'tbbc_dev'
               },
+              :user => 'vagrant',
           }
       }
 
