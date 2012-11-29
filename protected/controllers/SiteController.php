@@ -32,9 +32,21 @@ class SiteController extends Controller {
         #    } else {
         #        $this->redirect(array('user/accountBalance', 'id'=>Yii::app()->user->_id));
         #    }
-	    #} 
+	    #}
         $this->render('index');
 	}
+    public function actionChangeLanguage() {
+        /* Change the session's language if the requested language is
+         * supported */
+        Util::changeLanguage(Util::get($_GET, 'lang'));
+
+        /* Return to the previous page */
+        $returnUrl = Yii::app()->request->urlReferrer;
+        if (!$returnUrl)
+            $returnUrl = '/';
+        $this->redirect($returnUrl);
+    }
+
 
 	private function loadUser() {
 	  return User::model()->findbyPk(Yii::app()->user->_id);
@@ -64,7 +76,7 @@ class SiteController extends Controller {
 			if ($model->validate()) {
 				$headers = "From: {$model->email}\r\nReply-To: {$model->email}";
 				mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
-                Yii::app()->user->setFlash('contact', 
+                Yii::app()->user->setFlash('contact',
                     'Thank you for contacting us. We will respond to you as soon as possible.');
 				$this->refresh();
 			}

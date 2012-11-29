@@ -9,7 +9,7 @@ $pre_config = require(dirname(__FILE__).'/local.php');
 
 return CMap::mergeArray(array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name'=>'Lewis Iselin',
+    'name'=>'TBBC',
 
     'preload'=>array('log'),
 
@@ -85,6 +85,8 @@ return CMap::mergeArray(array(
         'db_date_format' => "%Y-%m-%d",
         'display_date_format' => "%d-%m-%Y",
         'display_short_date_format' => "%d-%m",
+        'language' => 'en' ,
+        'languages' => array('en' , 'zh_tw'),
    ),
 ), $pre_config);
 
