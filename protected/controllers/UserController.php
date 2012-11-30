@@ -4,7 +4,7 @@ class UserController extends Controller {
     const PAGE_SIZE = 10;
 
     /**
-     * @var string specifies the default action 
+     * @var string specifies the default action
      */
     public $defaultAction='admin';
 
@@ -29,18 +29,18 @@ class UserController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow',  // all users
-                'actions'=>array('create', 'confirm', 'welcome', 
-                				'reset', 'resetThanks', 
+            /*array('allow',  // all users
+                'actions'=>array('create', 'confirm', 'welcome',
+                				'reset', 'resetThanks',
                                 'sendActivationEmail'),
                 'users'=>array('*'),
-            ),	
+            ),
             array('allow', # logged in users
                     'actions'=>array('update', 'welcome', 'activationNeeded', 'changePassword'),
                     'users'=>array('@'),
-                ),
+                ),*/
             array('allow', # admins
-                'actions'=>array('list', 'show', 'delete','admin'),
+                'actions'=>array('admin'),
                 'roles'=>array('admin'),
                 'users'=>array('@'),
             ),
@@ -63,14 +63,14 @@ class UserController extends Controller {
      * Creates a new user.
      * If creation is successful, the browser will be redirected to the 'show' page.
      */
-    
-    # Create new account 
+
+    # Create new account
     public function actionCreate() {
         $user = new User;
         $this->performAjaxValidation($user);
         if (isset($_POST['User'])) {
             $user->attributes = $_POST['User'];
-            
+
             $attrs = $_POST['User'];
             $user->username = trim($attrs['username']);
             $user->email = trim($attrs['email']);
@@ -79,7 +79,7 @@ class UserController extends Controller {
             $user->unique_id  = $user->generatePassword(20);
 
             $user->is_approved = 1;
-            
+
             if ($user->validate('insert')) {
                 $user->encryptPassword();
 
@@ -212,7 +212,7 @@ class UserController extends Controller {
             'sort'=>$sort,
         ));
     }
-    
+
     # Confirm email works
 	public function actionConfirm() {
 		$key = $_GET['key'] ;
@@ -233,10 +233,10 @@ class UserController extends Controller {
     public function actionActivationNeeded() {
         $this->render('activationNeeded', array('user'=>$this->loadUser())) ;
     }
-    
+
     # Look up user and reset password
     public function actionReset() {
-    	$email='';   
+    	$email='';
         //$this->render('reset',array('user'=>$this->loadUser())) ;
         if (isset($_REQUEST["reset_user"])) {
             $reset_user = $_REQUEST["reset_user"];
@@ -265,7 +265,7 @@ class UserController extends Controller {
     public function actionResetThanks() {
         $this->render('resetThanks');
     }
-    
+
     # Reset password and send it to user in email
     public function actionLostPass() {
         $user = $this->loadUser();
@@ -283,8 +283,8 @@ class UserController extends Controller {
         }
         $this->render('lostpass', array('user'=>$user)) ;
     }
-    
-    # Change user password 
+
+    # Change user password
     public function actionChangePassword() {
         $user = $this->loadUser(Yii::app()->user->db_id); // only allows the current user
         if (isset($_POST['User'])) {
@@ -305,14 +305,14 @@ class UserController extends Controller {
     public function actionPasswordChanged() {
         $this->render('passwordChanged') ;
     }
-    
-    # Send account activation email 
+
+    # Send account activation email
     private function sendActivationEmail($user) {
         $app_email_name = Yii::app()->params['app_email_name'];
         $app_email = Yii::app()->params['app_email'];
         $email_prefix = Yii::app()->params['email_prefix'];
         $headers = "From: $app_email_name <$app_email>\r\n"; //optional header fields
-        ini_set('sendmail_from', $app_email); 
+        ini_set('sendmail_from', $app_email);
 
         $recipient = $user->email;
         $subject = $email_prefix . "Welcome to " . Yii::app()->name;
@@ -320,25 +320,25 @@ class UserController extends Controller {
         $body = <<<EO_MAIL
 Thanks for joining!
 
-To confirm that your email works, please click on this link: 
+To confirm that your email works, please click on this link:
 $url
 
 EO_MAIL;
-        mail($recipient, $subject, $body, $headers); 
+        mail($recipient, $subject, $body, $headers);
         Yii::log("Sent email to $recipient, $subject");
     }
-    
-    // Send password email 
+
+    // Send password email
     private function sendPasswordEmail($user) {
         $app_email_name = Yii::app()->params['app_email_name'];
         $app_email = Yii::app()->params['app_email'];
         $email_prefix = Yii::app()->params['email_prefix'];
         $headers = "From: $app_email_name <$app_email>\r\n"; //optional header fields
-        ini_set('sendmail_from', $app_email); 
-    
+        ini_set('sendmail_from', $app_email);
+
         $recipient = $user->email;
-        $subject = $email_prefix . "Password reset"; 
-        $password_unhashed = $user->passwordUnHashed; 
+        $subject = $email_prefix . "Password reset";
+        $password_unhashed = $user->passwordUnHashed;
         $url = $this->createAbsoluteUrl('site/login');
         $body = <<<EO_MAIL
 Password reset
@@ -348,24 +348,24 @@ We have reset your password to $password_unhashed
 Please login and change your password:
 $url
 EO_MAIL;
-        mail($recipient, $subject, $body, $headers); 
+        mail($recipient, $subject, $body, $headers);
         Yii::log(__FUNCTION__."> Sent email to $recipient, $subject");
     }
-    
+
     public function actionSendActivationEmail() {
         $user = $this->loadUser();
         Yii::log(__FUNCTION__."> Sending activation email to user ". $user->email, 'debug');
         $this->sendActivationEmail($user);
         $this->render('activationNeeded', array('user'=>$user));
     }
-    
+
     # Send notification email to admins about new user
     private function sendNotificationEmail($user) {
         $app_email_name = Yii::app()->params['app_email_name'];
         $app_email = Yii::app()->params['app_email'];
         $email_prefix = Yii::app()->params['email_prefix'];
         $headers = "From: $app_email_name <$app_email>\r\n"; //optional header fields
-        ini_set('sendmail_from', $app_email); 
+        ini_set('sendmail_from', $app_email);
 
         $recipient = Yii::app()->params['notify_email'];
         $subject = $email_prefix . "New user registration";
@@ -379,7 +379,7 @@ Phone: {$user->phone}
 $url
 
 EO_MAIL;
-        mail($recipient, $subject, $body, $headers); 
+        mail($recipient, $subject, $body, $headers);
         Yii::log(__FUNCTION__."> Sent email to $recipient, $subject");
     }
 

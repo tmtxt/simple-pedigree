@@ -69,14 +69,16 @@ return CMap::mergeArray(array(
         'messages'=>array(
             'class'=>'CPhpMessageSource',
         ),
-        'user'=>array(
-            // enable cookie-based authentication
-            'allowAutoLogin'=>true,
-        ),
         'authManager'=>array(
             'class'=>'CDbAuthManager',
             'connectionID'=>'db',
         ),
+        'user'=>array(
+            // enable cookie-based authentication
+            'allowAutoLogin'=>true,
+            'class'=>'WebUser',
+        ),
+
     ),
 
     'params' => array(

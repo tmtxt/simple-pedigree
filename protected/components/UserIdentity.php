@@ -5,7 +5,7 @@ class UserIdentity extends CUserIdentity {
     public $_id;
 
 	public function authenticate() {
-        $user = User::model()->findByAttributes(array('userid'=>$this->username));
+        $user = User::model()->findByAttributes(array('username'=>$this->username));
 
         if ($user===null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
@@ -13,9 +13,10 @@ class UserIdentity extends CUserIdentity {
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
         else {
             $this->_id = $user->id;
-            $this->username = $user->userid;
+            $this->username = $user->username;
             $this->errorCode = self::ERROR_NONE;
             $this->setState("_id", $user->id);
+            $this->setState('roles',$user->role);
          }
         return !$this->errorCode;
 	}

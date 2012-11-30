@@ -25,7 +25,7 @@ class User extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'users';
+        return 'tbbc_user';
     }
 
     /**
@@ -36,11 +36,11 @@ class User extends CActiveRecord {
             array('username','length','max'=>128),
             array('username', 'required'),
             array('username', 'unique'),
-
+/*
             array('email','length','max'=>128),
             array('email', 'required'),
             array('email', 'email'),
-            #array('email', 'unique'),
+            #array('email', 'unique'),*/
 
             #array('password','length','max'=>128),
             array('password', 'required', 'on'=>'insert'),
@@ -48,11 +48,11 @@ class User extends CActiveRecord {
             array('password', 'checkPassword', 'on'=>'update'),
             array('password', 'unsafe'),
 
-            array('name','length','max'=>60),
-            array('phone','length','max'=>60),
+/*            array('name','length','max'=>60),
+array('phone','length','max'=>60),*/
 
-            array('validacion', 
-               'application.extensions.recaptcha.EReCaptchaValidator', 
+            array('validacion',
+               'application.extensions.recaptcha.EReCaptchaValidator',
                'privateKey'=>Yii::app()->params['recaptcha_privatekey'], 'on'=>'insert'),
         );
     }
@@ -83,7 +83,7 @@ class User extends CActiveRecord {
      */
     public function relations() {
         return array (
-            'docs'=>array(self::HAS_MANY, 'Doc', 'author_id'),
+            //'docs'=>array(self::HAS_MANY, 'Doc', 'author_id'),
         );
     }
 
@@ -112,7 +112,7 @@ class User extends CActiveRecord {
 
     #public function beforeSave() {
     #  // Screw you, MVC
-    #  if ($_POST['_noFillPassword']) 
+    #  if ($_POST['_noFillPassword'])
     #    $this->password = md5($this->attributes['password']);
 #
 #      return true;
@@ -151,14 +151,14 @@ class User extends CActiveRecord {
         srand((double)microtime()*1000000);
         $i = 0;
         $pass = '' ;
-        
+
         while ($i <= $length) {
             $num = rand() % 33;
             $tmp = substr($chars, $num, 1);
             $pass .= $tmp;
             $i++;
         }
-        return $pass;    
+        return $pass;
     }
 
 }
