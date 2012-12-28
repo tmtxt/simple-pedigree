@@ -2,11 +2,12 @@
 .*.swp
 /.vagrant
 /assets
+/css-sync
 /index.php
 /logs
+/protected/config/console.php
 /protected/config/db.json
 /protected/config/local.php
 /protected/runtime/
 /protected/scripts/init_perms.sh
 /protected/scripts/set_env.sh
-/protected/config/console.php

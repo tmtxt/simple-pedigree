@@ -4,6 +4,10 @@
 
 return array(
     'params'=>array(
+
+        'csync_enable' => <%= tbbc[:csync_enable] %>,
+        'csync_port' => <%= tbbc[:csync_port] %>,
+
         'home_url' => 'http://<%= tbbc[:server_names][0] %>', // Where top level link goes to
 
         // Used in the contact page
