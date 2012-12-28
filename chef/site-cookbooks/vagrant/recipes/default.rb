@@ -39,3 +39,17 @@ end
 link "#{node[:tbbc][:site_dir]}/css-sync" do
     to csync_path
 end
+
+template '/etc/init/css-sync.conf' do
+    source 'upstart-csync.erb'
+end
+
+template '/home/vagrant/css-sync/config.js' do
+    source 'csync_config.js.erb'
+end
+
+
+service 'css-sync' do
+    provider Chef::Provider::Service::Upstart
+    action [:enable, :start]
+end
