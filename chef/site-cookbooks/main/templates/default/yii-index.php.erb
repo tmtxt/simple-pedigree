@@ -1,7 +1,7 @@
 <?php
 
 // change the following paths if necessary
-$yii='<%= node[:tbbc][:yii_path] %>';
+$yii='<%= "#{yii_default_path(node[:tbbc][:yii_version])}/framework/yii.php" %>';
 $config=dirname(__FILE__).'/protected/config/main.php';
 
 // remove the following lines when in production mode
