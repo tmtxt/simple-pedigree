@@ -30,8 +30,6 @@ Vagrant::Config.run do |config|
     end
 
     config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1']
-    FileUtils.mkpath('./protected/runtime')
-    FileUtils.chmod_R 0777, ['./protected/runtime']
 
     # Enable provisioning with chef solo, specifying a cookbooks path, roles
     # path, and data_bags path (all relative to this Vagrantfile), and adding
@@ -42,6 +40,7 @@ Vagrant::Config.run do |config|
             'chef/chef-cookbooks',
             'chef/site-cookbooks',
         ]
+        chef.roles_path = 'chef/chef-repo/roles'
 
         chef.json = {
             :tbbc => {
@@ -61,10 +60,9 @@ Vagrant::Config.run do |config|
             }
         }
 
+        chef.add_role 'vagrant_attributes'
         chef.add_recipe 'vagrant'
 
-        #chef.roles_path = '../my-recipes/roles'
         #chef.data_bags_path = '../my-recipes/data_bags'
-        #chef.add_role 'web'
     end
 end
