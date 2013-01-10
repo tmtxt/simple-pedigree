@@ -87,7 +87,7 @@ permission_script = "#{site_dir}/protected/scripts/init_perms.sh"
 
 template "#{permission_script}" do
     source 'init_perms.sh.erb'
-    mode '0555'
+    mode '0755'
 end
 
 execute "#{permission_script}"
