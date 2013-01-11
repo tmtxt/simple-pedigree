@@ -7,6 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
+class Chef::Recipe
+    include YiiLibrary
+end
+
+
 include_recipe 'apt'
 include_recipe 'php::fpm'
 include_recipe 'php::module_pgsql'
@@ -19,11 +24,11 @@ tbbc = node[:tbbc]
 db = node[:tbbc][:db]
 app_user = tbbc[:user]
 site_dir = tbbc[:site_dir]
+yii_version = node[:tbbc][:yii_version]
+yii_path = yii_default_path(yii_version)
 
 
-yii_framework tbbc[:yii_version] do
-    action :install
-end
+yii_framework yii_version
 
 
 if db[:host] == 'localhost'
@@ -63,6 +68,9 @@ end
 template "#{site_dir}/index.php" do
     source 'yii-index.php.erb'
     mode '0644'
+    variables({
+        :yii_path => yii_path,
+    })
 end
 
 template "#{site_dir}/protected/config/local.php" do
