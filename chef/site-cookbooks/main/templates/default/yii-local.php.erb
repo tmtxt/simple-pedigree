@@ -1,22 +1,22 @@
-<% tbbc = node[:tbbc] -%>
-<% admin_email = tbbc[:admin_email] -%>
+<% crowd = node[:crowd] -%>
+<% admin_email = crowd[:admin_email] -%>
 <?php
 
 return array(
     'params'=>array(
 
-        'csync_enable' => <%= tbbc[:csync_enable] %>,
-        'csync_port' => <%= tbbc[:csync_port] %>,
+        'csync_enable' => <%= crowd[:csync_enable] %>,
+        'csync_port' => <%= crowd[:csync_port] %>,
 
-        'home_url' => 'http://<%= tbbc[:server_names][0] %>', // Where top level link goes to
+        'home_url' => 'http://<%= crowd[:server_names][0] %>',
 
         // Used in the contact page
         'adminEmail'=>'<%= admin_email %>',
 
         // This is used as the sender of emails
-        'app_email_name' => 'TBBC',
+        'app_email_name' => 'Crowd',
         'app_email' => '<%= admin_email %>',
-        'email_prefix' => '[TBBC] ',
+        'email_prefix' => '[Crowd]',
 
         'support_email' => '<%= admin_email %>',
         'email_prefix' => '', // put at the begining of the subject line

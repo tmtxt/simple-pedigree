@@ -1,0 +1,23 @@
+server {
+
+    listen      80;
+    server_name <%= node[:crowd][:server_names].join(" ") %>;
+    root        <%= node[:crowd][:site_dir] %>;
+    access_log  <%= node[:crowd][:log_dir] %>/access.log json;
+    error_log   <%= node[:crowd][:log_dir] %>/error.log;
+
+    location ~ \.(css|gif|jpeg|jpg|js|png)$ {
+        # Server the file if it exists
+    }
+
+    location ~ \.php$ {
+        include       fastcgi_params;
+        fastcgi_pass  127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location / {
+        rewrite .* /index.php;
+    }
+}

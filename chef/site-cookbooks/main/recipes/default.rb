@@ -7,11 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-class Chef::Recipe
-    include YiiLibrary
-end
-
-
 include_recipe 'apt'
 include_recipe 'php::fpm'
 include_recipe 'php::module_pgsql'
@@ -20,21 +15,21 @@ include_recipe 'postgresql::client'
 include_recipe 'git'
 
 
-tbbc = node[:tbbc]
-db = node[:tbbc][:db]
-app_user = tbbc[:user]
-site_dir = tbbc[:site_dir]
-yii_version = node[:tbbc][:yii_version]
-yii_path = yii_default_path(yii_version)
+yii_version = node[:crowd][:yii_version]
+app_user = node[:crowd][:app_user]
+db = node[:crowd][:db]
+site_dir = node[:crowd][:site_dir]
 
 
-yii_framework yii_version
+yii_framework yii_version do
+    symlink "#{site_dir}/../yii"
+end
 
 
 if db[:host] == 'localhost'
 
     include_recipe 'postgresql::server'
-    db_user = db[:username]
+    db_user = db[:user]
 
     pgsql_user db_user do
         password db[:password]
@@ -54,24 +49,11 @@ user app_user do
 end
 
 
-directory tbbc[:log_dir] do
+directory node[:crowd][:log_dir] do
     action :create
     recursive true
 end
 
-
-template '/etc/nginx/sites-available/tbbc' do
-    source 'nginx-tbbc.erb'
-    mode '0644'
-end
-
-template "#{site_dir}/index.php" do
-    source 'yii-index.php.erb'
-    mode '0644'
-    variables({
-        :yii_path => yii_path,
-    })
-end
 
 template "#{site_dir}/protected/config/local.php" do
     source 'yii-local.php.erb'
@@ -85,26 +67,36 @@ end
 
 template "#{site_dir}/protected/scripts/set_env.sh" do
     source 'set_env.sh.erb'
-    owner app_user
-    group app_user
     mode '0644'
 end
 
 
-permission_script = "#{site_dir}/protected/scripts/init_perms.sh"
+%w{ protected/runtime assets images/uploads }.each do |component|
 
-template "#{permission_script}" do
-    source 'init_perms.sh.erb'
-    mode '0755'
+    the_dir = "#{site_dir}/#{component}"
+
+    bash 'setup permissions' do
+        code <<-EOH
+            mkdir -p #{the_dir}
+            chgrp -R www-data #{the_dir}
+            chmod -R g+rw #{the_dir}
+            find #{the_dir} -type d | xargs chmod g+x
+        EOH
+    end
 end
 
-execute "#{permission_script}"
 
+site_name = 'crowd'
+
+template "/etc/nginx/sites-available/#{site_name}" do
+    source 'nginx-crowd.erb'
+    mode '0644'
+end
 
 nginx_site 'default' do
     action :disable
 end
 
-nginx_site 'tbbc' do
+nginx_site site_name do
     action :enable
 end

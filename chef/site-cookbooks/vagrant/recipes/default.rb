@@ -27,7 +27,7 @@ bash 'install css-sync' do
     EOH
 end
 
-link "#{node[:tbbc][:site_dir]}/css-sync" do
+link "#{node[:crowd][:site_dir]}/css-sync" do
     to csync_path
 end
 
