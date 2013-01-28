@@ -14,9 +14,7 @@ include_recipe 'nodejs'
 execute 'npm install -g socket.io'
 
 
-# Node.js has something wrong with symlink
-
-csync_path = '/home/vagrant/css-sync'
+csync_path = "#{node[:crowd][:site_dir]}/css-sync"
 
 bash 'install css-sync' do
     code <<-EOH
@@ -25,10 +23,6 @@ bash 'install css-sync' do
         git fetch
         git reset --hard origin/master
     EOH
-end
-
-link "#{node[:crowd][:site_dir]}/css-sync" do
-    to csync_path
 end
 
 template '/etc/init/css-sync.conf' do
