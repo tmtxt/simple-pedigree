@@ -29,7 +29,7 @@ template '/etc/init/css-sync.conf' do
     source 'upstart-csync.erb'
 end
 
-template '/home/vagrant/css-sync/config.js' do
+template "#{csync_path}/config.js" do
     source 'csync_config.js.erb'
 end
 
