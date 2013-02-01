@@ -18,7 +18,7 @@ csync_path = "#{node[:crowd][:site_dir]}/css-sync"
 
 bash 'install css-sync' do
     code <<-EOH
-        [[ -d #{csync_path} ]] || git clone git://github.com/phunehehe/css-sync.git #{csync_path}
+        [[ -d #{csync_path} ]] || git clone git://github.com/ubolonton/css-sync.git #{csync_path}
         cd #{csync_path}
         git fetch
         git reset --hard origin/master
@@ -27,10 +27,12 @@ end
 
 template '/etc/init/css-sync.conf' do
     source 'upstart-csync.erb'
+    mode '0644'
 end
 
 template "#{csync_path}/config.js" do
     source 'csync_config.js.erb'
+    mode '0644'
 end
 
 
