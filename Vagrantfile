@@ -14,14 +14,28 @@ Vagrant::Config.run do |config|
 
     #config.vm.boot_mode = :gui
 
-    apt_cache = './apt-cache'
+    # apt wants the partial folder to be there
+    apt_cache = './.cache/apt'
     FileUtils.mkpath "#{apt_cache}/partial"
-    config.vm.share_folder 'apt_cache', '/var/cache/apt/archives', apt_cache
+
+    chef_cache = '/var/chef/cache'
+
+    shared_folders = {
+        apt_cache => '/var/cache/apt/archives',
+        './.cache/chef' => chef_cache,
+    }
+
+    shared_folders.each do |source, destination|
+        FileUtils.mkpath source
+        config.vm.share_folder destination.gsub('/', '_'), destination, source
+    end
 
     config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1']
 
 
     config.vm.provision :chef_solo do |chef|
+
+        chef.provisioning_path = chef_cache
 
         chef.cookbooks_path = [
             'chef/chef-cookbooks',
