@@ -27,7 +27,9 @@ Vagrant::Config.run do |config|
 
     shared_folders.each do |source, destination|
         FileUtils.mkpath source
-        config.vm.share_folder destination.gsub('/', '_'), destination, source
+        folder_id = destination.gsub('/', '_')
+        config.vm.share_folder folder_id, destination, source
+        config.vm.customize ['setextradata', :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/#{folder_id}", '1']
     end
 
     config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1']
