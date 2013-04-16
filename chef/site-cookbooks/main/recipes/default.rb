@@ -14,6 +14,8 @@ include_recipe 'nginx'
 include_recipe 'postgresql::client'
 include_recipe 'git'
 
+include_recipe 'python'
+
 
 yii_version = node[:crowd][:yii_version]
 app_user = node[:crowd][:app_user]
@@ -100,3 +102,45 @@ end
 nginx_site site_name do
     action :enable
 end
+
+# Schemup
+%w{libpq-dev}.each do |pkg|
+    package pkg do
+        action :install
+    end
+end
+
+python_env = node[:crowd][:python][:virtualenv]
+build_dir = node[:crowd][:python][:build_dir]
+
+[build_dir, python_env].each do |dir|
+    directory dir do
+        action :create
+        recursive true
+    end
+end
+
+python_virtualenv python_env do
+    action :create
+end
+
+node[:crowd][:python][:packages].each do |pkg|
+    python_pip pkg do
+        action :install
+        virtualenv python_env
+    end
+end
+
+# TODO: Clean up & move to a cookbook
+bash "install schemup" do
+    cwd build_dir
+    code <<-EOH
+        . #{python_env}/bin/activate
+        git clone https://github.com/brendonh/schemup.git
+        cd schemup
+        git fetch
+        git checkout #{node[:crowd][:python][:schemup][:version]}
+        pip install .
+    EOH
+end
+

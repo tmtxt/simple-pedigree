@@ -3,4 +3,4 @@
 	url = git://github.com/phunehehe/chef-cookbooks.git
 [submodule "chef/chef-repo"]
 	path = chef/chef-repo
-	url = gitolite:chef-repo
+	url = ssh://git@gitlab.cogini.com:1026/phunehehe/chef-repo.git
