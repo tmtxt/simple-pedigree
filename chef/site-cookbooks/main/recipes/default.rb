@@ -131,16 +131,10 @@ node[:crowd][:python][:packages].each do |pkg|
     end
 end
 
-# TODO: Clean up & move to a cookbook
-bash "install schemup" do
-    cwd build_dir
+# Other dependencies
+bash 'install python dependencies' do
     code <<-EOH
         . #{python_env}/bin/activate
-        git clone https://github.com/brendonh/schemup.git
-        cd schemup
-        git fetch
-        git checkout #{node[:crowd][:python][:schemup][:version]}
-        pip install .
+        pip install -r #{site_dir}/protected/schema/requirements.txt
     EOH
 end
-
