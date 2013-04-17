@@ -124,13 +124,6 @@ python_virtualenv python_env do
     action :create
 end
 
-node[:crowd][:python][:packages].each do |pkg|
-    python_pip pkg do
-        action :install
-        virtualenv python_env
-    end
-end
-
 # Other dependencies
 bash 'install python dependencies' do
     code <<-EOH
