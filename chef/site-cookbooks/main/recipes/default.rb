@@ -14,6 +14,8 @@ include_recipe 'nginx'
 include_recipe 'postgresql::client'
 include_recipe 'git'
 
+include_recipe 'python'
+
 
 yii_version = node[:crowd][:yii_version]
 app_user = node[:crowd][:app_user]
@@ -99,4 +101,33 @@ end
 
 nginx_site site_name do
     action :enable
+end
+
+# Schemup
+%w{libpq-dev}.each do |pkg|
+    package pkg do
+        action :install
+    end
+end
+
+python_env = node[:crowd][:python][:virtualenv]
+build_dir = node[:crowd][:python][:build_dir]
+
+[build_dir, python_env].each do |dir|
+    directory dir do
+        action :create
+        recursive true
+    end
+end
+
+python_virtualenv python_env do
+    action :create
+end
+
+# Other dependencies
+bash 'install python dependencies' do
+    code <<-EOH
+        . #{python_env}/bin/activate
+        pip install -r #{site_dir}/protected/schema/requirements.txt
+    EOH
 end
