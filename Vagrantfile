@@ -47,10 +47,10 @@ Vagrant::Config.run do |config|
         chef.roles_path = 'chef/chef-repo/roles'
 
         chef.json = {
-            :crowd => {
+            :skeleton => {
                 :csync_enable => true,
                 :csync_port => csync_port,
-                :server_names => ['crowd.cogini.com'],
+                :server_names => ['skeleton.cogini.com'],
                 :log_dir => '/vagrant/logs',
                 :site_dir => '/vagrant',
                 :admin_email => 'support@vagrant.local',

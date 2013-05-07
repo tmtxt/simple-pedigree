@@ -1,22 +1,22 @@
-<% crowd = node[:crowd] -%>
-<% admin_email = crowd[:admin_email] -%>
+<% skeleton = node[:skeleton] -%>
+<% admin_email = skeleton[:admin_email] -%>
 <?php
 
 return array(
     'params'=>array(
 
-        'csync_enable' => <%= crowd[:csync_enable] %>,
-        'csync_port' => <%= crowd[:csync_port] %>,
+        'csync_enable' => <%= skeleton[:csync_enable] %>,
+        'csync_port' => <%= skeleton[:csync_port] %>,
 
-        'home_url' => 'http://<%= crowd[:server_names][0] %>',
+        'home_url' => 'http://<%= skeleton[:server_names][0] %>',
 
         // Used in the contact page
         'adminEmail'=>'<%= admin_email %>',
 
         // This is used as the sender of emails
-        'app_email_name' => 'Crowd',
+        'app_email_name' => 'Skeleton',
         'app_email' => '<%= admin_email %>',
-        'email_prefix' => '[Crowd]',
+        'email_prefix' => '[Skeleton]',
 
         'support_email' => '<%= admin_email %>',
         'email_prefix' => '', // put at the begining of the subject line
