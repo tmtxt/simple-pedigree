@@ -103,6 +103,10 @@ nginx_site site_name do
     action :enable
 end
 
+service 'php5-fpm' do
+    action :restart
+end
+
 # Schemup
 %w{libpq-dev}.each do |pkg|
     package pkg do
