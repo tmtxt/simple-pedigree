@@ -25,7 +25,7 @@ class User extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'tbbc_user';
+        return 'skeleton_user';
     }
 
     /**

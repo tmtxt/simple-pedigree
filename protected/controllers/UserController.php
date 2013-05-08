@@ -29,13 +29,13 @@ class UserController extends Controller {
      */
     public function accessRules() {
         return array(
-            /*array('allow',  // all users
+            array('allow',  // all users
                 'actions'=>array('create', 'confirm', 'welcome',
                 				'reset', 'resetThanks',
                                 'sendActivationEmail'),
                 'users'=>array('*'),
             ),
-            array('allow', # logged in users
+            /*array('allow', # logged in users
                     'actions'=>array('update', 'welcome', 'activationNeeded', 'changePassword'),
                     'users'=>array('@'),
                 ),*/
@@ -236,31 +236,31 @@ class UserController extends Controller {
 
     # Look up user and reset password
     public function actionReset() {
-    	$email='';
-        //$this->render('reset',array('user'=>$this->loadUser())) ;
+        $email='';
         if (isset($_REQUEST["reset_user"])) {
             $reset_user = $_REQUEST["reset_user"];
-            Yii::log("reset $reset_user", 'debug');
-            $user = User::model()->findByAttributes(array('username' => $reset_user));
+            MyLog::debug("Reset $reset_user");
+            $user = User::model()->findByAttributes(array('email' => $reset_user));
             if ($user !== null) {
-                Yii::log(__FUNCTION__."> reset found user $reset_user", 'debug');
+                MyLog::debug("Reset found user '$reset_user'");
                 $user->password = $user->generatePassword(8);
                 $user->encryptPassword();
 
                 if ($user->save()) {
                     $this->sendPasswordEmail($user);
+                    $this->redirect('/user/resetThanks');
                 }
                 else {
-                    Yii::log(__FUNCTION__."> Error: could not save new user password", 'error');
+                    MyLog::saveEerror($user, "Could not save new user password");
                 }
             }
             else {
-                Yii::log(__FUNCTION__."> User account not found for user $reset_user", 'error');
+                MyLog::warning("User account not found for user '$reset_user'");
             }
-            $this->redirect(array('user/resetThanks'));
         }
         $this->render('reset', array('email'=>$email));
     }
+
 
     public function actionResetThanks() {
         $this->render('resetThanks');

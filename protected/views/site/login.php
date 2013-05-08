@@ -32,7 +32,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row">
-    <p class="hint"><?= CHtml::link("Lost Password", array('user/reset', 'username'=>$model->username)) ?></p>
+    <p class="hint"><?= CHtml::link("Lost Password", array('user/reset')) ?></p>
 	</div>
 
 	<div class="row submit">
