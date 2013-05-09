@@ -91,7 +91,7 @@ end
 site_name = 'skeleton'
 
 template "/etc/nginx/sites-available/#{site_name}" do
-    source 'nginx-skeleton.erb'
+    source 'nginx-site.erb'
     mode '0644'
 end
 
