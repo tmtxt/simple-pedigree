@@ -14,7 +14,7 @@ include_recipe 'nodejs'
 execute 'npm install -g socket.io'
 
 
-csync_path = "#{node[:crowd][:site_dir]}/css-sync"
+csync_path = "#{node[:skeleton][:site_dir]}/css-sync"
 
 bash 'install css-sync' do
     code <<-EOH
