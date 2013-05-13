@@ -16,7 +16,7 @@ class UserIdentity extends CUserIdentity {
             $this->username = $user->username;
             $this->errorCode = self::ERROR_NONE;
             $this->setState("_id", $user->id);
-            $this->setState('roles',$user->role);
+            #$this->setState('roles',$user->role);
          }
         return !$this->errorCode;
 	}
