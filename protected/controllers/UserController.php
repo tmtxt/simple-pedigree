@@ -31,7 +31,7 @@ class UserController extends Controller {
         return array(
             array('allow',  // all users
                 'actions'=>array('create', 'confirm', 'welcome',
-                				'reset', 'resetThanks',
+                                'reset', 'resetThanks',
                                 'sendActivationEmail'),
                 'users'=>array('*'),
             ),
