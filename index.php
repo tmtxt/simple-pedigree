@@ -1,6 +1,6 @@
 <?php
 
-$base = dirname(__FILE__);
+$base = __DIR__;
 $yii = $base . '/../yii/framework/yii.php';
 $config = $base . '/protected/config/main.php';
 
