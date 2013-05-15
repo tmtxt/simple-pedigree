@@ -4,7 +4,7 @@ class UserIdentity extends CUserIdentity {
 
     public $_id;
 
-	public function authenticate() {
+    public function authenticate() {
         $user = User::model()->findByAttributes(array('username'=>$this->username));
 
         if ($user===null)
@@ -16,9 +16,8 @@ class UserIdentity extends CUserIdentity {
             $this->username = $user->username;
             $this->errorCode = self::ERROR_NONE;
             $this->setState("_id", $user->id);
-            $this->setState('roles',$user->role);
          }
         return !$this->errorCode;
-	}
+    }
 
 }
