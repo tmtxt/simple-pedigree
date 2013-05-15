@@ -23,7 +23,8 @@ EO_SQL;
         $command = $connection->createCommand($query);
         $command->execute();
 
-        #For more information about authorization item, visit Yii's tutorial: http://www.yiiframework.com/doc/guide/1.1/en/topics.auth
+        # For more information about authorization item, visit Yii's tutorial:
+        # http://www.yiiframework.com/doc/guide/1.1/en/topics.auth
         $auth = Yii::app()->authManager;
 
         $role=$auth->createRole('admin');

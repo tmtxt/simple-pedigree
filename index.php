@@ -1,8 +1,7 @@
 <?php
 
-$base = __DIR__;
-$yii = $base . '/../yii/framework/yii.php';
-$config = $base . '/protected/config/main.php';
+$yii = __DIR__ . '/../yii/framework/yii.php';
+$config = __DIR__ . '/protected/config/main.php';
 
 // Remove the following lines when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG', true);
