@@ -25,7 +25,7 @@ class User extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'skeleton_user';
+        return 'yii_user';
     }
 
     /**
@@ -121,7 +121,6 @@ array('phone','length','max'=>60),*/
     protected function beforeValidate() {
         if ($this->isNewRecord) {
             $this->created_at = $this->updated_at = date('Y-m-d H:i:s');
-            $this->ip_address = $_SERVER['REMOTE_ADDR'];
         }
         else {
             $this->updated_at = date('Y-m-d H:i:s');

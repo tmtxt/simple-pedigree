@@ -1,9 +1,9 @@
 ---
-table: user
+table: yii_user
 from: null
 to: lmd_1
 sql: |
-  CREATE TABLE "user" (
+  CREATE TABLE "yii_user" (
     "id" SERIAL NOT NULL PRIMARY KEY,
     "username" varchar(64) NOT NULL UNIQUE,
     "email" varchar(63) NOT NULL UNIQUE,
@@ -12,5 +12,6 @@ sql: |
     "role" varchar(30) NOT NULL DEFAULT 'user',
     "is_activated" boolean DEFAULT false,
     "is_approved" boolean DEFAULT false,
-    "created_at" timestamp without time zone default now()
+    "created_at" timestamp without time zone default now(),
+    "updated_at" timestamp without time zone default now()
   );
