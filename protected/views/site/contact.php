@@ -7,11 +7,9 @@ $this->breadcrumbs=array(
 
 <h1>Contact Us</h1>
 
-<? if (Yii::app()->user->hasFlash('contact')) { ?>
-<div class="flash-success">
-	<?= Yii::app()->user->getFlash('contact'); ?>
-</div>
-<? } else { ?>
+<? if (Yii::app()->user->hasFlash('contact')) {
+    $this->renderPartial('//shared/_flash' , array('name' => 'contact')) ;
+ } else { ?>
 
 <p>If you have any questions, please fill out the following form to contact us.</p>
 
@@ -45,7 +43,7 @@ $this->breadcrumbs=array(
 
 	<div class="row">
         <?= $form->labelEx($model, 'validacion') ?>
-        <? $this->widget('application.extensions.recaptcha.EReCaptcha', 
+        <? $this->widget('application.extensions.recaptcha.EReCaptcha',
             array('model'=>$model, 'attribute'=>'validacion',
                   'theme'=>'clean', 'language'=>'zh_TW',
                   'publicKey'=>Yii::app()->params['recaptcha_publickey'])) ?>

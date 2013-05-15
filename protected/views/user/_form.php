@@ -15,20 +15,7 @@
 		<?= $form->error($model,'username') ?>
 	</div>
 
-<? if (false) { ?>
-	<div class="row">
-		<?= $form->labelEx($model,'name') ?>
-		<?= $form->textField($model,'name',array('size'=>30,'maxlength'=>60)) ?>
-		<?= $form->error($model,'name') ?>
-	</div>
-
-	<div class="row">
-		<?= $form->labelEx($model,'phone') ?>
-		<?= $form->textField($model,'phone',array('size'=>30,'maxlength'=>60)) ?>
-		<?= $form->error($model,'phone') ?>
-	</div>
-<? } ?>
-
+<? if ($model->isNewRecord) { ?>
 	<div class="row">
 		<?= $form->labelEx($model,'password') ?>
 		<?= $form->passwordField($model,'password',array('size'=>30,'maxlength'=>60)) ?>
@@ -40,6 +27,11 @@
 		<?= $form->passwordField($model,'password_repeat',array('size'=>30,'maxlength'=>60)) ?>
 		<?= $form->error($model,'password_repeat') ?>
 	</div>
+<? } else { ?>
+    <div class="row">
+        <a href="/user/changePassword">Change Password</a>
+    </div>
+<?}?>
 
    	<div class="row">
 		<?= $form->labelEx($model,'email') ?>
@@ -51,9 +43,9 @@
 <? if ($model->isNewRecord) { ?>
 	<div class="row">
 		<?= $form->labelEx($model,'validacion') ?>
-        <? $this->widget('application.extensions.recaptcha.EReCaptcha', 
+        <? $this->widget('application.extensions.recaptcha.EReCaptcha',
            array('model'=>$model, 'attribute'=>'validacion',
-                 'theme'=>'clean', 'language'=>'zh_TW', 
+                 'theme'=>'clean', 'language'=>'zh_TW',
                  'publicKey'=>Yii::app()->params['recaptcha_publickey'])) ?>
         <?= $form->error($model,'validacion') ?>
 	</div>

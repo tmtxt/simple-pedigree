@@ -47,7 +47,8 @@ class UserController extends Controller {
                     'update',
                     'welcome',
                     'activationNeeded',
-                    'changePassword'
+                    'changePassword',
+                    'passwordChanged'
                 ),
                 'users'=>array('@'),
             ),
@@ -124,8 +125,15 @@ class UserController extends Controller {
      * Updates a particular user.
      * If update is successful, the browser will be redirected to the 'show' page.
      */
-    public function actionUpdate() {
-        $user = $this->loadUser();
+    public function actionUpdate($id = null) {
+        if ($id !== null){
+            if(Yii::app()->user->checkAccess('admin'))
+                $user = $this->loadUser($id);
+            else
+                throw new CHttpException(403, 'You are not authorized to perform this action.');
+        }
+        else
+            $user = $this->loadUser(Yii::app()->user->_id);
         $this->performAjaxValidation($user);
         #if (!Yii::app()->user->checkAccess('updateOwnUser', array('user'=>$user))) {
         #    Yii::log(__FUNCTION__."> Unauthorized", 'debug');
@@ -136,14 +144,8 @@ class UserController extends Controller {
             $user->attributes = $_POST['User'] ;
             $attrs = $_POST['User'];
 
-            $password = $user->password_new = $attrs['password'];
-            $user->password_repeat = $attrs['password_repeat'];
 
             if ($user->validate('update')) {
-                if ($password != '') {
-                    $user->encryptPassword();
-                }
-
                 if ($user->save(false)) {
                     Yii::app()->user->setFlash('notice', 'Updated');
                     $this->redirect(array('site/index'));
@@ -298,17 +300,29 @@ class UserController extends Controller {
 
     # Change user password
     public function actionChangePassword() {
-        $user = $this->loadUser(Yii::app()->user->db_id); // only allows the current user
+        $user = $this->loadUser(Yii::app()->user->_id); // only allows the current user
         if (isset($_POST['User'])) {
-            $user->attributes=$_POST['User'];
-            $user->encryptPassword();
+            $attrs = $_POST['User'];
+            $error = false;
+            $old_password = $attrs['password_old'];
+            $password = $user->password_new = $attrs['password_new'];
+            $user->password_repeat = $attrs['password_repeat'];
 
-            if ($user->save()) {
-                $this->redirect(array('passwordChanged'));
+            if($user->password != md5($old_password))
+                $error = true;
+
+            if ($user->validate('update') && !$error) {
+                if ($password != '') {
+                    $user->encryptPassword();
+                }
+
+                if ($user->save(false)) {
+                    $this->redirect(array('passwordChanged'));
+                }
             }
             else {
                 Yii::log("password update failed", 'warning');
-                #Yii::app()->user->setFlash('contact','Password update failed');
+                Yii::app()->user->setFlash('password', 'Password update failed');
             }
         }
         $this->render('changePassword',array('user'=>$user));

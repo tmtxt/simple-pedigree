@@ -1,4 +1,4 @@
-<h2>Updating User:  <?= CHtml::encode($model->name) ?></h2>
+<h2>Updating User:  <?= CHtml::encode($model->username) ?></h2>
 
 <? if (Yii::app()->user->checkAccess('admin')) { ?>
 <div class="actionBar">
