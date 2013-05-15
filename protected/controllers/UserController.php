@@ -30,15 +30,27 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow',  // all users
-                'actions'=>array('create', 'confirm', 'welcome',
-                                'reset', 'resetThanks',
-                                'sendActivationEmail'),
+                'actions'=>array(
+                    'create',
+                    'confirm',
+                    'welcome',
+
+                    'reset',
+                    'resetThanks',
+
+                    'sendActivationEmail'
+                ),
                 'users'=>array('*'),
             ),
-            /*array('allow', # logged in users
-                    'actions'=>array('update', 'welcome', 'activationNeeded', 'changePassword'),
-                    'users'=>array('@'),
-                ),*/
+            array('allow', # logged in users
+                'actions'=>array(
+                    'update',
+                    'welcome',
+                    'activationNeeded',
+                    'changePassword'
+                ),
+                'users'=>array('@'),
+            ),
             array('allow', # admins
                 'actions'=>array('admin'),
                 'roles'=>array('admin'),
