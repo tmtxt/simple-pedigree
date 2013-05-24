@@ -263,12 +263,10 @@ class UserController extends Controller {
                 if ($user->save()) {
                     $this->sendPasswordEmail($user);
                     $this->redirect('/user/resetThanks');
-                }
-                else {
+                } else {
                     MyLog::saveEerror($user, "Could not save new user password");
                 }
-            }
-            else {
+            } else {
                 MyLog::warning("User account not found for user '$reset_user'");
             }
         }
