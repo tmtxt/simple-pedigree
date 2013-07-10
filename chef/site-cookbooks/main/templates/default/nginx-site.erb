@@ -6,6 +6,11 @@ server {
     access_log  <%= node[:skeleton][:log_dir] %>/access.log json;
     error_log   <%= node[:skeleton][:log_dir] %>/error.log;
 
+    location ~ /(\.|Vagrantfile|chef|protected) {
+        # Protect code files
+        return 444;
+    }
+
     location ~ \.(css|gif|jpeg|jpg|js|png)$ {
         # Server the file if it exists
     }
