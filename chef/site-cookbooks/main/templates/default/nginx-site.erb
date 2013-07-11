@@ -6,11 +6,17 @@ server {
     access_log  <%= node[:skeleton][:log_dir] %>/access.log json;
     error_log   <%= node[:skeleton][:log_dir] %>/error.log;
 
+    location ~ /(\.|Vagrantfile|chef|protected) {
+        # Protect code files
+        return 444;
+    }
+
     location ~ \.(css|gif|jpeg|jpg|js|png)$ {
         # Server the file if it exists
     }
 
     location ~ \.php$ {
+        try_files     $uri = 404;
         include       fastcgi_params;
         fastcgi_pass  127.0.0.1:9000;
         fastcgi_index index.php;
