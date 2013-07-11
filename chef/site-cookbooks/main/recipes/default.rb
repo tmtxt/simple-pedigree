@@ -8,8 +8,8 @@
 #
 
 include_recipe 'apt'
-include_recipe 'php::fpm'
 include_recipe 'php::module_pgsql'
+include_recipe 'php::fpm'
 include_recipe 'nginx'
 include_recipe 'postgresql::client'
 include_recipe 'git'
@@ -101,10 +101,6 @@ end
 
 nginx_site site_name do
     action :enable
-end
-
-service 'php5-fpm' do
-    action :restart
 end
 
 # Schemup
