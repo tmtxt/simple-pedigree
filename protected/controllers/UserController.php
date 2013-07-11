@@ -124,11 +124,9 @@ class UserController extends Controller {
      * If update is successful, the browser will be redirected to the 'show' page.
      */
     public function actionUpdate($id = null) {
-        if ($id !== null){
-            if(Yii::app()->user->checkAccess('admin'))
-                $user = $this->loadUser($id);
-            else
-                throw new CHttpException(403, 'You are not authorized to perform this action.');
+        if ($id !== null) {
+            if (Yii::app()->user->checkAccess('admin')) $user = $this->loadUser($id);
+            else throw new CHttpException(403, 'You are not authorized to perform this action.');
         }
         else
             $user = $this->loadUser(Yii::app()->user->_id);
