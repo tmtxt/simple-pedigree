@@ -1,16 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
+Vagrant.configure('2') do |config|
 
     config.vm.box = 'precise32'
     config.vm.box_url = 'http://files.vagrantup.com/precise32.box'
 
     csync_port = 9252
 
-    config.vm.forward_port 80, 9250
-    config.vm.forward_port 22, 9251
-    config.vm.forward_port 8888, csync_port
+    config.vm.network :forwarded_port, guest: 80, host: 9250
+    config.vm.network :forwarded_port, guest: 22, host: 9251
+    config.vm.network :forwarded_port, guest: 8888, host: csync_port
 
     #config.vm.boot_mode = :gui
 
@@ -25,14 +25,16 @@ Vagrant::Config.run do |config|
         './.cache/chef' => chef_cache,
     }
 
-    shared_folders.each do |source, destination|
-        FileUtils.mkpath source
-        folder_id = destination.gsub('/', '_')
-        config.vm.share_folder folder_id, destination, source
-        config.vm.customize ['setextradata', :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/#{folder_id}", '1']
-    end
+    config.vm.provider :virtualbox do |vb|
 
-    config.vm.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1']
+        shared_folders.each do |source, destination|
+            FileUtils.mkpath source
+            config.vm.synced_folder source, destination
+            vb.customize ['setextradata', :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/#{destination}", '1']
+        end
+
+        vb.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1']
+    end
 
 
     config.vm.provision :chef_solo do |chef|
