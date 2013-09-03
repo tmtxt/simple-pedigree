@@ -80,8 +80,8 @@ end
     bash 'setup permissions' do
         code <<-EOH
             mkdir -p #{the_dir}
-            chgrp -R www-data #{the_dir}
-            chmod -R g+rw #{the_dir}
+            chown -R www-data:#{app_user} #{the_dir}
+            chmod -R ug+rwX #{the_dir}
             find #{the_dir} -type d | xargs chmod g+x
         EOH
     end
