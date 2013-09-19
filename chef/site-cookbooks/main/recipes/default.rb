@@ -131,3 +131,9 @@ bash 'install python dependencies' do
         pip install -r #{site_dir}/protected/schema/requirements.txt
     EOH
 end
+
+
+template '/etc/logrotate.d/skeleton.cogini.com' do
+    mode '644'
+    source 'logrotate.erb'
+end
