@@ -92,7 +92,8 @@ site_name = 'skeleton'
 
 template "/etc/nginx/sites-available/#{site_name}" do
     source 'nginx-site.erb'
-    mode '0644'
+    mode '644'
+    notifies :reload, 'service[nginx]'
 end
 
 nginx_site 'default' do
@@ -102,6 +103,7 @@ end
 nginx_site site_name do
     action :enable
 end
+
 
 # Schemup
 %w{libpq-dev}.each do |pkg|
