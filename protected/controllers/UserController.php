@@ -127,9 +127,9 @@ class UserController extends Controller {
         if ($id !== null) {
             if (Yii::app()->user->checkAccess('admin')) $user = $this->loadUser($id);
             else throw new CHttpException(403, 'You are not authorized to perform this action.');
-        }
-        else
+        } else {
             $user = $this->loadUser(Yii::app()->user->_id);
+        }
         $this->performAjaxValidation($user);
         #if (!Yii::app()->user->checkAccess('updateOwnUser', array('user'=>$user))) {
         #    Yii::log(__FUNCTION__."> Unauthorized", 'debug');
@@ -302,8 +302,9 @@ class UserController extends Controller {
             $password = $user->password_new = $attrs['password_new'];
             $user->password_repeat = $attrs['password_repeat'];
 
-            if($user->password != md5($old_password))
+            if($user->password != md5($old_password)) {
                 $error = true;
+            }
 
             if ($user->validate('update') && !$error) {
                 if ($password != '') {
@@ -313,8 +314,7 @@ class UserController extends Controller {
                 if ($user->save(false)) {
                     $this->redirect(array('passwordChanged'));
                 }
-            }
-            else {
+            } else {
                 Yii::log("password update failed", 'warning');
                 Yii::app()->user->setFlash('password', 'Password update failed');
             }
