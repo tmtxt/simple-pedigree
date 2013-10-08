@@ -12,8 +12,6 @@ Vagrant.configure('2') do |config|
     config.vm.network :forwarded_port, guest: 22, host: 9251
     config.vm.network :forwarded_port, guest: 8888, host: csync_port
 
-    #config.vm.boot_mode = :gui
-
     # apt wants the partial folder to be there
     apt_cache = './.cache/apt'
     FileUtils.mkpath "#{apt_cache}/partial"
@@ -26,6 +24,8 @@ Vagrant.configure('2') do |config|
     }
 
     config.vm.provider :virtualbox do |vb|
+
+        #vb.gui = true
 
         shared_folders.each do |source, destination|
             FileUtils.mkpath source

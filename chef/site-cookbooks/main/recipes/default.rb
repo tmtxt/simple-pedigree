@@ -80,8 +80,8 @@ end
     bash 'setup permissions' do
         code <<-EOH
             mkdir -p #{the_dir}
-            chgrp -R www-data #{the_dir}
-            chmod -R g+rw #{the_dir}
+            chown -R www-data:#{app_user} #{the_dir}
+            chmod -R ug+rwX #{the_dir}
             find #{the_dir} -type d | xargs chmod g+x
         EOH
     end
@@ -92,7 +92,8 @@ site_name = 'skeleton'
 
 template "/etc/nginx/sites-available/#{site_name}" do
     source 'nginx-site.erb'
-    mode '0644'
+    mode '644'
+    notifies :reload, 'service[nginx]'
 end
 
 nginx_site 'default' do
@@ -102,6 +103,7 @@ end
 nginx_site site_name do
     action :enable
 end
+
 
 # Schemup
 %w{libpq-dev}.each do |pkg|
@@ -130,4 +132,10 @@ bash 'install python dependencies' do
         . #{python_env}/bin/activate
         pip install -r #{site_dir}/protected/schema/requirements.txt
     EOH
+end
+
+
+template '/etc/logrotate.d/skeleton.cogini.com' do
+    mode '644'
+    source 'logrotate.erb'
 end
