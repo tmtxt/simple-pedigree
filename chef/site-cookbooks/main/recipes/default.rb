@@ -139,3 +139,12 @@ template '/etc/logrotate.d/skeleton.cogini.com' do
     mode '644'
     source 'logrotate.erb'
 end
+
+
+if node[:skeleton][:site_passwd]
+    bash 'Generate .htpasswd' do
+        code <<-EOH
+            printf "#{app_user}:$(openssl passwd -1 #{node[:skeleton][:site_passwd]})" > .htpasswd
+        EOH
+    end
+end
