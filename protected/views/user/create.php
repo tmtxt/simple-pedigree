@@ -1,5 +1,5 @@
 <div class="actionBar">
-<? if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('admin')) { ?>
+<? if (Yii::app()->user->checkAccess('admin')) { ?>
 [<?= CHtml::link('Manage Users', array('admin')); ?>]
 <? } ?>
 </div>
