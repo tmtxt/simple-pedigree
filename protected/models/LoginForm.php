@@ -52,6 +52,9 @@ class LoginForm extends CFormModel {
 				case UserIdentity::ERROR_USERNAME_INVALID:
 					$this->addError('username','Username is incorrect.');
 					break;
+                case UserIdentity::ERROR_NOT_ACTIVATED:
+                    $this->addError('username' , 'User not yet activated') ;
+                    break;
 				default: // UserIdentity::ERROR_PASSWORD_INVALID
 					$this->addError('password','Password is incorrect.');
 					break;

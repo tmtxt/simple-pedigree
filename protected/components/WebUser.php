@@ -27,7 +27,10 @@ class WebUser extends CWebUser
     }
 
     public function getId(){
-        return $this->loadUser(Yii::app()->user->_id)->username;
+        if (!Yii::app()->user->isGuest) {
+            return $this->loadUser(Yii::app()->user->_id)->userid;
+        }
+        return null;
     }
 }
 
