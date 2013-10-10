@@ -8,6 +8,7 @@
 #
 
 include_recipe 'apt'
+include_recipe 'htpasswd'
 include_recipe 'php::fpm'
 include_recipe 'php::module_pgsql'
 include_recipe 'nginx'
@@ -141,10 +142,11 @@ template '/etc/logrotate.d/skeleton.cogini.com' do
 end
 
 
-if node[:skeleton][:site_passwd]
-    bash 'Generate .htpasswd' do
-        code <<-EOH
-            printf "#{app_user}:$(openssl passwd -1 #{node[:skeleton][:site_passwd]})" > .htpasswd
-        EOH
+if node[:skeleton][:htpasswd]
+    node[:skeleton][:htpasswd].each do |username, passwd|
+        htpasswd "#{site_dir}/../.htpasswd" do
+            user username
+            password passwd
+        end
     end
 end
