@@ -52,6 +52,10 @@ Vagrant.configure('2') do |config|
             :skeleton => {
                 :csync_enable => true,
                 :csync_port => csync_port,
+                #:htpasswd => {
+                    #:user1 => "password1",
+                    #:user2 => "password2"
+                #},
                 :server_names => ['skeleton.cogini.com'],
                 :log_dir => '/vagrant/logs',
                 :site_dir => '/vagrant',

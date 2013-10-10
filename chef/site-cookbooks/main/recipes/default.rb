@@ -8,6 +8,7 @@
 #
 
 include_recipe 'apt'
+include_recipe 'htpasswd'
 include_recipe 'php::module_pgsql'
 include_recipe 'php::fpm'
 include_recipe 'nginx'
@@ -138,4 +139,14 @@ end
 template '/etc/logrotate.d/skeleton.cogini.com' do
     mode '644'
     source 'logrotate.erb'
+end
+
+
+if node[:skeleton][:htpasswd]
+    node[:skeleton][:htpasswd].each do |username, passwd|
+        htpasswd "#{site_dir}/../.htpasswd" do
+            user username
+            password passwd
+        end
+    end
 end
