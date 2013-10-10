@@ -116,12 +116,14 @@ end
 python_env = node[:skeleton][:python][:virtualenv]
 build_dir = node[:skeleton][:python][:build_dir]
 
+
 [build_dir, python_env].each do |dir|
     directory dir do
         action :create
         recursive true
     end
 end
+
 
 python_virtualenv python_env do
     action :create
@@ -132,6 +134,14 @@ bash 'install python dependencies' do
     code <<-EOH
         . #{python_env}/bin/activate
         pip install -r #{site_dir}/protected/schema/requirements.txt
+    EOH
+end
+
+bash 'run schemup' do
+    cwd "#{site_dir}/protected/schema"
+    code <<-EOH
+        . #{python_env}/bin/activate
+        python update.py commit
     EOH
 end
 
