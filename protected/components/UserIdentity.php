@@ -8,16 +8,13 @@ class UserIdentity extends CUserIdentity {
     public function authenticate() {
         $user = User::model()->findByAttributes(array('username'=>$this->username));
 
-        if ($user===null) {
+        if ($user === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        }
-        else if(!$user->is_activated) {
+        } else if (!$user->is_activated) {
             $this->errorCode = self::ERROR_NOT_ACTIVATED;
-        }
-        else if(md5($this->password) !== $user->password) {
+        } else if (md5($this->password) !== $user->password) {
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
-        }
-        else {
+        } else {
             $this->_id = $user->id;
             $this->username = $user->username;
             $this->errorCode = self::ERROR_NONE;
