@@ -21,6 +21,12 @@ server {
         return 444;
     }
 
+    <%- if node[:skeleton][:blocked_keywords] -%>
+    location ~* (<%= node[:skeleton][:blocked_keywords].join("|") %>) {
+        return 444;
+    }
+    <%- end -%>
+
     location ~ \.(css|gif|jpeg|jpg|js|png)$ {
         # Serve the file if it exists
     }
