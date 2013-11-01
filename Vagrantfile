@@ -46,8 +46,6 @@ Vagrant.configure('2') do |config|
             'chef/site-cookbooks',
         ]
 
-        chef.roles_path = 'chef/chef-repo/roles'
-
         chef.json = {
             :skeleton => {
                 :csync_enable => true,
@@ -64,10 +62,35 @@ Vagrant.configure('2') do |config|
                     :password => 'vagrant',
                 },
                 :app_user => 'vagrant',
+
+                # Attributes for vagrant machine
+                :apache => {
+                    :user => 'vagrant',
+                },
+                :php => {
+                    :fpm => {
+                        :user => 'vagrant',
+                    },
+                },
+                :nginx => {
+                    :sendfile => 'off',
+                },
+                :mysql => {
+                    :server_root_password => 'vagrant',
+                },
+                :postgresql => {
+                    :client_auth => [
+                        {
+                            :type => 'local',
+                            :database => 'all',
+                            :user => 'all',
+                            :auth_method => 'trust',
+                        }
+                    ]
+                }
             }
         }
 
-        chef.add_role 'vagrant_attributes'
         chef.add_recipe 'vagrant'
 
         #chef.data_bags_path = '../my-recipes/data_bags'
