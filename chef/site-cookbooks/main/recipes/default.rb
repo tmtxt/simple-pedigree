@@ -10,6 +10,7 @@
 include_recipe 'apt'
 include_recipe 'htpasswd'
 include_recipe 'php::module_pgsql'
+include_recipe 'php::module_apc'
 include_recipe 'php::fpm'
 include_recipe 'nginx'
 include_recipe 'postgresql::client'
