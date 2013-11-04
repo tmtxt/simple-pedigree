@@ -29,6 +29,7 @@ server {
 
     location ~ \.(css|gif|jpeg|jpg|js|png)$ {
         # Serve the file if it exists
+        expires 1w;
     }
 
     location ~ \.php$ {
