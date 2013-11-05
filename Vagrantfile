@@ -9,7 +9,7 @@ Vagrant.configure('2') do |config|
     csync_port = 9252
 
     config.vm.network :forwarded_port, guest: 80, host: 9250
-    config.vm.network :forwarded_port, guest: 22, host: 9251
+    config.vm.network :forwarded_port, guest: 22, host: 9251, id: "ssh", auto_correct: true
     config.vm.network :forwarded_port, guest: 8888, host: csync_port
 
     # apt wants the partial folder to be there
