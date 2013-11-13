@@ -15,7 +15,6 @@ include_recipe 'php::fpm'
 include_recipe 'nginx'
 include_recipe 'postgresql::client'
 include_recipe 'git'
-
 include_recipe 'python'
 
 
@@ -61,17 +60,17 @@ end
 
 template "#{site_dir}/protected/config/local.php" do
     source 'yii-local.php.erb'
-    mode '0644'
+    mode '644'
 end
 
 template "#{site_dir}/protected/config/db.json" do
     source 'yii-db.json.erb'
-    mode '0644'
+    mode '644'
 end
 
 template "#{site_dir}/protected/scripts/set_env.sh" do
     source 'set_env.sh.erb'
-    mode '0644'
+    mode '644'
 end
 
 
