@@ -62,32 +62,32 @@ Vagrant.configure('2') do |config|
                     :password => 'vagrant',
                 },
                 :app_user => 'vagrant',
+            },
 
-                # Attributes for vagrant machine
-                :apache => {
+            # Attributes for vagrant machine
+            :apache => {
+                :user => 'vagrant',
+            },
+            :php => {
+                :fpm => {
                     :user => 'vagrant',
                 },
-                :php => {
-                    :fpm => {
-                        :user => 'vagrant',
-                    },
-                },
-                :nginx => {
-                    :sendfile => 'off',
-                },
-                :mysql => {
-                    :server_root_password => 'vagrant',
-                },
-                :postgresql => {
-                    :client_auth => [
-                        {
-                            :type => 'local',
-                            :database => 'all',
-                            :user => 'all',
-                            :auth_method => 'trust',
-                        }
-                    ]
-                }
+            },
+            :nginx => {
+                :sendfile => 'off',
+            },
+            :mysql => {
+                :server_root_password => 'vagrant',
+            },
+            :postgresql => {
+                :client_auth => [
+                    {
+                        :type => 'local',
+                        :database => 'all',
+                        :user => 'all',
+                        :auth_method => 'trust',
+                    }
+                ]
             }
         }
 

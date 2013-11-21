@@ -16,13 +16,10 @@ execute 'npm install -g socket.io'
 
 csync_path = "#{node[:skeleton][:site_dir]}/css-sync"
 
-bash 'install css-sync' do
-    code <<-EOH
-        [[ -d #{csync_path} ]] || git clone git://github.com/ubolonton/css-sync.git #{csync_path}
-        cd #{csync_path}
-        git fetch
-        git reset --hard origin/master
-    EOH
+git "Clone css-sync" do
+    repository "https://github.com/ubolonton/css-sync.git"
+    reference "master"
+    destination csync_path
 end
 
 template '/etc/init/css-sync.conf' do
