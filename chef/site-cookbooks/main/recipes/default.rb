@@ -14,7 +14,6 @@ include_recipe 'php::module_apc'
 include_recipe 'php::fpm'
 include_recipe 'nginx'
 include_recipe 'postgresql::client'
-include_recipe 'git'
 include_recipe 'python'
 
 

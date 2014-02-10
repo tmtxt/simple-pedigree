@@ -8,6 +8,7 @@
 #
 
 include_recipe 'main'
+include_recipe 'git'
 include_recipe 'nodejs'
 
 
