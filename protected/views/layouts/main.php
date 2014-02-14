@@ -4,18 +4,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
-    <?Yii::app()->clientScript->registerScriptFile('/js/jquery-1.8.3.min.js');?>
+    <?$clientScript = Yii::app()->clientScript;
+    $clientScript->registerScriptFile('/js/jquery-1.8.3.min.js');?>
+    <?Yii::app()->clientScript->registerScriptFile('/js/bootstrap.js');?>
 	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+    <?$clientScript->registerCssFile('/css/screen.css' , 'screen, projection');
+    $clientScript->registerCssFile('/css/print.css' , 'print');?>
 	<!--[if lt IE 8]>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
 	<![endif]-->
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-    <?Yii::app()->clientScript->registerScriptFile('/js/bootstrap.js');?>
+    <?$clientScript->registerCssFile('/css/bootstrap.min.css');
+    $clientScript->registerCssFile('/css/main.css');
+    $clientScript->registerCssFile('/css/form.css');?>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
