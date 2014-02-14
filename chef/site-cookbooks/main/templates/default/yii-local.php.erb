@@ -27,6 +27,15 @@ return array(
                 ),
             ),
         ),
+        'clientScript' => array(
+            'class'=>'ext.minScript.components.ExtMinScript',
+        ),
+    ),
+
+    'controllerMap'=>array(
+        'min'=>array(
+            'class'=>'ext.minScript.controllers.ExtMinScriptController',
+        ),
     ),
     <% end -%>
 
@@ -56,5 +65,8 @@ return array(
         'recaptcha_publickey' => '6LdkzgsAAAAAAGFJ5GdJyXf4JvFqKJe5N0-F3IRt',
         'recaptcha_privatekey' => '6LdkzgsAAAAAAD6w-JyWXLfN1260aeRNl33I-JH9',
         "google_analytics_profile" => "UA-7881029-2",
+
+        // Environment
+        'env' => '<%=skeleton[:environment]%>',
     ),
 );

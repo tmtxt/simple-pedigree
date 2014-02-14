@@ -10,3 +10,5 @@ default[:skeleton][:db][:user] = 'skeleton'
 default[:skeleton][:python][:virtualenv] = '/home/skeleton/python-env'
 default[:skeleton][:python][:build_dir] = '/home/skeleton/build'
 set[:skeleton][:python][:schemup][:version] = '5f5d35f5c7e9708e62ca43aa4743610e2cb696ae'
+
+default[:skeleton][:environment] = 'dev'
