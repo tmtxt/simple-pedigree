@@ -7,8 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'main'
+# FIXME: git should be installed in yii_framework, 
+# but run_context.include_recipe 'git' doesn't work
+
 include_recipe 'git'
+include_recipe 'main'
 include_recipe 'nodejs'
 
 
