@@ -54,7 +54,7 @@ Vagrant.configure('2') do |config|
                     #:user1 => "password1",
                     #:user2 => "password2"
                 #},
-                :server_names => ['skeleton.cogini.com'],
+                :server_name => 'localhost',
                 :log_dir => '/vagrant/logs',
                 :site_dir => '/vagrant',
                 :admin_email => 'support@vagrant.local',

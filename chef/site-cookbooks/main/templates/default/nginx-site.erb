@@ -2,11 +2,27 @@
 
 <%- site_dir = node[:skeleton][:site_dir] -%>
 <%- log_dir = node[:skeleton][:log_dir] -%>
-<%- server_names = node[:skeleton][:server_names] -%>
+<%- server_name = node[:skeleton][:server_name] -%>
+
+<%- if node[:skeleton][:ssl] -%>
+# Redirect all HTTP traffic to HTTPS
+server {
+    server_name           <%= server_name %>;
+    listen                80;
+    return                301 https://<%= server_name %>$request_uri;
+}
+<%- end -%>
+
 server {
 
-    listen                80;
-    server_name           <%= server_names.join(" ") %>;
+    server_name           <%= server_name %>;
+    listen                <%- node[:skeleton][:ssl] ? '443 ssl' : '80' -%>;
+
+    <%- if node[:skeleton][:ssl] -%>
+    ssl_certificate       <%= node[:skeleton][:ssl][:cert] %>;
+    ssl_certificate_key   <%= node[:skeleton][:ssl][:key] %>;
+    <%- end -%>
+
     root                  <%= site_dir %>;
     access_log            <%= log_dir %>/access.log json;
     error_log             <%= log_dir %>/error.log;
@@ -50,6 +66,6 @@ server {
 server {
     listen                80 default;
     server_name           _;
-    return                301 http://<%= server_names[0] %>$1;
+    return                301 http://<%= server_name %>$1;
 }
 <%- end -%>
