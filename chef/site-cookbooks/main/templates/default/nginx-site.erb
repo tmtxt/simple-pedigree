@@ -16,7 +16,7 @@ server {
 server {
 
     server_name           <%= server_name %>;
-    listen                <%- node[:skeleton][:ssl] ? '443 ssl' : '80' -%>;
+    listen                <%= node[:skeleton][:ssl] ? '443 ssl' : '80' =%>;
 
     <%- if node[:skeleton][:ssl] -%>
     ssl_certificate       <%= node[:skeleton][:ssl][:cert] %>;
