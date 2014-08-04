@@ -1,9 +1,9 @@
 #!/bin/sh
 
-export DB_HOST=localhost
-export DB_NAME=lewisiselin
-export DB_USER=lewisiselin
-export DB_PASS=secret
+export DB_HOST='localhost'
+export DB_NAME='lewisiselin'
+export DB_USER='lewisiselin'
+export DB_PASS='secret'
 
 export PGDATABASE=$DATABASE
 export PGHOST=$DB_HOST
