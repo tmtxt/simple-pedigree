@@ -1,0 +1,88 @@
+/*--------------------------------------- MOOC: CONTENT PANEL THAT ARE USED IN MANY PAGES ---------------------------------------*/
+
+.contentPanel{
+	.panel;
+}
+
+.panelHeader{
+	.panel-heading;
+	.panelTitle{
+		.panel-title;
+		font-size: @font-size-h5;
+	}
+}
+
+.panelBody{
+	.panel-body;
+	border: 1px solid @gray-gentle;
+}
+
+.panelFooter{
+	.panel-footer;
+}
+
+.panel-dark {
+  .panel-variant(@panel-dark-border; @panel-dark-text; @panel-dark-heading-bg; @panel-dark-border);
+}
+
+// Primary Panel
+
+.panelNormal{
+	&:extend(.contentPanel);
+	.panel-default;
+	border: none;
+	.panelHeader{
+		.panel-heading;
+	}
+	.panelBody{
+		.panel-body;
+	}
+}
+
+.panelDark{
+	&:extend(.contentPanel);
+	.panel-dark;
+	border: none;
+	.panelHeader{
+		.panel-heading;
+	}
+	.panelBody{
+		.panel-body;
+	}
+}
+
+.panelPrimary{
+	&:extend(.contentPanel);
+	.panel-primary;
+	border: none;
+	.panelHeader{
+		.panel-heading;
+	}
+	.panelBody{
+		.panel-body;
+	}
+}
+
+.hugePanelPrimary{
+	.panelPrimary;
+	.panelHeader{
+		padding: 16px 16px 12px;
+		text-align: center;
+	}
+	.panelBody{
+		padding: 26px;
+	}
+	margin: 0 auto;
+	width: 60%;
+}
+
+// Default Panel
+
+.panelBorder{
+	&:extend(.panelNormal);
+	.panelHeader{
+		background-color: @white;
+		border: 1px solid #dddddd;
+	}
+}
+

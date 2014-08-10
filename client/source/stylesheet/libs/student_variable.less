@@ -1,0 +1,277 @@
+@import "commons/common.less";
+
+@ddd: #dddddd;
+@b1: #a3a3a3;
+
+//Courses controler
+.double-line {
+    hr {
+        border-top: 1px solid @b1;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    > p {
+        margin-top: 12px;
+        .span-strong{
+            font-family: @font-family-sans-serif-bold;
+            margin-right: 20px;
+        }
+    }
+}
+//span n shit
+.span-span{
+    margin-right: 10px;
+}
+p {
+    .span-strong {
+    font-family: @font-family-sans-serif-bold;
+    }
+}
+//image controler
+.rec-img {
+    width: 100%;
+    margin-bottom: 15px;
+}
+//pagination controller
+.general-pagination{
+    &:extend(.pagination);
+    >li{
+        &:extend(.pagination > li);
+        >a{
+            &:extend(.pagination > li > a);
+        }
+        >span{
+            &:extend(.pagination > li > span);
+        }
+        &:first-child{
+            > a,
+            > span{
+                &:extend(.pagination > li:first-child > span);
+            }
+        }
+        > &:last-child{
+            > a,
+            > span{
+                &:extend(.pagination > li:last-child > span);
+            }
+        }
+    }
+    > .active{
+        > a,
+        > span{
+            &,
+            &:hover,
+            &:focus{
+                &:extend(.pagination > .active > span:focus);
+            }
+        }
+    }
+    > .disabled{
+        > span,
+        > span:hover,
+        > span:focus,
+        > a,
+        > a:hover,
+        > a:focus {
+            &:extend(.pagination > .disabled > a:focus);
+        }
+         
+    }
+}
+//panel controller in general
+.general-panel{
+    &:extend(.panel all);
+    .panel-default;
+    .panel-group .panel;
+    margin-bottom: 1em;
+}
+.general-panel-body{
+    &:extend(.panel-body);
+}
+//class control in general
+.general-row{
+    .make-row;
+}
+.generally-full-width{
+    .make-sm-column(12);
+}
+.general-table{
+    &:extend(.table);
+    > thead,
+    > tbody,
+    > tfoot {
+        > tr {
+            > th,
+            > td {
+            &:extend(.table > tfoot > tr >td all);
+            }
+        }
+    }
+    > thead > tr > th {
+        &:extend(.table > thead > tr >th all);
+    }
+    > caption + thead,
+    > colgroup + thead,
+    > thead:first-child {
+    > tr:first-child {
+        > th,
+        > td {
+                &:extend(.table > tr:first-child >td all);
+            }
+        }
+    }
+}
+//student icon
+.student-group-icon{
+    .fa;
+    &:before {
+        content: @fa-var-group;
+    }
+    .fa-fw;
+}
+.comment-icon{
+    .fa;
+    &:before {
+        content: @fa-var-comment;
+    }
+    .fa-flip-horizontal;
+    .fa-fw;
+}
+.spinner-icon{
+    .fa;
+    &:before {
+        content: @fa-var-spinner;
+    }
+    .fa-3x;
+    .fa-spin;
+    .fa-fw;
+}
+//message page icon
+.plus-icon{
+    .fa;
+    &:before {
+        content: @fa-var-plus-square;
+    }
+}
+.paperclip-icon{
+    .fa; 
+    &:before {
+        content: @fa-var-paperclip;
+    }
+    .fa-fw;
+}
+.comment-icon-o{
+    .fa;
+    &:before {
+        content: @fa-var-comment-o;
+    }
+    .fa-flip-horizontal;
+    .fa-fw;
+}
+//task page icon
+.angle-icon-1{
+    .fa;
+    &:before {
+        content: @fa-var-angle-double-left;
+    }
+}
+.angle-icon-2{
+    .fa;
+    &:before {
+        content: @fa-var-angle-double-right;
+    }
+}
+.task-status-new > i {
+    .fa;
+    &:before {
+        content: @fa-var-plus-circle;
+    }
+    .fa-lg;
+}
+.task-status-unfinished > i {
+    .fa;
+    .fa-lg;
+    &:before {
+        content: @fa-var-exclamation-circle;
+    }
+}
+.task-status-finished > i {
+    .fa;
+    .fa-lg;
+    &:before {
+        content: @fa-var-check-circle;
+    }
+}
+//enrollment course icon
+.user-icon{
+    .fa;
+    &:before {
+        content: @fa-var-user;
+    }
+    .fa-fw;
+}
+.calendar-icon{
+    .fa;
+    &:before {
+        content: @fa-var-calendar;
+    }
+    .fa-fw;
+}
+//icon controller
+//facebook
+.facebook-icon-1{
+    .fa;
+    .fa-lg;
+    &:before {
+        content: @fa-var-facebook-square;
+    }
+    .hidden-xs;
+    .hidden-sm;
+}
+.facebook-icon-2{
+    .fa;
+    .fa-3x;
+    &:before {
+        content: @fa-var-facebook-square;
+    }
+    .hidden-md;
+    .hidden-lg;
+}
+//twitter
+.twitter-icon-1{
+    .fa;
+    .fa-lg;
+    &:before {
+        content: @fa-var-twitter-square;
+    }
+    .hidden-xs;
+    .hidden-sm;
+}
+.twitter-icon-2{
+    .fa;
+    .fa-3x;
+    &:before {
+        content: @fa-var-twitter-square;
+    }
+    .hidden-md;
+    .hidden-lg;
+}
+//google-plus
+.google-icon-1{
+    .fa;
+    .fa-lg;
+    &:before {
+        content: @fa-var-google-plus-square;
+    }
+    .hidden-xs;
+    .hidden-sm;
+}
+.google-icon-2{
+    .fa;
+    .fa-3x;
+    &:before {
+        content: @fa-var-google-plus-square;
+    }
+    .hidden-md;
+    .hidden-lg;
+}

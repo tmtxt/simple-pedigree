@@ -1,0 +1,102 @@
+/*--------------------------------------- MOOC: BUTTONS ---------------------------------------*/
+
+.createButtonSpecial{
+	margin-left: 10px;
+	padding: 5px 6px 3px;
+	font-size: @font-size-small;
+	.btn-primary;
+}
+
+.btn{
+	border: none;
+	border-bottom: 3px solid transparent;
+	margin-right: 5px;
+}
+
+.btn-dark{
+	.button-variant(@btn-dark-color; @btn-dark-bg; @btn-dark-border);
+}
+
+/* Small Buttons */
+
+.smallButton{
+	.btn;
+	.btn-sm;
+	padding-bottom: 2px;
+}
+
+.smallButtonNormal{
+	&:extend(.smallButton);
+	.btn-default;
+}
+
+.smallButtonDark{
+	&:extend(.smallButton);
+	.btn-dark;
+}
+
+.smallButtonSafe{
+	&:extend(.smallButton);
+	.btn-primary;
+}
+
+.smallBlockButtonSafe{
+	.smallButtonSafe;
+	.btn-block;
+}
+
+.smallButtonWarning{
+	&:extend(.smallButton);
+	.btn-warning;
+}
+
+.smallButtonTrigger{
+	&:extend(.smallButton);
+	.btn-success;
+}
+
+.smallButtonDanger{
+	&:extend(.smallButton);
+	.btn-danger;
+}
+
+/* Large Buttons */
+
+.largeButton{
+	.btn;
+	padding-bottom: 3px;
+}
+
+.largeButtonDefault{
+	&:extend(.largeButton);
+	.btn-default;
+}
+
+.largeButtonSafe{
+	&:extend(.largeButton);
+	.btn-primary;
+}
+
+.largeButtonWarning{
+	&:extend(.largeButton);
+	.btn-warning;
+}
+
+/* Bordered button */
+
+.smallButtonBorder{
+	&:extend(.smallButtonNormal);
+	border: 1px solid @btn-default-border;
+}
+
+/* Huge Button */
+
+.hugeButton{
+	.btn;
+	.btn-block;
+}
+
+.hugeButtonSafe{
+	&:extend(.hugeButton);
+	.btn-primary;
+}

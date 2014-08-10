@@ -1,0 +1,50 @@
+@import "commons/common.less";
+@import "libs/instructor_sidebar.less";
+@import "libs/common_layout.less";
+
+/*--------------------------------------- MOOC: DISCUSSIONS ---------------------------------------*/
+
+.discussionLayout(){
+	.make-row;
+	.navigationColumn{
+		.make-xs-column(3);
+	}
+	.repliesColumn{
+		.make-xs-column(9);
+	}
+}
+
+.discussionWrapper{
+	.discussionLayout;
+	.discussionReply{
+		.make-row;
+		aside{
+			.make-xs-column(3);
+		}
+		article{
+			.make-xs-column(9);
+		}
+		border-bottom: 1px solid @gray-lighter;
+		margin-bottom: 20px;
+	}
+}
+
+.quizCreateQuestionWrapper{
+	.make-row;
+	.questionColumn{
+		.make-xs-column(7);
+	}
+	.answersColumn{
+		.make-xs-column(5);
+		.answerChoice{
+			input[type="radio"],
+			input[type="text"]{
+				display: inline-block;
+				margin-left: 10px;
+			}
+			.form-control{
+				width:auto;
+			}
+		}
+	}
+}

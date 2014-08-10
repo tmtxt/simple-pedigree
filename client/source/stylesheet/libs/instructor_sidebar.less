@@ -1,0 +1,83 @@
+/*--------------------------------------- MOOC: INSTRUCTOR SIDEBAR ---------------------------------------*/
+
+@sidebar-bg: #6f7d8c;
+@sidebar-bg-active: darken(@sidebar-bg, 10%);
+@sidebar-border: lighten(@sidebar-bg, 10%);
+
+#leftSidebar{
+	float: left;
+	width: 210px;
+	font-size: @font-size-small;
+	overflow:hidden;
+	background-color: @sidebar-bg;
+	color: @white;
+	&:before{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		content: " ";
+		width: inherit;
+		background-color: inherit;
+		z-index: -1;
+	}
+}
+
+.sidebarGroup{
+	border-bottom: 1px solid @sidebar-border;
+	& > a{
+		color: @white;
+		border-bottom: 1px solid @sidebar-border;
+		display: block;
+		padding: 15px 10px;
+
+		&:hover,
+		&:focus{
+			background-color: darken(@sidebar-bg, 5%);
+		}
+
+		.arrowIcon{
+			.caret;
+		}
+
+		&.collapsed{
+			border-bottom: none;
+			.arrowIcon{
+				.caretRight;
+			}
+		}
+	}
+	ul{
+		.nav;
+		background-color: @sidebar-bg-active;
+		li{
+			position: relative;
+			a{
+				color: #ccc;
+				border-left: 3px solid transparent;
+				&:hover,
+				&:focus{
+					background-color: transparent;
+					color: @white;
+				}
+			}
+			&.active a{
+				color: @white;
+				background-color: darken(@sidebar-bg-active, 5%);
+				border-left-color: lighten(@brand-primary, 10%);
+				&:after{
+					right: 0;
+					border: solid transparent;
+					border-right-color: @gray-lighter;;
+					content: " ";
+					height: 0;
+					width: 0;
+					position: absolute;
+					pointer-events: none;
+					border-width: 6px;
+					top: 50%;
+					margin-top: -6px;
+				}
+			}
+		}
+	}
+}

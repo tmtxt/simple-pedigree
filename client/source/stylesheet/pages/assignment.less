@@ -1,0 +1,29 @@
+@import "commons/common.less";
+@import "libs/instructor_sidebar.less";
+@import "libs/content_panel.less";
+@import "libs/common_layout.less";
+
+/*--------------------------------------- MOOC: ASSIGNMENT ---------------------------------------*/
+
+.assignmentPanel{
+	.panelBorder;
+	.panelHeader{
+		h6{
+			.pull-left;
+		}
+		& > a{
+			.pull-right;
+		}
+	}
+
+	.panelBody{
+		p{
+			float: left;
+			width: 75%;
+		}
+		aside{
+			float: left;
+			width: 25%;
+		}
+	}
+}

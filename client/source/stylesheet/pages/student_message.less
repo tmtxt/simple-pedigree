@@ -1,0 +1,115 @@
+@import "libs/student_variable.less";
+
+//////////////
+// message.php newmessage.php student_message.css CONTROLLER
+//////////////
+
+@mg-top: 10px;
+//message page div controller
+.message-page-message-list {
+    .make-xs-column(12);
+    .make-sm-column(5);
+    .make-md-column(4);
+    .make-lg-column(3);
+}
+.message-page-deliver {
+    .make-xs-column(12);
+    .make-xs-column(7);
+    .make-xs-column(8);
+    .make-xs-column(9);
+}
+.message-page-form-text{
+    .make-xs-column(9);
+    .make-sm-column(9);
+    .make-md-column(10);
+}
+.message-page-form-butt{
+    .make-xs-column(3);
+    .make-sm-column(3);
+    .make-md-column(2);
+}
+.message-page-list-group {
+    &:extend(.list-group);
+    &:extend(.panel > .list-group);
+}
+.message-page-butt-send{
+    .btn;
+    .btn-primary;
+    width: 100%;
+    border-radius: 0px;
+    padding-top: 10px;
+}
+.message-page-butt-add{
+    .btn;
+    .btn-default;
+    border-radius: 0px;
+    padding-top: 10px;
+}
+.message-page-form{
+    &:extend(.form-horizontal);
+    .message-page-form-group{
+        .make-row;
+        &:extend(.form-group);
+    }
+}
+.message-page-list-item {
+    &:extend(.list-group-item);
+    &:extend(.panel > .list-group-item);
+    border-left-width: 0px;
+    border-right-width: 0px;
+    &:first-child {
+        border-top-width: 0px;
+        .border-top-radius(@list-group-border-radius);
+    }
+    &:last-child {
+        margin-bottom: 0;
+        .border-bottom-radius(@list-group-border-radius);
+    }
+}
+a.message-page-list-item {
+    &:extend(a.list-group-item);
+    &:extend(.panel > .list-group-item);
+    &:hover,
+    &:focus {
+        &:extend(a.list-group-item:focus);
+    }
+    &.active,
+    &.active:hover,
+    &.active:focus {
+        &:extend(a.list-group-item.active:focus);
+    }
+    &:first-child{
+        border-top: 0;
+        .border-top-radius((@panel-border-radius - 1));
+    }
+    &:last-child{
+        border-bottom: 0;
+        .border-bottom-radius((@panel-border-radius - 1));
+    }
+}
+
+//message panel
+.message-list {
+    max-height: 600px;
+    overflow: auto;
+    > a {
+        > p {
+            margin-top: @mg-top;
+        }
+    }
+    > li {
+        > p:first-child {
+            margin-top: @mg-top;
+        }
+    }
+}
+.message-form {
+    padding-top: 10px;
+}
+.message-body {
+    border-top: 1px solid@ddd;
+}
+.message-textarea {
+    .form-control;
+    min-height: 150px;
+}

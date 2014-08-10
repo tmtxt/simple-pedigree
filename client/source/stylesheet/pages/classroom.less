@@ -1,0 +1,44 @@
+@import "commons/common.less";
+@import "libs/instructor_sidebar.less";
+@import "libs/common_layout.less";
+@import "libs/content_panel.less";
+
+/*--------------------------------------- MOOC: LIVE CLASSROOM ---------------------------------------*/
+
+.classroomsWrap{
+	.make-row;
+	.classroomBox{
+		.make-xs-column(4);
+		.classroomInfo{
+			padding: 10px;
+			overflow: hidden;
+			border-bottom: 1px solid @gray-lighter;
+			.classroomDuration{
+				width:90px;
+				height:90px;
+				border-radius:45px;
+				line-height:90px;
+				text-align:center;
+				background: @brand-primary;
+				color: @white;
+				font-size: 17px;
+				margin-right: 10px;
+				float:left;
+			}
+			.classroomDateTime{
+				float: left;
+				padding: 10px 5px 0;
+				div{
+					margin-bottom: 5px;
+				}
+				.classroomStatus{
+					color: @white;
+					background-color: @brand-success;
+					padding: 4px 10px 2px;
+					text-align: center;
+					margin-bottom: 8px
+				}
+			}
+		}		
+	}
+}

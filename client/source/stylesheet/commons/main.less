@@ -1,0 +1,37 @@
+/*--------------------------------------- MOOC: CSS RULES FOR MAIN HTML TAGS ---------------------------------------*/
+
+/* Sticky footer styles */
+
+html {
+	position: relative;
+	min-height: 100%;
+	font-size: 87.5%;
+}
+
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: @footer-height;
+	background-color: @gray-lighter;
+}
+
+a {
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+}
+
+table{
+	background-color: @white;
+}
+
+/* Headers */
+
+.inlineHeader{
+	display: inline-block;
+}
+
+.containerMarginTop{
+	.container;
+	margin-top: 2.945em;
+}

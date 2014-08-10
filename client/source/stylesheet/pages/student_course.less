@@ -1,0 +1,65 @@
+@import "libs/student_variable.less";
+
+//////////////
+// mycourse.php student_course.css CONTROLLER
+//////////////
+
+//my course main div controller
+.my-courses-list{
+    .make-sm-column(12);
+    .make-md-column(8);
+    .make-lg-column(9);
+}
+.my-recommended-courses{
+    .make-sm-column(12);
+    .make-md-column(4);
+    .make-lg-column(3);
+}
+
+.my-courses-tabs{
+    &:extend(.nav);
+    &:extend(.nav-tabs);
+    >li{
+        &:extend(.nav-tabs > li);
+        >a{
+            &:extend(.nav > li >a);
+            &:extend(.nav-tabs > li >a);
+            &:hover{
+                &:extend(.nav-tabs > li >a:hover);
+                &:extend(.nav > li >a:focus);
+            }
+            &:focus{
+                &:extend(.nav > li >a:focus);
+            }
+        }
+        &.disabled > a{
+            &:extend(.nav > li.disabled > a);
+            &:hover,
+            &:focus {
+                &:extend(.nav > li.disabled > a:focus);
+            }
+        }
+        &.active > a {
+            &,
+            &:hover,
+            &:focus {
+                &:extend(.nav-tabs > li.active >a:focus);
+            }
+        }
+    }
+}
+.my-courses-tab-content {
+    .tab-content;
+    border: 1px solid @ddd;
+    border-top: 0px solid @ddd;
+    background-color: #fff;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    .general-panel:first-child {
+        margin-top: 15px;
+    }
+}
+.recommend-h-control{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}

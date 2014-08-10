@@ -1,79 +1,82 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="language" content="en" />
-
-    <?
-    $clientScript = Yii::app()->clientScript;
-    $clientScript->registerScriptFile('/js/jquery-1.8.3.min.js');
-    $clientScript->registerScriptFile('/js/bootstrap.js');
-    ?>
-    <!-- blueprint CSS framework -->
-<?
-    $clientScript->registerCssFile('/css/screen.css' , 'screen, projection');
-    $clientScript->registerCssFile('/css/print.css' , 'print');
-?>
-    <!--[if lt IE 8]>
-<?
-    $clientScript->registerCssFile('/css/ie.css' , 'screen, projection');
-?>
-    <![endif]-->
-
-<?
-    $clientScript->registerCssFile('/css/bootstrap.min.css');
-    $clientScript->registerCssFile('/css/main.css');
-    $clientScript->registerCssFile('/css/form.css');
-?>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/client/dist/assets/favicon.ico">
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
+     <!-- Core JS & IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <?php
+    $clientScript = Yii::app()->clientScript;
+
+    $clientScript->registerScriptFile('/client/dist/javascript/libs/libs.js', CClientScript::POS_HEAD);
+    $clientScript->registerScriptFile('/client/dist/javascript/share/share.js', CClientScript::POS_END);
+    $clientScript->registerCssFile('/client/dist/stylesheet/commons/common.css');
+    ?>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
 
-<div class="container" id="page">
+<nav id="mainNav" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".collapsableNavbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div> <!-- End Navbar Header -->
+    <div class="collapsableNavbar collapse">
+        <ul class="navbarContent">
+            <li class="active"><a href="/instructor/course"><?=Yii::t('app' , 'Pedigree')?></a></li>
+        </ul> <!-- End Left Navbar -->
+        <div id="logo">
+            <a href="#"><img src="/client/assets/img/we-logo.png" alt="Simple Pedigree"></a>
+        </div><!-- End logo -->
+        <ul class="navbarContent navbar-right">
+            <?php if(!Yii::app()->user->isGuest) { ?>
+            <?php $user = User::model()->findByPk(Yii::app()->user->_id) ?>
+            <li class="dropdown">                    
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $user->name ?><span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/site/logout"><i class="logoutIcon"></i> <?= Yii::t('app', 'Logout')?></a></li>
+                </ul>
+            </li>
+            <?php } else { ?>
+            <li><a href="/site/login"><?= Yii::t('app', 'Login');?></a></li>
+            <li><a href="/site/signup"><?= Yii::t('app', 'Signup');?></a></li>
+            <?php } ?>
+            <li><a href="/site/changeLanguage/lang/en">English</a></li>
+            <li><a href="/site/changeLanguage/lang/zh_tw">中文</a></li>
+        </ul> <!-- End navbar content -->
+    </div> <!-- End Navbar-Collapse -->
+</nav><!-- Main Navbar -->
 
-    <div id="header">
-        <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-        <div id='language'> <a href='/site/changeLanguage/lang/en'>EN</a> | <a href='/site/changeLanguage/lang/zh_tw'>TW</a></div>
-    </div><!-- header -->
-
-    <div id="mainmenu">
-        <?php $this->widget('zii.widgets.CMenu',array(
-            'items'=>array(
-                array('label'=>'Home', 'url'=>array('/site/index')),
-                array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                array('label'=>'Contact', 'url'=>array('/site/contact')),
-                array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-            ),
-        )); ?>
-    </div><!-- mainmenu -->
-    <?php if(isset($this->breadcrumbs)):?>
-        <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-            'links'=>$this->breadcrumbs,
-        )); ?><!-- breadcrumbs -->
-    <?php endif?>
+    <?php
+        foreach(Yii::app()->user->getFlashes() as $key => $message) {
+            echo '<div class="fade-in alert-dismissable alert alert-' . $key . '"> <a class="close" data-dismiss="alert" href="#">×</a>' . $message . "</div>\n";
+        }
+    ?>
 
     <?php echo $content; ?>
 
-    <div id="footer">
-        Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-        All Rights Reserved.<br/>
-        <?php echo Yii::powered(); ?>
-    </div><!-- footer -->
-
-</div><!-- page -->
+<footer>
+    <p>Copyright &copy; <?php echo date('Y'); ?> by Wonder Exchange. All rights reserved.</p>
+</footer><!-- End Footer -->
 
 <?php if (Yii::app()->params['csync_enable']) { ?>
-    <script>
-        var css_sync = {
-            "config": {
-                "port": <?= Yii::app()->params['csync_port'] ?>
-            }
-        };
-    </script>
-    <script src="/css-sync/css-reload.js"></script>
+  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <?php } ?>
 
 </body>

@@ -1,0 +1,48 @@
+/*--------------------------------------- MOOC: FORMS ---------------------------------------*/
+
+label{
+	font-weight: normal;
+	margin-bottom: 7px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 2px 0 0;
+}
+
+.form-group{
+	margin-bottom: 17px;
+	& > label{
+		font-family: @font-family-sans-serif-bold;
+		color: @headings-color;
+	}
+
+	.error{
+		&.form-control{
+			border-color: @red-error;
+		}
+	}
+
+	&.checkBoxWithQuestion{
+		.checkbox{
+			margin-top: 0;
+		}
+	}
+}
+
+.form-control{
+	padding-bottom: 2px;
+	&.hiddenInputForm{
+		margin-top: 5px;
+	}
+
+	.form-inline &{
+		width: 60px;
+		text-align: center;
+	}
+}
+
+.errorMessage{
+	color: darken(@red-error, 10%);
+	margin-top: 5px;
+}

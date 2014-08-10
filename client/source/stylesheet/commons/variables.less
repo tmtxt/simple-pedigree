@@ -1,0 +1,121 @@
+/*--------------------------------------- MOOC: CUSTOM VARIABLES ---------------------------------------*/
+@import "libs/bootstrap/bootstrap.less";
+
+/*-------------- COLORS --------------*/
+
+@white: #ffffff;
+@blue-dark: #3b414e;
+@orange: #f7941e;
+@blue: #0280c6;
+@gray-gentle: #ddd;
+@red-error: #d9534f;
+
+@brand-dark: #5f6b7a;
+@brand-primary: @blue;
+@brand-highlight: @orange;
+
+/*-------------- TYPOGRAPHY --------------*/
+
+@text-font-path: "/client/assets/fonts";
+
+@font-face {
+    font-family: 'GothamRounded-Book';
+    src: ~"url('@{text-font-path}/GothamRounded-Book.eot')";
+    src: ~"url('@{text-font-path}/GothamRounded-Book.eot?#iefix') format('embedded-opentype')",
+         ~"url('@{text-font-path}/GothamRounded-Book.woff') format('woff')",
+         ~"url('@{text-font-path}/GothamRounded-Book.ttf') format('truetype')",
+         ~"url('@{text-font-path}/GothamRounded-Book.svg#GothamRounded-Book') format('svg')";
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GothamRounded-Medium';
+    src: ~"url('@{text-font-path}/GothamRounded-Medium.eot')";
+    src: ~"url('@{text-font-path}/GothamRounded-Medium.eot?#iefix') format('embedded-opentype')",
+         ~"url('@{text-font-path}/GothamRounded-Medium.woff') format('woff')",
+         ~"url('@{text-font-path}/GothamRounded-Medium.ttf') format('truetype')",
+         ~"url('@{text-font-path}/GothamRounded-Medium.svg#GothamRounded-Medium') format('svg')";
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-family-sans-serif: "GothamRounded-Book", Helvetica, Arial, sans-serif;
+@font-size-base: 1em;
+@font-size-small: 0.928em;
+@line-height-base: 1.563em;
+@line-height-computed: 1.508em;
+
+// Headings
+
+@font-family-sans-serif-bold: "GothamRounded-Medium", Helvetica, Arial, sans-serif;
+@headings-font-family: @font-family-sans-serif-bold;
+@headings-font-weight: normal;
+@headings-line-height: @line-height-base;
+@headings-color: @gray;
+
+
+@font-size-h1: 2.356em;
+@font-size-h2: 1.885em;
+@font-size-h3: 1.563em;
+@font-size-h4: 1.25em;
+@font-size-h5: 1.143em;
+@font-size-h6: 1em;
+
+/*-------------- SPACING --------------*/
+
+@padding-base-vertical-bottom: 4px;
+
+@padding-large-vertical-bottom: 12px;
+
+@padding-small-vertical-bottom: 3px;
+
+/*-------------- NAVBAR --------------*/
+
+@navbar-margin-bottom: 0;
+
+// Navbar Inverse 
+@navbar-inverse-link-active-bg: @orange;
+@navbar-inverse-bg: @blue-dark;
+@navbar-inverse-link-color: @white;
+@navbar-inverse-link-hover-bg: lighten(@navbar-inverse-bg, 10%);
+
+/*-------------- FOOTER --------------*/
+
+@footer-height: 56px;
+
+/*-------------- BORDER RADIUS --------------*/
+
+@border-radius-base:        3px;
+@border-radius-large:       4px;
+@border-radius-small:       2px;
+
+/*-------------- BUTTONS --------------*/
+
+@btn-dark-color:              @white;
+@btn-dark-bg:                 @brand-dark;
+@btn-dark-border:             darken(@btn-default-bg, 15%);
+
+@btn-primary-color:              @white;
+@btn-primary-bg:                 @brand-primary;
+@btn-primary-border:             darken(@btn-primary-bg, 15%);
+
+@btn-success-color:              @white;
+@btn-success-bg:                 @brand-success;
+@btn-success-border:             darken(@btn-success-bg, 15%);
+
+@btn-warning-color:              @white;
+@btn-warning-bg:                 @brand-highlight;
+@btn-warning-border:             darken(@btn-warning-bg, 15%);
+
+@btn-danger-border:             darken(@btn-danger-bg, 15%);
+
+/*-------------- PANELS --------------*/
+
+@panel-dark-text:          @white;
+@panel-dark-border:        transparent;
+@panel-dark-heading-bg:    #666;
+
+/*-------------- FORMS --------------*/
+
+@input-height-base: 2.945em;

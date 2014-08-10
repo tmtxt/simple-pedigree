@@ -1,0 +1,77 @@
+@import "libs/student_variable.less";
+
+//////////////
+// index.php student_index.css CONTROLLER
+//////////////
+
+//student index page controller
+.student-course-page-view{
+    .make-sm-column(7);
+    .make-md-column(8);
+}
+.student-task-page-view{
+    .make-sm-column(5);
+    .make-md-column(4);
+}
+
+//task list - view all your task control
+.student-task-list-panel{
+    padding-bottom: 20px;
+    .student-task-list-panel-body{
+        max-height: 750px;
+        overflow-y:auto;
+    }
+}
+
+//student task list mini on the right
+.student-task-list-table {
+    margin-bottom: 0px;
+    thead {
+        tr {
+            th:first-child{
+                padding-left: 15px;
+            }
+            th:last-child {
+                padding-right: 15px;
+                text-align: right;
+            }
+            th{
+                padding-top: 15px;
+                vertical-align: top;
+                border-top: 0px solid transparent;
+            }
+        }
+    }
+    tbody {
+        tr:first-child{
+            td{
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+        }
+        tr:nth-child(1n+2){
+            td{
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+        }
+        tr:nth-child(2n+2){
+            td{
+                border-top: 0px solid @ddd;
+            }
+            td:first-child{
+                padding-left: 15px;
+            }
+            td:last-child{
+                padding-right: 15px;
+                text-align: right;
+            }
+        }
+    }
+}
+//remove unnecessary space
+.list-view{
+    > .summary{
+        margin: 0px;
+    }
+}

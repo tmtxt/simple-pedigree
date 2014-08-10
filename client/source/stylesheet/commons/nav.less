@@ -1,0 +1,34 @@
+/*--------------------------------------- MOOC: MAIN NAVBAR ---------------------------------------*/
+
+#mainNav{
+	&:extend(.navbar);
+	&:extend(.navbar-static-top);
+	.navbar-inverse;
+	border:none;
+}
+
+.navbarContent{
+	.nav;
+	.navbar-nav;
+	.navbar-inverse .navbar-nav;
+}
+
+.collapsableNavbar{
+	.navbar-collapse;
+	text-align: center;
+}
+
+#logo{
+	display: inline-block;
+	float: none;
+	margin-top: 14px;
+	/* Temporal hack to center the logo */
+	margin-left: 30px;
+	img{
+		height: 41px;
+	}
+}
+
+.dropdown-menu{
+	top: 98%;
+}

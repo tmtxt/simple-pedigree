@@ -1,0 +1,28 @@
+/*--------------------------------------- MOOC: LAYOUT STRUCTURES THAT ARE USED IN MANY PAGES ---------------------------------------*/
+
+.mainContentWrapper{
+	overflow: hidden;
+	position: relative;
+}
+
+/* Main Content Area */
+.contentContainer{
+	margin-left: 210px;
+	min-height: 100%;
+	padding: 15px 30px 30px;
+	overflow: hidden;
+}
+
+.twoColumnsLayout{
+	@grid-gutter-width: 46px;
+	.make-row(@grid-gutter-width);
+	.oneColumn{
+		.make-xs-column(6; @grid-gutter-width);
+	}
+	.endFormButtons{
+		.make-xs-column(12; @grid-gutter-width);
+		margin-top: @grid-gutter-width/2;
+	}
+
+}
+

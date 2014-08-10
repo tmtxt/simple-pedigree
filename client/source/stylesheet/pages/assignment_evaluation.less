@@ -1,0 +1,40 @@
+@import "commons/common.less";
+@import "libs/instructor_sidebar.less";
+@import "libs/content_panel.less";
+@import "libs/common_layout.less";
+
+/*--------------------------------------- MOOC: ASSIGNMENT EVALUATION ---------------------------------------*/
+
+.assignmentPanel{
+	.panelBorder;
+	.panelHeader{
+		h6{
+			.pull-left;
+		}
+		& > a{
+			.pull-right;
+		}
+	}
+
+	.assignmentAttribute{
+		.pull-left;
+		margin-right: 20px;
+		width: 20%;
+	}
+
+}
+
+.assignmentSummary{
+	.summaryItem{
+		.pull-left;
+		margin-right: 20px;
+		&:last-child{
+			margin-right: 0;
+		}
+	}
+	margin-bottom: 20px;
+	overflow: hidden;
+	background-color: @white;
+	border: 1px solid #ddd;
+	padding: 20px;
+}

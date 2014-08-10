@@ -1,0 +1,40 @@
+/*--------------------------------------- MOOC: COURSE HEADING IN EACH COURSE---------------------------------------*/
+
+.whiteSection{
+	padding: 0 15px;
+	background-color: @white;
+}
+
+.breadcrumbs{
+	&:extend(.whiteSection);
+	padding-top: 23px;
+	padding-bottom: 7px;
+	a{
+		color: @gray;
+		&:hover,
+		&:focus{
+			color: @brand-primary;
+		}
+		&:last-child{
+			color: @brand-primary;
+		}
+	}
+}
+
+#courseHeading{
+	&:extend(.whiteSection);
+	padding-bottom: 15px;
+	position: relative;
+	box-shadow: 0 1px 1px -1px @gray-light;
+	border-bottom: 1px solid @gray-lighter;
+	h4{
+		margin:0;
+		color: @brand-primary;
+	}
+	.largeButtonWarning{
+		margin-right: 0;
+		position: absolute;
+		top: -19px;
+		right: 15px;
+	}
+}

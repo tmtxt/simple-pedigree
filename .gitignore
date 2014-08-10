@@ -9,3 +9,4 @@
 /protected/config/local.php
 /protected/runtime/
 /protected/scripts/*
+.DS_Store
