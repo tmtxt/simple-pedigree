@@ -11,3 +11,10 @@ sql: |
   living_place TEXT,
   other_information TEXT
   );
+
+---
+table: pedigree
+from: txt_1
+to: txt_2
+sql: |
+  ALTER TABLE pedigree ADD COLUMN name TEXT;
