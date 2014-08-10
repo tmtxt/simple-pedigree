@@ -26,6 +26,7 @@
     "kineticjs": "~5.1.0",
     "jquery-ui": "~1.11.0",
     "eventEmitter": "~4.2.7",
-    "holderjs": "~2.3.2"
+    "holderjs": "~2.3.2",
+    "fontawesome": "~4.1.0"
   }
 }

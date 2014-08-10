@@ -13,3 +13,4 @@ dist/*
 /source/bower
 source/stylesheet/libs/jqueryui
 bower
+source/stylesheet/libs/fontawesome

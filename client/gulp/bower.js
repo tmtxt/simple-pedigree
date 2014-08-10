@@ -46,8 +46,8 @@ var EXCLUDED_LIBRARIES = ['holderjs'];
 var LIBRARY_ASSETS = {};
 LIBRARY_ASSETS [BASE_DIR.bower.path + '/bootstrap/fonts/**/*.*'] =
   BASE_DIR.dist.stylesheet.path + '/fonts';
-LIBRARY_ASSETS [BASE_DIR.bower.path + '/jquery-ui/themes/smoothness/images/**/*.*'] =
-  BASE_DIR.dist.stylesheet.commons.path + '/images';
+LIBRARY_ASSETS [BASE_DIR.bower.path + '/fontawesome/fonts/**/*.*'] =
+  BASE_DIR.dist.stylesheet.path + '/fonts';
 
 // Define the folder you want to symlink here
 // symlink key -> value
@@ -56,8 +56,8 @@ LIBRARY_ASSETS [BASE_DIR.bower.path + '/jquery-ui/themes/smoothness/images/**/*.
 var SYMLINKS_MAPPING = {};
 SYMLINKS_MAPPING [BASE_DIR.bower.path + '/bootstrap/less'] =
   BASE_DIR.source.stylesheet.libs.path + '/bootstrap';
-SYMLINKS_MAPPING [BASE_DIR.bower.path + '/jquery-ui/themes/smoothness'] =
-  BASE_DIR.source.stylesheet.libs.path + '/jqueryui';
+SYMLINKS_MAPPING [BASE_DIR.bower.path + '/' + 'fontawesome/less'] =
+  BASE_DIR.source.stylesheet.libs.path +   '/fontawesome';
 exports.SYMLINKS_MAPPING = SYMLINKS_MAPPING;
 
 ////////////////////////////////////////////////////////////////////////////////
