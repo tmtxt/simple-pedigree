@@ -1,0 +1,31 @@
+{
+  "name": "react-backbone",
+  "version": "0.0.0",
+  "authors": [
+    "tmtxt"
+  ],
+  "description": "skeleton for react-backbone application",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "jquery": "~2.1.1",
+    "underscore": "~1.6.0",
+    "backbone": "~1.1.2",
+    "react": "~0.10.0",
+    "backbone-react-component": "~0.6.2",
+    "kineticjs": "~5.1.0",
+    "jquery-ui": "~1.11.0",
+    "eventEmitter": "~4.2.7",
+    "holderjs": "~2.3.2"
+  }
+}

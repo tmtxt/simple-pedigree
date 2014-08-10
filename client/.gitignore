@@ -1,0 +1,15 @@
+node_modules/*
+public/bower/*
+public/*
+client/views/*.js
+.tern-port
+.DS_Store
+client/javascript/views/*.js
+source/javascript/views/*.js
+version/*
+dist/*
+.DS_Store
+/source/stylesheet/libs/bootstrap
+/source/bower
+source/stylesheet/libs/jqueryui
+bower

@@ -159,3 +159,22 @@ if node[:skeleton][:htpasswd]
         end
     end
 end
+
+execute 'Install nodejs dependencies' do
+    command 'npm install -g bower gulp browserify'
+end
+
+template "#{site_dir}/protected/scripts/deploy_frontend.sh" do
+    source 'deploy_frontend.sh.erb'
+    mode '755'
+end
+
+execute 'Deploy frontend project' do
+    command "#{site_dir}/protected/scripts/deploy_frontend.sh"
+    cwd "#{site_dir}/client"
+    environment ({
+        'HOME' => "/home/#{app_user}"
+    })
+    group app_user
+    user app_user
+end

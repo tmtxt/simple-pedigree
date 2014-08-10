@@ -8,4 +8,4 @@
 /protected/config/db.json
 /protected/config/local.php
 /protected/runtime/
-/protected/scripts/set_env.sh
+/protected/scripts/*

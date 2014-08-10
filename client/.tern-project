@@ -1,0 +1,15 @@
+{
+  "libs": [
+    "browser",
+    "jquery",
+    "underscore"
+  ],
+  "plugins": {
+    "node": {
+    }
+  },
+  "loadEagerly": [
+    "bower/kineticjs/kinetic.js",
+    "bower/underscore/underscore.js"
+  ]
+}
