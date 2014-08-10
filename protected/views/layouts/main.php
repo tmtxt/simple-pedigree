@@ -55,10 +55,9 @@
             </li>
             <?php } else { ?>
             <li><a href="/site/login"><?= Yii::t('app', 'Login');?></a></li>
-            <li><a href="/site/signup"><?= Yii::t('app', 'Signup');?></a></li>
             <?php } ?>
             <li><a href="/site/changeLanguage/lang/en">English</a></li>
-            <li><a href="/site/changeLanguage/lang/zh_tw">中文</a></li>
+            <li><a href="/site/changeLanguage/lang/vn">Vietnamese</a></li>
         </ul> <!-- End navbar content -->
     </div> <!-- End Navbar-Collapse -->
 </nav><!-- Main Navbar -->
@@ -72,7 +71,7 @@
     <?php echo $content; ?>
 
 <footer>
-    <p>Copyright &copy; <?php echo date('Y'); ?> by Wonder Exchange. All rights reserved.</p>
+    <p>Copyright &copy; <?php echo date('Y'); ?> by TruongTx. All rights reserved.</p>
 </footer><!-- End Footer -->
 
 <?php if (Yii::app()->params['csync_enable']) { ?>
