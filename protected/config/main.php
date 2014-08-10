@@ -1,7 +1,11 @@
 <?php
 
 $dbConfig = json_decode(file_get_contents(dirname(__FILE__).'/db.json'), true);
-$pre_config = require(dirname(__FILE__).'/local.php');
+
+$pre_config = CMap::mergeArray(
+    require(dirname(__FILE__).'/modules.php'),
+    require(dirname(__FILE__).'/local.php')
+);
 
 // Location where user images are stored
 //Yii::setPathOfAlias('uploadPath', realpath(dirname(__FILE__). '/../../images/uploads'));
