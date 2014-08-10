@@ -1,0 +1,20 @@
+---
+table: person
+from: null
+to: txt_1
+sql: |
+  CREATE TABLE person (
+  id serial NOT NULL PRIMARY KEY,
+  name VARCHAR(500),
+  birth_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+  death_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+  alive_status SMALLINT,
+  job TEXT,
+  address TEXT,
+  picture TEXT,
+  gender SMALLINT,
+  phone_no VARCHAR(50),
+  id_card VARCHAR(50),
+  history TEXT,
+  other_information TEXT
+  );

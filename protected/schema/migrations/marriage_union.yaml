@@ -1,0 +1,40 @@
+---
+table: marriage_union
+from: null
+depends:
+  - [person, txt_1]
+  - [marriage, txt_1]
+to: txt_1
+sql: |
+  CREATE VIEW marriage_union AS
+  SELECT
+  mr.husband_id AS inside_person_id,
+  p1.name AS inside_person_name,
+  p1.picture AS inside_person_picture,
+  mr.wife_id AS outside_person_id,
+  p2.name AS outside_person_name,
+  p2.picture AS outside_person_picture,
+  mr.start_date,
+  mr.end_date,
+  mr.status,
+  mr.information,
+  mr.order
+  FROM marriage AS mr, person AS p1, person AS p2
+  WHERE mr.husband_id = p1.id
+  AND mr.wife_id = p2.id
+  UNION
+  SELECT
+  mr.wife_id AS inside_person_id,
+  p1.name AS inside_person_name,
+  p1.picture AS inside_person_picture,
+  mr.husband_id AS outside_person_id,
+  p2.name AS outside_person_name,
+  p2.picture AS outside_person_picture,
+  mr.start_date,
+  mr.end_date,
+  mr.status,
+  mr.information,
+  mr.order
+  FROM marriage AS mr, person AS p1, person AS p2
+  WHERE mr.wife_id = p1.id
+  AND mr.husband_id = p2.id;

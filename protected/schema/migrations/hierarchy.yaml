@@ -1,0 +1,26 @@
+---
+table: hierarchy
+from: null
+to: txt_1
+depends:
+  - [person, txt_1]
+sql: |
+  CREATE TABLE "hierarchy"
+  (
+  id SERIAL NOT NULL PRIMARY KEY,
+  father_id INT REFERENCES person(id) ON DELETE CASCADE,
+  mother_id INT REFERENCES person(id) ON DELETE CASCADE,
+  child_id BIGINT NOT NULL REFERENCES person(id) ON DELETE CASCADE,
+  child_order SMALLINT,
+
+  CONSTRAINT un_hierarchy_compound UNIQUE (father_id, mother_id, child_id),
+
+  CHECK ((father_id IS NOT NULL AND mother_id IS NOT NULL)
+  OR (father_id IS NULL AND mother_id IS NOT NULL)
+  OR (father_id IS NOT NULL AND mother_id IS NULL))
+  );
+
+  CREATE UNIQUE INDEX un_hierarchy_father
+  ON "hierarchy" (father_id, child_id) WHERE mother_id IS NULL;
+  CREATE UNIQUE INDEX un_hierarchy_mother
+  ON "hierarchy" (mother_id, child_id) WHERE father_id IS NULL;

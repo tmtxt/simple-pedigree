@@ -1,0 +1,13 @@
+---
+table: pedigree
+from: null
+to: txt_1
+depends:
+  - [person, txt_1]
+sql: |
+  CREATE TABLE pedigree (
+  id SERIAL NOT NULL PRIMARY KEY,
+  root_id INT NOT NULL UNIQUE REFERENCES person(id) ON DELETE CASCADE,
+  living_place TEXT,
+  other_information TEXT
+  );

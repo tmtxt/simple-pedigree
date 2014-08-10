@@ -1,0 +1,36 @@
+---
+table: hierarchy_union
+from: null
+depends:
+  - [person, txt_1]
+  - [hierarchy, txt_1]
+to: txt_1
+sql: |
+  CREATE VIEW hierarchy_union AS
+  SELECT
+  h.father_id AS inside_parent_id,
+  p1.name AS inside_parent_name,
+  h.mother_id AS outside_parent_id,
+  p2.name AS outside_parent_name,
+  h.child_id AS child_id,
+  p3.name AS child_name,
+  h.child_order AS child_order
+  FROM "hierarchy" AS h, person AS p1, person AS p2, person AS p3
+  WHERE h.father_id = p1.id
+  AND h.mother_id = p2.id
+  AND h.child_id = p3.id
+  
+  UNION
+  
+  SELECT
+  h.mother_id AS inside_parent_id,
+  p1.name AS inside_parent_name,
+  h.father_id AS outside_parent_id,
+  p2.name AS outside_parent_name,
+  h.child_id AS child_id,
+  p3.name AS child_name,
+  h.child_order AS child_order
+  FROM "hierarchy" AS h, person AS p1, person AS p2, person AS p3
+  WHERE h.mother_id = p1.id
+  AND h.father_id = p2.id
+  AND h.child_id = p3.id;

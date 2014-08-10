@@ -1,0 +1,27 @@
+---
+table: marriage
+from: null
+to: txt_1
+depends:
+  - [person, txt_1]
+sql: |
+  CREATE TABLE marriage
+  (
+  id SERIAL NOT NULL PRIMARY KEY,
+  husband_id INT REFERENCES person(id) ON DELETE CASCADE,
+  wife_id INT REFERENCES person(id) ON DELETE CASCADE,
+  start_date TIMESTAMP WITHOUT TIME ZONE,
+  end_date TIMESTAMP WITHOUT TIME ZONE,
+  status SMALLINT,
+  information TEXT,
+  "order" SMALLINT,
+
+  CONSTRAINT un_marriage_compound UNIQUE (husband_id, wife_id),
+
+  CHECK ((husband_id is not null and wife_id is not null)
+  or (husband_id is null and wife_id is not null)
+  or (husband_id is not null and wife_id is null))
+  );
+
+  CREATE UNIQUE INDEX un_marriage_husband ON marriage (husband_id) WHERE wife_id IS NULL;
+  CREATE UNIQUE INDEX un_marriage_wife ON marriage (wife_id) WHERE husband_id IS NULL;
