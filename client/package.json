@@ -42,7 +42,6 @@
     "watchify": "^1.0.1",
     "gulp-streamify": "0.0.5",
     "q": "^1.0.1",
-    "underscore": "^1.6.0",
-    "less": "^1.7.4"
+    "underscore": "^1.6.0"
   }
 }
