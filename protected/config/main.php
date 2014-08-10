@@ -13,7 +13,7 @@ $pre_config = CMap::mergeArray(
 
 return CMap::mergeArray(array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name'=>'TBBC',
+    'name'=>'Pedigree',
 
     'preload'=>array('log'),
 
