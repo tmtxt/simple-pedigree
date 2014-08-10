@@ -178,3 +178,8 @@ execute 'Deploy frontend project' do
     group app_user
     user app_user
 end
+
+template "#{site_dir}/protected/scripts/pg_open_access.sh" do
+    source 'pg_open_access.sh.erb'
+    mode '755'
+end

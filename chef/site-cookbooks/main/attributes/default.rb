@@ -1,4 +1,5 @@
 set[:skeleton][:yii_version] = '1.1.13'
+set[:skeleton][:pg_version] = '9.1'
 
 default[:skeleton][:app_user] = 'pedigree'
 default[:skeleton][:csync_enable] = false

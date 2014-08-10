@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "host all all 10.0.2.2/24 trust" >> /etc/postgresql/<%= node[:skeleton][:pg_version] %>/main/pg_hba.conf
+OLD="listen_addresses = 'localhost'"
+NEW="listen_addresses = '*'"
+sed -i "s/$OLD/$NEW/g" /etc/postgresql/<%= node[:skeleton][:pg_version] %>/main/postgresql.conf
