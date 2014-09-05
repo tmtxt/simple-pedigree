@@ -16,7 +16,6 @@
 
     $clientScript->registerScriptFile('/client/dist/javascript/libs/libs.js', CClientScript::POS_HEAD);
     $clientScript->registerScriptFile('/client/dist/javascript/share/share.js', CClientScript::POS_END);
-    $clientScript->registerCssFile('/client/dist/stylesheet/commons/common.css');
     ?>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

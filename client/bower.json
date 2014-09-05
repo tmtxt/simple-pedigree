@@ -27,6 +27,7 @@
     "jquery-ui": "~1.11.0",
     "eventEmitter": "~4.2.7",
     "holderjs": "~2.3.2",
-    "fontawesome": "~4.1.0"
+    "fontawesome": "~4.1.0",
+    "d3": "~3.4.11"
   }
 }

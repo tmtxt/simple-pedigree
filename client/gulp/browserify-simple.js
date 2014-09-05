@@ -46,7 +46,8 @@ var LIB_MAP = {
   'kinetic': 'window.Kinetic',
   'document': 'window.document',
   'math': 'window.Math',
-  'eventEmitter': 'window.EventEmitter'
+  'eventEmitter': 'window.EventEmitter',
+  'd3': 'window.d3'
 };
 var LITERALIFY_CONFIG = literalify.configure(LIB_MAP); // don't edit this line
 // if you don't really know what you are doing
