@@ -21,7 +21,7 @@ class PedigreeUtil {
     $query =  PedigreeUtil::queryPedigreeTree($rootId, $depth);
 
     // construct the tree
-    $tree = PedigreeUtil::constructTree($query, $firstPedigree->root);
+    $tree = PedigreeUtil::constructTreeIndexed($query, $firstPedigree->root);
     return $tree;
   }
 
@@ -38,7 +38,8 @@ class PedigreeUtil {
     return $result;
   }
 
-  protected static function constructTree($query, $root) {
+  // construct the tree with the children of each person is an associative array
+  protected static function constructTreeAssociative($query, $root) {
     // the tree is an associative array (just like json object)
     $tree = array();
     $tree["name"] = $root->name;
@@ -50,19 +51,35 @@ class PedigreeUtil {
       $person = array();
       $person["name"] = $result["name"];
       $person["id"] = $result["id"];
-      $tree = PedigreeUtil::appendChild($tree, $result["path"], $person);
+      $person["children"] = array();
+      PedigreeUtil::appendChild($tree, $result["path"], $person);
     }
 
     return $tree;
   }
 
-  protected static function appendChild($tree, $path, $person) {
-    $parent = $tree;
+  // construct the tree with the children of each person is an indexed array
+  protected static function constructTreeIndexed($query, $root) {
+    $tree = PedigreeUtil::constructTreeAssociative($query, $root);
+    // PedigreeUtil::childrenToArray($tree);
+    return $tree;
+  }
+
+  // recursive
+  protected static function childrenToArray(&$tree) {
+    foreach($tree["children"] as $child) {
+      childrenToArray($child["children"]);
+      $tree["children"] = array_values($tree["children"]);
+    }
+  }
+
+  protected static function appendChild(&$tree, $path, $person) {
+    $parent = &$tree;
+    $path = explode(",", $path);
     for($i = 1; $i < count($path); $i++) {
-      $parent = $parent->children[$path[$i]];
+      $parent = &$parent["children"][$path[$i]];
     }
     $parent["children"][$person["id"]] = $person;
-    return $parent;
   }
 }
 ?>

@@ -32,5 +32,5 @@ SELECT
         child_name as name,
         inside_parent_id,
         outside_parent_id,
-        "path" AS "path"
+        array_to_string(path, ',') AS "path"
 FROM nodes;
