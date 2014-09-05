@@ -9,7 +9,7 @@ WITH RECURSIVE nodes(
 		r."child_id",
 		ARRAY[r."inside_parent_id"]
 	FROM "hierarchy_union" AS r
-	WHERE r."inside_parent_id" = 1
+	WHERE r."inside_parent_id" = :root_id
 	UNION ALL
 	SELECT
 		r."inside_parent_id",

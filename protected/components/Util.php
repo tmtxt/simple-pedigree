@@ -28,5 +28,10 @@ class Util{
     exit(0);
   }
 
+  // read the query in file, input is the file name not include .sql extension
+  public static function readQuery($name) {
+    return file_get_contents(__DIR__ . "/../query/" . $name . ".sql");
+  }
+
 }
 ?>
