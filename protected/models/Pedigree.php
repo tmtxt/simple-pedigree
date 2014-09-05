@@ -98,3 +98,4 @@ class Pedigree extends CActiveRecord
 		));
 	}
 }
+?>
