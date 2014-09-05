@@ -61,15 +61,18 @@ class PedigreeUtil {
   // construct the tree with the children of each person is an indexed array
   protected static function constructTreeIndexed($query, $root) {
     $tree = PedigreeUtil::constructTreeAssociative($query, $root);
-    // PedigreeUtil::childrenToArray($tree);
+    PedigreeUtil::childrenToArray($tree);
     return $tree;
   }
 
   // recursive
   protected static function childrenToArray(&$tree) {
-    foreach($tree["children"] as $child) {
-      childrenToArray($child["children"]);
-      $tree["children"] = array_values($tree["children"]);
+    // convert from associative array to indexed array
+    $tree["children"] = array_values($tree["children"]);
+
+    // and then recursively convert its children
+    for($i = 0; $i < count($tree["children"]); $i++) {
+      PedigreeUtil::childrenToArray($tree["children"][$i]);
     }
   }
 
