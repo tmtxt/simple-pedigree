@@ -34,3 +34,27 @@ sql: |
   WHERE h.mother_id = p1.id
   AND h.father_id = p2.id
   AND h.child_id = p3.id;
+
+---
+table: hierarchy_union
+from: txt_1
+to: txt_2
+sql: |
+  DROP VIEW hierarchy_union;
+
+  CREATE VIEW hierarchy_union AS
+    SELECT
+    h.father_id AS inside_parent_id,
+    h.mother_id AS outside_parent_id,
+    h.child_id AS child_id,
+    h.child_order AS child_order
+    FROM "hierarchy" AS h
+
+    UNION
+
+    SELECT
+    h.mother_id AS inside_parent_id,
+    h.father_id AS outside_parent_id,
+    h.child_id AS child_id,
+    h.child_order AS child_order
+    FROM "hierarchy" AS h;
