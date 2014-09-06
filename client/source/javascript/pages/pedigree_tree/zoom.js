@@ -6,14 +6,8 @@ function init(rootSvg, rootGroup) {
   var zoomListener = d3.behavior.zoom()
     .scaleExtent([0.5, 1.5]);
 
-  //
-  jquery('.js-enable-zoom').change(function(){
-    if(jquery(this).is(':checked')) {
-      enableZoom(rootSvg, rootGroup, zoomListener);
-    } else {
-      disableZoom(rootSvg, rootGroup, zoomListener);
-    }
-  });
+  initEnableCheckbox(rootSvg, rootGroup, zoomListener);
+  initResetButton(rootSvg, rootGroup, zoomListener);
 
   return zoomListener;
 }
@@ -21,6 +15,16 @@ exports.init = init;
 
 function zoomHandler(rootGroup) {
   rootGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
+
+function initEnableCheckbox(rootSvg, rootGroup, zoomListener) {
+  jquery('.js-enable-zoom').change(function(){
+    if(jquery(this).is(':checked')) {
+      enableZoom(rootSvg, rootGroup, zoomListener);
+    } else {
+      disableZoom(rootSvg, rootGroup, zoomListener);
+    }
+  });
 }
 
 function enableZoom(rootSvg, rootGroup, zoomListener) {
@@ -39,3 +43,16 @@ function disableZoom(rootSvg, rootGroup, zoomListener) {
     .on("touchstart.zoom", null);
 }
 exports.disableZoom = disableZoom;
+
+function initResetButton(rootSvg, rootGroup, zoomListener) {
+  jquery('.js-reset-zoom').click(function(){
+    enableZoom(rootSvg, rootGroup, zoomListener);
+    rootGroup.transition().duration(300)
+      .attr("transform", "translate(" + 0 + "," + 0 + ")");
+    zoomListener.translate([0,0]).scale(1);
+
+    if(jquery('.js-enable-zoom').is(':checked') === false){
+      disableZoom(rootSvg, rootGroup, zoomListener);
+    }
+  });
+}

@@ -2,11 +2,15 @@
 <h1>Tree</h1>
 
 <div class="control">
-  <div class="checkbox">
-    <label>
-      <input class="js-enable-zoom" type="checkbox">Enable Zoom
-    </label>
-  </div>
+  <label>
+    <input class="js-enable-zoom" type="checkbox">Enable Zoom
+  </label>
+
+  <label>
+    <button class="js-reset-zoom">
+      Reset Zoom
+    </button>
+  </label>
 </div>
 
 <div id="js-tree-container">
