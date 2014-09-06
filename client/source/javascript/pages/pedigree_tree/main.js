@@ -8,6 +8,9 @@ var Toggle = require('./toggle.js');
 var Position = require('./position.js');
 var Util = require('./util.js');
 var Link = require('./link.js');
+var NodeCircle = require('./node_circle.js');
+var NodeName = require('./node_name.js');
+var NodePicture = require('./node_picture.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
@@ -75,32 +78,9 @@ function update(source) {
     .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; });
 
   // the node
-  nodeEnter.append("svg:circle")
-    .attr("r", 10)
-    .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
-		.on("click", function(d) { Toggle.toggle(d); update(d); });
-
-  // text for displaying name
-  nodeEnter.append("svg:text")
-  //.attr("x", function(d) { return d.children || d._children ? -10 : 10; })
-    .attr("y", -19)
-    .attr("dy", ".35em")
-    .attr("text-anchor", "middle")
-    .text(function(d) { return d.name; })
-    .style("fill-opacity", 1e-6)
-		.on("click", function(d) {console.log(d);});
-
-  // append picture
-  nodeEnter.append("svg:image")
-    .attr("xlink:href", function(d){
-      return d.picture;
-    })
-    .attr("x", -20)
-    .attr("y", -68)
-    .attr("height", "40px")
-    .attr("width", "40px")
-    //.on("click", showNodeDialog)
-  ;
+  NodeCircle.appendCircles(nodeEnter, update);
+  NodeName.appendNames(nodeEnter);
+  NodePicture.appendPictures(nodeEnter);
 
 	// compute the new tree height
 	var maxDepth = Util.findMaxDepth(root);
