@@ -24,14 +24,13 @@ var gDeploy = require('./deploy.js');
 // Define the path (inside BASE_DIR) to main js executable files of the libraries
 // used for bundling everything into one files
 var LIBRARY_MAIN_FILES = ['bower/jquery/dist/jquery.js',
-                          'bower/bootstrap/dist/js/bootstrap.js',
                           'bower/underscore/underscore.js',
-                          'bower/backbone/backbone.js',
+                          'bower/bootstrap/dist/js/bootstrap.js',
                           'bower/react/react.js',
-                          'bower/backbone-react-component/lib/component.js',
-                          'bower/kineticjs/kinetic.js',
-                          'bower/jquery-ui/jquery-ui.js',
-                          'bower/eventEmitter/EventEmitter.js'];
+                          'bower/eventEmitter/EventEmitter.js',
+                          'bower/masonry/dist/masonry.pkgd.js',
+                          'bower/d3/d3.js',
+                          'bower/q/q.js'];
 
 // Excluded libraries
 // Specify the libraries name that you want to exclude when run the

@@ -11,7 +11,7 @@ exports.ENABLE_DEBUG = true;
 gulp.task('development', ['copy-assets',
                           'copy-lib-assets',
                           'less-development',
-                          'bundle-libs-auto-development',
+                          'bundle-libs-manual-development',
                           'browserify-nowatch'],
           function(){});
 
@@ -19,6 +19,6 @@ gulp.task('development', ['copy-assets',
 gulp.task('production', ['copy-assets',
                          'copy-lib-assets',
                          'less-production',
-                         'bundle-libs-auto-production',
+                         'bundle-libs-manual-production',
                          'browserify-production'],
           function(){});

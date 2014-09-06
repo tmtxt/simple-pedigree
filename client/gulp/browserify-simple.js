@@ -47,7 +47,8 @@ var LIB_MAP = {
   'document': 'window.document',
   'math': 'window.Math',
   'eventEmitter': 'window.EventEmitter',
-  'd3': 'window.d3'
+  'd3': 'window.d3',
+  'q': 'window.Q'
 };
 var LITERALIFY_CONFIG = literalify.configure(LIB_MAP); // don't edit this line
 // if you don't really know what you are doing

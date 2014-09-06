@@ -29,7 +29,7 @@
 
     <nav id="mainNav" role="navigation">
       <div class="navbar-header">
-        
+
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".collapsableNavbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -37,7 +37,7 @@
           <span class="icon-bar"></span>
         </button>
       </div> <!-- End Navbar Header -->
-      
+
       <div class="collapsableNavbar collapse">
         <ul class="navbarContent">
           <li class="active"><a href="/instructor/course"><?=Yii::t('app' , 'Pedigree')?></a></li>
@@ -48,7 +48,7 @@
         <ul class="navbarContent navbar-right">
           <?php if(!Yii::app()->user->isGuest) { ?>
             <?php $user = User::model()->findByPk(Yii::app()->user->_id) ?>
-            <li class="dropdown">                    
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $user->name ?><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="/site/logout"><i class="logoutIcon"></i> <?= Yii::t('app', 'Logout')?></a></li>
@@ -61,7 +61,7 @@
           <li><a href="/site/changeLanguage/lang/vn">Vietnamese</a></li>
         </ul> <!-- End navbar content -->
       </div> <!-- End Navbar-Collapse -->
-      
+
     </nav><!-- Main Navbar -->
 
     <?php

@@ -2,6 +2,9 @@
 var jquery = require('jquery');
 var d3 = require('d3');
 
+// other modules
+var GetData = require('./get_data.js');
+
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
 
@@ -27,13 +30,8 @@ rootSvg = d3.select(treeContainerId).append("svg:svg")
 vis = rootSvg.append("svg:g")
   .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
-// get the tree
-jquery.ajax({
-  url: '/pedigree/getTree',
-  success: function(data) {
-    console.log(data);
-    renderTree(data);
-  }
+GetData.getTreeData().then(function(data){
+  renderTree(data);
 });
 
 // render
