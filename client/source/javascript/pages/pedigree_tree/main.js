@@ -8,6 +8,7 @@ var Toggle = require('./toggle.js');
 var Position = require('./position.js');
 var Util = require('./util.js');
 var Link = require('./link.js');
+var NodeGroup = require('./node_group.js');
 var NodeCircle = require('./node_circle.js');
 var NodeName = require('./node_name.js');
 var NodePicture = require('./node_picture.js');
@@ -68,16 +69,11 @@ function update(source) {
 	// move all the node down a bit, otherwise they will be at the border
   Position.offsetNodesPosition(nodes);
 
-  // Update the data of nodes
-  var node = rootGroup.selectAll("g.node")
-    .data(nodes, function(d) { return d.id || (d.id = ++i); });
-	
-  // Enter any new nodes at the parent's previous position.
-  var nodeEnter = node.enter().append("svg:g")
-    .attr("class", "node")
-    .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; });
+  // create the node group
+  var nodeGroups = NodeGroup.selectNodeGroups(rootGroup, nodes);
+  var nodeEnter = NodeGroup.appendNodeGroups(nodeGroups, source);
 
-  // the node
+  // create the elements inside that node group
   NodeCircle.appendCircles(nodeEnter, update);
   NodeName.appendNames(nodeEnter);
   NodePicture.appendPictures(nodeEnter);
@@ -88,7 +84,7 @@ function update(source) {
 	d3.select("svg").attr("height", newHeight);
 	
   // Transition nodes to their new position.
-  var nodeUpdate = node.transition()
+  var nodeUpdate = nodeGroups.transition()
     .duration(duration)
     .attr("transform", function(d) { 
 			return "translate(" + d.x + "," + d.y + ")";
@@ -102,7 +98,7 @@ function update(source) {
     .style("fill-opacity", 1);
 
   // Transition exiting nodes to the parent's new position.
-  var nodeExit = node.exit().transition()
+  var nodeExit = nodeGroups.exit().transition()
     .duration(duration)
     .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
     .remove();
