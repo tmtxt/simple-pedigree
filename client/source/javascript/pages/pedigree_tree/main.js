@@ -6,11 +6,13 @@ var d3 = require('d3');
 var GetData = require('./get_data.js');
 var Toggle = require('./toggle.js');
 var Position = require('./position.js');
+var Util = require('./util.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
 
-var tree, diagonal, rootSvg, vis;
+var tree, diagonal;
+var rootSvg, rootGroup;
 var root;
 var i = 0;
 
@@ -28,7 +30,7 @@ diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 rootSvg = d3.select(treeContainerId).append("svg:svg")
   .attr("width", treeWidth)
   .attr("height", treeHeight);
-vis = rootSvg.append("svg:g")
+rootGroup = rootSvg.append("svg:g")
   .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
 GetData.getTreeData().then(function(data){
@@ -49,6 +51,7 @@ function renderTree(tree) {
   update(root);
 }
 
+// 
 function update(source) {
   var duration = d3.event && d3.event.altKey ? 5000 : 500;
 
@@ -61,8 +64,8 @@ function update(source) {
 	// move all the node down a bit, otherwise they will be at the border
   Position.offsetNodesPosition(nodes);
 
-  // Update the nodes
-  var node = vis.selectAll("g.node")
+  // Update the data of nodes
+  var node = rootGroup.selectAll("g.node")
     .data(nodes, function(d) { return d.id || (d.id = ++i); });
 	
   // Enter any new nodes at the parent's previous position.
@@ -90,126 +93,17 @@ function update(source) {
   nodeEnter.append("svg:image")
     .attr("xlink:href", function(d){
       return d.picture;
-      // var imageLink = "/member_images/" + d.picture;
-      // // check if the image exist
-      // $.ajax({
-      //   url: imageLink,
-      //   type: 'GET',
-      //   async: false,
-      //   error: function(){ imageLink = "/default_member.png"; }
-      // });
-      // return imageLink;
     })
     .attr("x", -20)
     .attr("y", -68)
     .attr("height", "40px")
     .attr("width", "40px")
-    // .on("click", showNodeDialog)
+    //.on("click", showNodeDialog)
   ;
 
-  
-  // marriage pictures
-  // if(marriageInfoEnable){
-  //   d3.selectAll("image.node-marriage").remove();
-
-  //   d3.selectAll("g.node")[0].forEach(function(d){
-  //     var calculateLink = function(d){
-  //       // var imageLink = "/member_images/" + d.marriagePicture[i];
-
-  //       // // check if the image exist
-  //       // $.ajax({
-  //       //   url: imageLink,
-  //       //   type: 'GET',
-  //       //   async: false,
-  //       //   error: function(){ imageLink = "/default_member.png"; }
-  //       // });
-  //       // return imageLink;
-  //       return "/member_images/" + d.marriagePicture[i];
-  //     };
-  //     var showMarriageTooltip = function(d){
-  //       var tooltipText = vis.append("svg:text")
-  //         .attr("class", "marriage-tooltip")
-  //         .style("opacity", 0)
-  //         .attr("text-anchor", "middle")
-  //         .attr("x", (parseInt(d3.select(this).attr("marriage-order")) + 1) * 40 + d.x)
-  //         .attr("y", d.y - 71)
-  //         .text(d3.select(this).attr("marriage-name"));
-  //       tooltipText.transition().duration(500).style("opacity", 1);
-  //     };
-  //     var hideMarriageTooltip = function(d){
-  //       d3.selectAll(".marriage-tooltip").transition().duration(1000)
-  //         .style("opacity", 0).remove();
-  //     };
-  //     for(var i = 0; i < d.__data__.marriageId.length; i++) {
-  //       d3.select(d).append("svg:image")
-  //         .attr("class", "node-marriage")
-  //         .attr("x", -20)
-  //         .attr("y", -67)
-  //         .attr("height", "40px")
-  //         .attr("width", "40px")
-  //         .attr("xlink:href", calculateLink)
-  //         .attr("marriage-id", d.__data__.marriageId[i])
-  //         .attr("marriage-name", d.__data__.marriageName[i])
-  //         .attr("marriage-order", i)
-  //         .on("click", showMarriageDialog)
-  //         .on("mouseover", showMarriageTooltip)
-  //         .on("mouseout", hideMarriageTooltip)
-  //         .transition()
-  //         .duration(marriageInfoEnableDuration)
-  //         .attr("transform", "translate (" + (41 * (i+1)) + ",0)");
-  //     }
-      
-  //   });
-    
-    
-  //   // var nodeExisting = d3.selectAll("g.node").append("svg:image")
-  //   //   .attr("class", "node-marriage")
-  //   //   .attr("x", -20)
-  //   //   .attr("y", -67)
-  //   //   .attr("height", "40px")
-  //   //   .attr("width", "40px")
-  //   //   .attr("xlink:href", function(d){
-  //   //     if(d.marriageId.length === 0){
-  //   //       // remove the picture
-  //   //       this.remove();
-  //   //       return null;
-  //   //     }
-  //   //     else {
-  //   //       var imageLink = "/member_images/" + d.marriagePicture;
-  //   //       // check if the image exist
-  //   //       $.ajax({
-  //   //         url: imageLink,
-  //   //         type: 'GET',
-  //   //         async: false,
-  //   //         error: function(){ imageLink = "/default_member.png"; }
-  //   //       });
-  //   //       return imageLink;
-  //   //     }
-  //   //   })
-  //   //   .transition()
-  //   //   .duration(marriageInfoEnableDuration)
-  //   //   .attr("transform", "translate(50, 0)");    
-    
-  // } else {
-  //   d3.selectAll("image.node-marriage").transition().duration(marriageInfoEnableDuration)
-  //     .attr("transform", "translate(0,0)").remove();
-  // }
-  // marriageInfoEnableDuration = 0;
-  
-
 	// compute the new tree height
-	var currentMaxDepth = 0;
-	function findMaxDepth(parent){
-		if(parent.children && parent.children.length > 0){
-			parent.children.forEach(function(d){
-				findMaxDepth(d);
-			});
-		} else if(parent.depth > currentMaxDepth){
-			currentMaxDepth = parent.depth;
-		}
-	}
-	findMaxDepth(root);
-	var newHeight = (currentMaxDepth + 1) * linkHeight;
+	var maxDepth = Util.findMaxDepth(root);
+	var newHeight = (maxDepth + 1) * linkHeight;
 	d3.select("svg").attr("height", newHeight);
 	
   // Transition nodes to their new position.
@@ -238,8 +132,8 @@ function update(source) {
   nodeExit.select("text")
     .style("fill-opacity", 1e-6);
 
-  // Update the links…
-  var link = vis.selectAll("path.link")
+  // Update the links
+  var link = rootGroup.selectAll("path.link")
     .data(tree.links(nodes), function(d) { return d.target.id; });
 
   // Enter any new links at the parent's previous position.
