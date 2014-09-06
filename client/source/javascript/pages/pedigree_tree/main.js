@@ -7,6 +7,7 @@ var GetData = require('./get_data.js');
 var Toggle = require('./toggle.js');
 var Position = require('./position.js');
 var Util = require('./util.js');
+var Link = require('./link.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
@@ -75,7 +76,7 @@ function update(source) {
 
   // the node
   nodeEnter.append("svg:circle")
-    .attr("r", 1e-6)
+    .attr("r", 10)
     .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
 		.on("click", function(d) { Toggle.toggle(d); update(d); });
 
@@ -113,10 +114,10 @@ function update(source) {
 			return "translate(" + d.x + "," + d.y + ")";
     });
 
+  // update the node circle and text
   nodeUpdate.select("circle")
     .attr("r", 10)
     .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-
   nodeUpdate.select("text")
     .style("fill-opacity", 1);
 
@@ -133,33 +134,10 @@ function update(source) {
     .style("fill-opacity", 1e-6);
 
   // Update the links
-  var link = rootGroup.selectAll("path.link")
-    .data(tree.links(nodes), function(d) { return d.target.id; });
-
-  // Enter any new links at the parent's previous position.
-  link.enter().insert("svg:path", "g")
-    .attr("class", "link")
-    .attr("d", function(d) {
-      var o = {x: source.x0, y: source.y0};
-      return diagonal({source: o, target: o});
-    })
-    .transition()
-    .duration(duration)
-    .attr("d", diagonal);
-
-  // Transition links to their new position.
-  link.transition()
-    .duration(duration)
-    .attr("d", diagonal);
-
-  // Transition exiting nodes to the parent's new position.
-  link.exit().transition()
-    .duration(duration)
-    .attr("d", function(d) {
-      var o = {x: source.x, y: source.y};
-      return diagonal({source: o, target: o});
-    })
-    .remove();
+  var links = Link.selectLinks(rootGroup, tree, nodes);
+  Link.createLinks(links, source, diagonal, duration);
+  Link.transitionLinks(links, source, diagonal, duration);
+  Link.removeUnusedLinks(links, source, diagonal, duration);
 
   // Stash the old positions for transition.
   nodes.forEach(function(d) {
