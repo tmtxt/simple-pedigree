@@ -8,7 +8,6 @@ class PedigreeController extends Controller
 	}
 
   public function actionTree() {
-    Yii::log(print_r(__DIR__, true), 'debug');
     $this->render('tree');
   }
 

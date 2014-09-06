@@ -13,6 +13,7 @@ var NodeCircle = require('./node_circle.js');
 var NodeName = require('./node_name.js');
 var NodePicture = require('./node_picture.js');
 var Config = require('./config.js');
+var Zoom = require('./zoom.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
@@ -38,6 +39,10 @@ rootSvg = d3.select(treeContainerId).append("svg:svg")
 rootGroup = rootSvg.append("svg:g")
   .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
+// zoom handler
+Zoom.init(rootSvg, rootGroup);
+
+// get the data from server and start rendering
 GetData.getTreeData().then(function(data){
   renderTree(data);
 });
