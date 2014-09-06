@@ -28,3 +28,8 @@ function updateTreeDiagramHeight(root) {
 	d3.select("svg").attr("height", newHeight);
 }
 exports.updateTreeDiagramHeight = updateTreeDiagramHeight;
+
+function getTransitionDuration() {
+  return d3.event && d3.event.altKey ? 5000 : 500;
+}
+exports.getTransitionDuration = getTransitionDuration;

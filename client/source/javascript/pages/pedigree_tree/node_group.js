@@ -25,3 +25,12 @@ function transitionNodeGroups(nodeGroups, duration) {
   return nodeUpdate;
 }
 exports.transitionNodeGroups = transitionNodeGroups;
+
+function removeUnusedNodeGroups(nodeGroups, duration, source) {
+  var nodeExit = nodeGroups.exit().transition()
+    .duration(duration)
+    .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
+    .remove();
+  return nodeExit;
+}
+exports.removeUnusedNodeGroups = removeUnusedNodeGroups;

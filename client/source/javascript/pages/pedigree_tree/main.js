@@ -20,7 +20,6 @@ var treeContainerId = "#js-tree-container";
 var tree, diagonal;
 var rootSvg, rootGroup;
 var root;
-var i = 0;
 
 // size of tree diagram
 var treeWidth = jquery(treeContainerId).width();
@@ -59,10 +58,8 @@ function renderTree(tree) {
 
 // 
 function update(source) {
-  var duration = d3.event && d3.event.altKey ? 5000 : 500;
-
-  // Compute the new tree layout.
-  var nodes = tree.nodes(root).reverse();
+  var duration = Util.getTransitionDuration();
+  var nodes = tree.nodes(root).reverse(); // compute new tree layout
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * linkHeight; });
@@ -70,36 +67,27 @@ function update(source) {
 	// move all the node down a bit, otherwise they will be at the border
   Position.offsetNodesPosition(nodes);
 
+  // ENTER
   // create the node group
   var nodeGroups = NodeGroup.selectNodeGroups(rootGroup, nodes);
   var nodeEnter = NodeGroup.appendNodeGroups(nodeGroups, source);
-
   // create the elements inside that node group
   NodeCircle.appendCircles(nodeEnter, update);
   NodeName.appendNames(nodeEnter);
   NodePicture.appendPictures(nodeEnter);
-
 	// compute the new tree height
   Util.updateTreeDiagramHeight(root);
-	
+
+	// UPDATE
   // Transition nodes to their new position.
   var nodeUpdate = NodeGroup.transitionNodeGroups(nodeGroups, duration);
-
   // update the node circle and text
   NodeCircle.updateCircles(nodeUpdate);
   NodeName.updateNames(nodeUpdate);
 
+  // EXIT
   // Transition exiting nodes to the parent's new position.
-  var nodeExit = nodeGroups.exit().transition()
-    .duration(duration)
-    .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
-    .remove();
-
-  nodeExit.select("circle")
-    .attr("r", 1e-6);
-
-  nodeExit.select("text")
-    .style("fill-opacity", 1e-6);
+  var nodeExit = NodeGroup.removeUnusedNodeGroups(nodeGroups, duration, source);
 
   // Update the links
   var links = Link.selectLinks(rootGroup, tree, nodes);
