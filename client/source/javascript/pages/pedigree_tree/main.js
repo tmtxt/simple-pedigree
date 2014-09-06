@@ -5,12 +5,12 @@ var d3 = require('d3');
 // other modules
 var GetData = require('./get_data.js');
 var Toggle = require('./toggle.js');
+var Position = require('./position.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
 
 var tree, diagonal, rootSvg, vis;
-var nodesList;
 var root;
 var i = 0;
 
@@ -54,28 +54,14 @@ function update(source) {
 
   // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse();
-  nodesList = nodes;
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * linkHeight; });
 
-	// update the x position
-  calculateNodesPosition(treeWidth, nodes, root.x, root.y);
-  // var offsetLeft = 0;
-  // var ratio;
-  // if(nodes.length === 1){
-  //   ratio = root.x / (w/2);
-  // } else {
-  //   offsetLeft = d3.min(nodes, function(d) {return d.x;});
-  //   offsetLeft -= 50;
-  //   ratio = (root.x - offsetLeft) / (w/2);
-  // }
-  // nodes.forEach(function(d) {
-	// 	d.x = (d.x - offsetLeft) / ratio;
-  //   d.y += 80;
-	// });
+	// move all the node down a bit, otherwise they will be at the border
+  Position.offsetNodesPosition(nodes);
 
-  // Update the nodes…
+  // Update the nodes
   var node = vis.selectAll("g.node")
     .data(nodes, function(d) { return d.id || (d.id = ++i); });
 	
@@ -286,20 +272,4 @@ function update(source) {
     d.x0 = d.x;
     d.y0 = d.y;
   });
-}
-
-function calculateNodesPosition(width, nodes, rootX){
-  // var offsetLeft = 0;
-  // var ratio;
-  // if(nodes.length === 1){
-  //   ratio = rootX / (width/2);
-  // } else {
-  //   offsetLeft = d3.min(nodes, function(d) {return d.x;});
-  //   offsetLeft -= 50;
-  //   ratio = (rootX - offsetLeft) / (width/2);
-  // }
-  nodes.forEach(function(d) {
-		// d.x = (d.x - offsetLeft) / ratio;
-    d.y += 80;
-	});
 }
