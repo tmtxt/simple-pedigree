@@ -15,3 +15,13 @@ function appendNodeGroups(nodeGroups, source) {
   return nodeEnter;
 }
 exports.appendNodeGroups = appendNodeGroups;
+
+function transitionNodeGroups(nodeGroups, duration) {
+  var nodeUpdate = nodeGroups.transition()
+    .duration(duration)
+    .attr("transform", function(d) { 
+			return "translate(" + d.x + "," + d.y + ")";
+    });
+  return nodeUpdate;
+}
+exports.transitionNodeGroups = transitionNodeGroups;

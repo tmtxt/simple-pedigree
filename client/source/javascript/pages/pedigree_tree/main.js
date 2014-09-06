@@ -83,11 +83,7 @@ function update(source) {
   Util.updateTreeDiagramHeight(root);
 	
   // Transition nodes to their new position.
-  var nodeUpdate = nodeGroups.transition()
-    .duration(duration)
-    .attr("transform", function(d) { 
-			return "translate(" + d.x + "," + d.y + ")";
-    });
+  var nodeUpdate = NodeGroup.transitionNodeGroups(nodeGroups, duration);
 
   // update the node circle and text
   nodeUpdate.select("circle")
