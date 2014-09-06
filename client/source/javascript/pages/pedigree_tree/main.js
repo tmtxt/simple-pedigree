@@ -1,24 +1,29 @@
+// libraries
 var jquery = require('jquery');
 var d3 = require('d3');
+
+// the container id of the tree
+var treeContainerId = "#js-tree-container";
 
 var tree, diagonal, rootSvg, vis;
 var nodesList;
 var root;
 var i = 0;
 
-var w = jquery("#js-tree-content").width(); // width
-var h = 1000;                    // height
-var link_height = 200;           // height of the connection link
+// size of tree diagram
+var treeWidth = jquery(treeContainerId).width();
+var treeHeight = 1000;
+var linkHeight = 200; // connection link height
 
 // basic layout for the tree
 // create a tree layout using d3js
-tree = d3.layout.tree().size([w, h]);
+tree = d3.layout.tree().size([treeWidth, treeHeight]);
 diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 
 // create the svg tag and append to the body of the website
-rootSvg = d3.select("#js-tree-content").append("svg:svg")
-  .attr("width", w)
-  .attr("height", h);
+rootSvg = d3.select(treeContainerId).append("svg:svg")
+  .attr("width", treeWidth)
+  .attr("height", treeHeight);
 vis = rootSvg.append("svg:g")
   .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
@@ -34,7 +39,7 @@ jquery.ajax({
 // render
 function renderTree(tree) {
   root = tree;
-  root.x0 = w / 2;
+  root.x0 = treeWidth / 2;
 	root.y0 = 0;
   
   function toggleAll(d) {
@@ -70,10 +75,10 @@ function update(source) {
   nodesList = nodes;
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * link_height; });
+  nodes.forEach(function(d) { d.y = d.depth * linkHeight; });
 
 	// update the x position
-  calculateNodesPosition(w, nodes, root.x, root.y);
+  calculateNodesPosition(treeWidth, nodes, root.x, root.y);
   // var offsetLeft = 0;
   // var ratio;
   // if(nodes.length === 1){
@@ -236,7 +241,7 @@ function update(source) {
 		}
 	}
 	findMaxDepth(root);
-	var newHeight = (currentMaxDepth + 1) * link_height;
+	var newHeight = (currentMaxDepth + 1) * linkHeight;
 	d3.select("svg").attr("height", newHeight);
 	
   // Transition nodes to their new position.

@@ -1,7 +1,7 @@
 <? $this->pageTitle = Yii::app()->name . ' - Welcome' ?>
 <h1>Tree</h1>
 
-<div id="js-tree-content">
+<div id="js-tree-container">
 </div>
 
 <?php
