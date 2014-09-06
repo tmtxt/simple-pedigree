@@ -4,6 +4,7 @@ var d3 = require('d3');
 
 // other modules
 var GetData = require('./get_data.js');
+var Toggle = require('./toggle.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
@@ -39,30 +40,13 @@ function renderTree(tree) {
   root = tree;
   root.x0 = treeWidth / 2;
 	root.y0 = 0;
-  
-  function toggleAll(d) {
-    if (d.children) {
-      d.children.forEach(toggleAll);
-      toggle(d);
-    }
-  }
 
   // Initialize the display to show a few nodes.
   if(root.children)
-    root.children.forEach(toggleAll);
+    root.children.forEach(Toggle.toggleAll);
 
   // update the new position
   update(root);
-}
-
-function toggle(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
 }
 
 function update(source) {
@@ -104,7 +88,7 @@ function update(source) {
   nodeEnter.append("svg:circle")
     .attr("r", 1e-6)
     .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
-		.on("click", function(d) { toggle(d); update(d); });
+		.on("click", function(d) { Toggle.toggle(d); update(d); });
 
   // text for displaying name
   nodeEnter.append("svg:text")

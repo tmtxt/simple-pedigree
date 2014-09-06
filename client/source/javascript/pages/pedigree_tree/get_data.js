@@ -4,6 +4,7 @@
 var q = require('q');
 var jquery = require('jquery');
 
+// get tree data from server
 function getTreeData() {
   return q.Promise(function(resolve, reject, notify){
     // get the tree
