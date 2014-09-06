@@ -86,11 +86,8 @@ function update(source) {
   var nodeUpdate = NodeGroup.transitionNodeGroups(nodeGroups, duration);
 
   // update the node circle and text
-  nodeUpdate.select("circle")
-    .attr("r", 10)
-    .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
-  nodeUpdate.select("text")
-    .style("fill-opacity", 1);
+  NodeCircle.updateCircles(nodeUpdate);
+  NodeName.updateNames(nodeUpdate);
 
   // Transition exiting nodes to the parent's new position.
   var nodeExit = nodeGroups.exit().transition()

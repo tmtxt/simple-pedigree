@@ -9,3 +9,9 @@ function appendNames(nodeEnter) {
 		.on("click", function(d) {console.log(d);});
 }
 exports.appendNames = appendNames;
+
+function updateNames(nodeUpdate) {
+  nodeUpdate.select("text")
+    .style("fill-opacity", 1);
+}
+exports.updateNames = updateNames;
