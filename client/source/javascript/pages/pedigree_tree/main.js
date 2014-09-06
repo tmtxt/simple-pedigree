@@ -12,6 +12,7 @@ var NodeGroup = require('./node_group.js');
 var NodeCircle = require('./node_circle.js');
 var NodeName = require('./node_name.js');
 var NodePicture = require('./node_picture.js');
+var Config = require('./config.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
@@ -24,7 +25,7 @@ var i = 0;
 // size of tree diagram
 var treeWidth = jquery(treeContainerId).width();
 var treeHeight = 1000;
-var linkHeight = 200; // connection link height
+var linkHeight = Config.defaultLinkHeight; // connection link height
 
 // basic layout for the tree
 // create a tree layout using d3js
@@ -79,9 +80,7 @@ function update(source) {
   NodePicture.appendPictures(nodeEnter);
 
 	// compute the new tree height
-	var maxDepth = Util.findMaxDepth(root);
-	var newHeight = (maxDepth + 1) * linkHeight;
-	d3.select("svg").attr("height", newHeight);
+  Util.updateTreeDiagramHeight(root);
 	
   // Transition nodes to their new position.
   var nodeUpdate = nodeGroups.transition()
