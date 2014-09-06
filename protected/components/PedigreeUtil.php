@@ -44,6 +44,7 @@ class PedigreeUtil {
     $tree = array();
     $tree["name"] = $root->name;
     $tree["id"] = $root->id;
+    $tree["picture"] = $root->picture;
     $tree["children"] = array();
 
     foreach($query as $result) {
@@ -51,6 +52,7 @@ class PedigreeUtil {
       $person = array();
       $person["name"] = $result["name"];
       $person["id"] = $result["id"];
+      $person["picture"] = $result["picture"];
       $person["children"] = array();
       PedigreeUtil::appendChild($tree, $result["path"], $person);
     }

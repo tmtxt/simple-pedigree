@@ -12,10 +12,8 @@ var link_height = 200;           // height of the connection link
 
 // basic layout for the tree
 // create a tree layout using d3js
-tree = d3.layout.tree()
-  .size([w, h]);
-diagonal = d3.svg.diagonal()
-  .projection(function(d) { return [d.x, d.y]; });
+tree = d3.layout.tree().size([w, h]);
+diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 
 // create the svg tag and append to the body of the website
 rootSvg = d3.select("#js-tree-content").append("svg:svg")
@@ -36,6 +34,8 @@ jquery.ajax({
 // render
 function renderTree(tree) {
   root = tree;
+  root.x0 = w / 2;
+	root.y0 = 0;
   
   function toggleAll(d) {
     if (d.children) {
@@ -116,7 +116,7 @@ function update(source) {
   // append picture
   nodeEnter.append("svg:image")
     .attr("xlink:href", function(d){
-      return "/member_images/" + d.picture;
+      return d.picture;
       // var imageLink = "/member_images/" + d.picture;
       // // check if the image exist
       // $.ajax({
