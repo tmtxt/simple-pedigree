@@ -78,7 +78,7 @@ class Person extends CActiveRecord
 
   protected function getPicture() {
     if(!empty($this->picture)) {
-      return "/images/person/original/" . $this->picture;
+      return Yii::getPathOfAlias("personOriginalURL") . "/" . $this->picture;
     } else {
       $defaultPictures = $this->getDefaultPictures();
       if(array_key_exists($this->gender, $defaultPictures)) {
@@ -96,6 +96,10 @@ class Person extends CActiveRecord
     } else {
       return "/images/avatar/" . $defaultPictures[Person::GENDER_UNKNOWN];
     }
+  }
+
+  public static function getPictureUrl($picture) {
+    return Yii::getPathOfAlias("personOriginalURL") . "/" . $picture;
   }
 
   protected function getDateValue($date) {
