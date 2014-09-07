@@ -32,7 +32,7 @@ class Person extends CActiveRecord
   const ALIVE_STATUS_DEATH = 1;
   const ALIVE_STATUS_UNKNOWN = 2;
 
-  public static function getAliveStatuses() {
+  protected function getAliveStatuses() {
     return array(
       Person::ALIVE_STATUS_ALIVE => Yii::t('app', 'Alive'),
       Person::ALIVE_STATUS_DEATH => Yii::t('app', 'Death'),
@@ -40,9 +40,9 @@ class Person extends CActiveRecord
     );
   }
 
-  public static function getAliveStatus($status) {
-    $statuses = Person::getAliveStatuses();
-    return Util::get($statuses, $status, $statuses[Person::ALIVE_STATUS_UNKNOWN]);
+  protected function getAliveStatus() {
+    $statuses = $this->getAliveStatuses();
+    return Util::get($statuses, $this->alive_status, $statuses[Person::ALIVE_STATUS_UNKNOWN]);
   }
 
   const GENDER_UNKNOWN = 0;
@@ -51,7 +51,7 @@ class Person extends CActiveRecord
   const GENDER_GAY = 3;
   const GENDER_LESBIAN = 4;
 
-  public static function getGenders() {
+  protected function getGenders() {
     return array(
       Person::GENDER_UNKNOWN => Yii::t('app', 'Unknown'),
       Person::GENDER_MALE => Yii::t('app', 'Male'),
@@ -61,9 +61,15 @@ class Person extends CActiveRecord
     );
   }
 
-  public static function getGender($gender) {
-    $genders = Person::getGenders();
-    return Util::get($genders, $gender, $genders[Person::GENDER_UNKNOWN]);
+  protected function getGender() {
+
+    $genders = $this->getGenders();
+    Yii::log(print_r('OK', true), 'debug');
+    return Util::get($genders, $this->gender, $genders[Person::GENDER_UNKNOWN]);
+  }
+
+  public function getPicture() {
+
   }
 
   public function getInfoTranslated() {
@@ -71,9 +77,10 @@ class Person extends CActiveRecord
     return array(
       "id" => $this->id,
       "name" => empty($this->name) ? $unknownText : $this->name,
-      "aliveStatus" => Person::getAliveStatus($this->alive_status),
+      "aliveStatus" => $this->getAliveStatus(),
       "job" => empty($this->job) ? $unknownText : $this->job,
       "address" => empty($this->address) ? $unknownText : $this->address,
+      "gender" => $this->getGender()
     );
   }
 
