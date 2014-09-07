@@ -38,3 +38,33 @@ sql: |
   FROM marriage AS mr, person AS p1, person AS p2
   WHERE mr.wife_id = p1.id
   AND mr.husband_id = p2.id;
+
+---
+table: marriage_union
+from: txt_1
+to: txt_2
+sql: |
+  DROP VIEW marriage_union;
+
+  CREATE VIEW marriage_union AS
+  SELECT
+  mr.husband_id AS inside_person_id,
+  mr.wife_id AS outside_person_id,
+  p2.name AS outside_person_name,
+  p2.picture AS outside_person_picture,
+  p2.gender AS outside_person_gender
+  FROM marriage AS mr, person AS p1, person AS p2
+  WHERE mr.husband_id = p1.id
+  AND mr.wife_id = p2.id
+
+  UNION
+
+  SELECT
+  mr.wife_id AS inside_person_id,
+  mr.husband_id AS outside_person_id,
+  p2.name AS outside_person_name,
+  p2.picture AS outside_person_picture,
+  p2.gender AS outside_person_gender
+  FROM marriage AS mr, person AS p1, person AS p2
+  WHERE mr.wife_id = p1.id
+  AND mr.husband_id = p2.id;

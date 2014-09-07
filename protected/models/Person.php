@@ -143,7 +143,10 @@ class Person extends CActiveRecord
     foreach($marriagesHusband as $marriage) {
       array_push($marriages, array(
         "id" => $marriage->wife_id,
-        "name" => $marriage->wife->name
+        "name" => $marriage->wife->name,
+        "picture" => empty($marriage->wife->picture) ?
+                   Person::getPersonPicture($marriage->wife->gender) :
+                   Person::getPictureUrlSmall($marriage->wife->picture)
       ));
     }
 
@@ -151,7 +154,10 @@ class Person extends CActiveRecord
     foreach($marriagesWife as $marriage) {
       array_push($marriages, array(
         "id" => $marriage->husband_id,
-        "name" => $marriage->husband->name
+        "name" => $marriage->husband->name,
+        "picture" => empty($marriage->husband->picture) ?
+                   Person::getPersonPicture($marriage->husband->gender) :
+                   Person::getPictureUrlSmall($marriage->husband->picture)
       ));
     }
 

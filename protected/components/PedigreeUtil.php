@@ -65,12 +65,13 @@ class PedigreeUtil {
       $marriageIds = explode(",", $result["marriage_ids"]);
       $marriageNames = explode(",", $result["marriage_names"]);
       $marriagePictures = explode(",", $result["marriage_pictures"]);
+      $marriageGenders = explode(",", $result["marriage_genders"]);
       $marriages = array();
       for($i = 0; $i< count($marriageIds); $i++) {
         array_push($marriages, array(
           "id" => $marriageIds[$i],
           "name" => $marriageNames[$i],
-          "picture" => $marriagePictures[$i]
+          "picture" => empty($marriagePictures[$i]) ? Person::getPersonPicture($marriageGenders[$i]) : Person::getPictureUrlSmall($marriagePictures[$i])
         ));
       }
       $person["marriages"] = $marriages;
