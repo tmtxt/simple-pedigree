@@ -98,7 +98,10 @@ class Person extends CActiveRecord
       "job" => empty($this->job) ? $unknownText : $this->job,
       "address" => empty($this->address) ? $unknownText : $this->address,
       "gender" => $this->getGender(),
-      "picture" => $this->getPicture()
+      "picture" => $this->getPicture(),
+      "phoneNo" => empty($this->phone_no) ? $unknownText : $this->phone_no,
+      "history" => empty($this->history) ? $unknownText : $this->history,
+      "otherInformation" => empty($this->other_Information) ? $unknownText : $this->other_information
     );
   }
 
