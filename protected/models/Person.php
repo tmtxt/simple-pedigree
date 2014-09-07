@@ -62,14 +62,31 @@ class Person extends CActiveRecord
   }
 
   protected function getGender() {
-
     $genders = $this->getGenders();
-    Yii::log(print_r('OK', true), 'debug');
     return Util::get($genders, $this->gender, $genders[Person::GENDER_UNKNOWN]);
   }
 
-  public function getPicture() {
+  protected function getDefaultPictures() {
+    return array(
+      Person::GENDER_UNKNOWN => "unknown.png",
+      Person::GENDER_MALE => "male.png",
+      Person::GENDER_FEMALE => "female.png",
+      Person::GENDER_GAY => "gay.png",
+      Person::GENDER_LESBIAN => "lesbian.png"
+    );
+  }
 
+  protected function getPicture() {
+    if(!empty($this->picture)) {
+      return $this->picture;
+    } else {
+      $defaultPictures = $this->getDefaultPictures();
+      if(array_key_exists($this->gender, $defaultPictures)) {
+        return "/images/avatar/" . $defaultPictures[$this->gender];
+      } else {
+        return "/images/avatar/" . $defaultPictures[Person::GENDER_UNKNOWN];
+      }
+    }
   }
 
   public function getInfoTranslated() {
@@ -80,7 +97,8 @@ class Person extends CActiveRecord
       "aliveStatus" => $this->getAliveStatus(),
       "job" => empty($this->job) ? $unknownText : $this->job,
       "address" => empty($this->address) ? $unknownText : $this->address,
-      "gender" => $this->getGender()
+      "gender" => $this->getGender(),
+      "picture" => $this->getPicture()
     );
   }
 
