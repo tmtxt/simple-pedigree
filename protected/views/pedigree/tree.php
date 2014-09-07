@@ -16,6 +16,10 @@
 <div id="js-tree-container">
 </div>
 
+<div id="js-person-info-modal">
+
+</div>
+
 <?php
 $clientScript = Yii::app()->clientScript;
 $clientScript->registerCssFile('/client/dist/stylesheet/pages/pedigree_tree.css');
