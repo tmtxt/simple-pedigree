@@ -22,7 +22,7 @@ exports.appendPictures = appendPictures;
 function showInfoModal(personId) {
   GetData.getPersonInfo(personId).then(function(person){
     console.log(person);
-    React.renderComponent(PersonInfoModal(person),
+    React.renderComponent(PersonInfoModal({person: person}),
                           document.getElementById('js-person-info-modal'));
     jquery('.js-info-modal').modal();
   }, function(){

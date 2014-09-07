@@ -112,7 +112,7 @@ class Person extends CActiveRecord
       "picture" => $this->getPicture(),
       "phoneNo" => empty($this->phone_no) ? $unknownText : $this->phone_no,
       "history" => empty($this->history) ? $unknownText : $this->history,
-      "otherInformation" => empty($this->other_Information) ? $unknownText : $this->other_information,
+      "otherInformation" => empty($this->other_information) ? $unknownText : $this->other_information,
       "birthDate" => empty($this->birth_date) ? $unknownText : $this->getDateValue($this->birth_date),
       "deathDate" => empty($this->death_date) ? $unknownText : $this->getDateValue($this->death_date)
     );
