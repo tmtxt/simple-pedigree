@@ -2,6 +2,7 @@ var React = require('react');
 var jquery = require('jquery');
 
 var PersonInfoModal = require('views/person_info_modal.jsx');
+var GetData = require('./get_data.js');
 
 function appendPictures(nodeEnter) {
   nodeEnter.append("svg:image")
@@ -19,7 +20,12 @@ function appendPictures(nodeEnter) {
 exports.appendPictures = appendPictures;
 
 function showInfoModal(personId) {
-  React.renderComponent(PersonInfoModal({}),
-                       document.getElementById('js-person-info-modal'));
-  jquery('.js-info-modal').modal();
+  GetData.getPersonInfo(personId).then(function(person){
+    React.renderComponent(PersonInfoModal({}),
+                          document.getElementById('js-person-info-modal'));
+    jquery('.js-info-modal').modal();
+  }, function(){
+    console.log("error");
+  });
+  
 }

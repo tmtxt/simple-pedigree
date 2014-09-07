@@ -18,3 +18,25 @@ function getTreeData() {
   });
 }
 exports.getTreeData = getTreeData;
+
+function getPersonInfo(personId) {
+  return q.Promise(function(resolve, reject, notify){
+    jquery.ajax({
+      data: {
+        personId: personId
+      },
+      url: '/pedigree/getPersonInfo',
+      success: function(data) {
+        if(data.success) {
+          resolve(data.person);
+        } else {
+          reject();
+        }
+      },
+      error: function() {
+        reject();
+      }
+    });
+  });
+}
+exports.getPersonInfo = getPersonInfo;
