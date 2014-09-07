@@ -82,9 +82,9 @@ class Person extends CActiveRecord
     } else {
       $defaultPictures = $this->getDefaultPictures();
       if(array_key_exists($this->gender, $defaultPictures)) {
-        return "/images/avatar/" . $defaultPictures[$this->gender];
+        return Yii::getPathOfAlias("personDefaultURL") . "/" . $defaultPictures[$this->gender];
       } else {
-        return "/images/avatar/" . $defaultPictures[Person::GENDER_UNKNOWN];
+        return Yii::getPathOfAlias("personDefaultURL") . "/" . $defaultPictures[Person::GENDER_UNKNOWN];
       }
     }
   }
@@ -92,9 +92,9 @@ class Person extends CActiveRecord
   public static function getPersonPicture($gender) {
     $defaultPictures = Person::getDefaultPictures();
     if(array_key_exists($gender, $defaultPictures)) {
-      return "/images/avatar/" . $defaultPictures[$gender];
+      return Yii::getPathOfAlias("personDefaultURL") . "/" . $defaultPictures[$gender];
     } else {
-      return "/images/avatar/" . $defaultPictures[Person::GENDER_UNKNOWN];
+      return Yii::getPathOfAlias("personDefaultURL") . "/" . $defaultPictures[Person::GENDER_UNKNOWN];
     }
   }
 
