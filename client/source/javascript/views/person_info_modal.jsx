@@ -9,7 +9,9 @@ module.exports = React.createClass({
             <div className="modal-header">
               <button type="button" className="close" data-dismiss="modal">
                 <span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
-              <h4 className="modal-title">Modal title</h4>
+              <h4 className="modal-title">
+                {this.props.name}
+              </h4>
             </div>
             <div className="modal-body">
               <p>One fine body&hellip;</p>

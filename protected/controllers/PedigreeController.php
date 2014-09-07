@@ -33,7 +33,11 @@ class PedigreeController extends Controller
 
       Util::returnJSON(array(
         "success" => true,
-        "person" => $person
+        "person" => array(
+          "id" => $person->id,
+          "name" => $person->name,
+          "aliveStatus" => Person::getAliveStatus($person->alive_status)
+        )
       ));
     } catch (Exception $e) {
       Yii::log(print_r(__FUNCTION__ . " > " . $e->getMessage(), true), 'error');

@@ -28,6 +28,23 @@
  */
 class Person extends CActiveRecord
 {
+  const ALIVE_STATUS_ALIVE = 0;
+  const ALIVE_STATUS_DEATH = 1;
+  const ALIVE_STATUS_UNKNOWN = 2;
+
+  public static function getAliveStatuses() {
+    return array(
+      Person::ALIVE_STATUS_ALIVE => Yii::t('app', 'Alive'),
+      Person::ALIVE_STATUS_DEATH => Yii::t('app', 'Death'),
+      Person::ALIVE_STATUS_UNKNOWN => Yii::t('app', 'Unknown')
+    );
+  }
+
+  public static function getAliveStatus($status) {
+    $statuses = Person::getAliveStatuses();
+    return Util::get($statuses, $status, $statuses[Person::ALIVE_STATUS_UNKNOWN]);
+  }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -133,3 +150,4 @@ class Person extends CActiveRecord
 		));
 	}
 }
+?>
