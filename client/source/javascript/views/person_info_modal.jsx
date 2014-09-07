@@ -57,7 +57,12 @@ module.exports = React.createClass({
                 </div>
                 
                 <div className="col-md-6">
-                  <img className="img-responsive" src="/3.jpg" />
+                  <div className="panel panel-default">
+                    <div className="panel-body">
+                      <img className="img-responsive"
+                           src={this.props.person.picture} />
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -86,7 +91,7 @@ module.exports = React.createClass({
             </div>
             <div className="modal-footer">
               <a href={this.props.person.treeUrl}
-                className="btn btn-default">
+                 className="btn btn-default">
                 View tree from this person
               </a>
               <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>

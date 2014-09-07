@@ -78,7 +78,7 @@ class Person extends CActiveRecord
 
   protected function getPicture() {
     if(!empty($this->picture)) {
-      return $this->picture;
+      return "/images/person/original/" . $this->picture;
     } else {
       $defaultPictures = $this->getDefaultPictures();
       if(array_key_exists($this->gender, $defaultPictures)) {
