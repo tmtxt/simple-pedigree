@@ -45,6 +45,38 @@ class Person extends CActiveRecord
     return Util::get($statuses, $status, $statuses[Person::ALIVE_STATUS_UNKNOWN]);
   }
 
+  const GENDER_UNKNOWN = 0;
+  const GENDER_MALE = 1;
+  const GENDER_FEMALE = 2;
+  const GENDER_GAY = 3;
+  const GENDER_LESBIAN = 4;
+
+  public static function getGenders() {
+    return array(
+      Person::GENDER_UNKNOWN => Yii::t('app', 'Unknown'),
+      Person::GENDER_MALE => Yii::t('app', 'Male'),
+      Person::GENDER_FEMALE => Yii::t('app', 'Female'),
+      Person::GENDER_GAY => Yii::t('app', 'Gay'),
+      Person::GENDER_LESBIAN => Yii::t('app', 'Lesbian')
+    );
+  }
+
+  public static function getGender($gender) {
+    $genders = Person::getGenders();
+    return Util::get($genders, $gender, $genders[Person::GENDER_UNKNOWN]);
+  }
+
+  public function getInfoTranslated() {
+    $unknownText = Yii::t('app', 'Unknown');
+    return array(
+      "id" => $this->id,
+      "name" => empty($this->name) ? $unknownText : $this->name,
+      "aliveStatus" => Person::getAliveStatus($this->alive_status),
+      "job" => empty($this->job) ? $unknownText : $this->job,
+      "address" => empty($this->address) ? $unknownText : $this->address,
+    );
+  }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
