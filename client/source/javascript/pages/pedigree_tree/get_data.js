@@ -4,11 +4,17 @@
 var q = require('q');
 var jquery = require('jquery');
 
+//
+var rootId = window.rootId;
+
 // get tree data from server
 function getTreeData() {
   return q.Promise(function(resolve, reject, notify){
     // get the tree
     jquery.ajax({
+      data: {
+        root: rootId
+      },
       url: '/pedigree/getTree',
       success: function(data) {
         console.log(data);

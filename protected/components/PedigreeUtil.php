@@ -9,19 +9,26 @@ class PedigreeUtil {
   //
   public static function getPedigreeTree($rootId = null, $depth = null) {
     // check root id
+    $root = null;
     if($rootId == null) {
       $firstPedigree = PedigreeUtil::findFirstPedigree();
       if($firstPedigree == null) {
         return null;
       }
       $rootId = $firstPedigree->root_id;
+      $root = $firstPedigree->root;
+    } else {
+      $root = Person::model()->find("id = :id", array(":id" => $rootId));
+      if($root == null) {
+        return null;
+      }
     }
 
     // get the pedigree tree from this root
     $query =  PedigreeUtil::queryPedigreeTree($rootId, $depth);
 
     // construct the tree
-    $tree = PedigreeUtil::constructTreeIndexed($query, $firstPedigree->root);
+    $tree = PedigreeUtil::constructTreeIndexed($query, $root);
     return $tree;
   }
 

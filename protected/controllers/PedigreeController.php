@@ -8,11 +8,15 @@ class PedigreeController extends Controller
 	}
 
   public function actionTree() {
-    $this->render('tree');
+    $rootId = Util::get($_GET, "root");
+    $this->render('tree', array(
+      "rootId" => $rootId
+    ));
   }
 
   public function actionGetTree() {
-    $tree = PedigreeUtil::getPedigreeTree();
+    $rootId = Util::get($_GET, "root");
+    $tree = PedigreeUtil::getPedigreeTree($rootId);
     Util::returnJSON($tree);
   }
 

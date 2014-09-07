@@ -21,6 +21,7 @@ var treeContainerId = "#js-tree-container";
 var tree, diagonal;
 var rootSvg, rootGroup;
 var root;
+var rootId = window.root;
 
 // size of tree diagram
 var treeWidth = jquery(treeContainerId).width();
