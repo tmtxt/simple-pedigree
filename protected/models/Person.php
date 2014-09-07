@@ -66,7 +66,7 @@ class Person extends CActiveRecord
     return Util::get($genders, $this->gender, $genders[Person::GENDER_UNKNOWN]);
   }
 
-  protected function getDefaultPictures() {
+  public static function getDefaultPictures() {
     return array(
       Person::GENDER_UNKNOWN => "unknown.png",
       Person::GENDER_MALE => "male.png",
@@ -86,6 +86,15 @@ class Person extends CActiveRecord
       } else {
         return "/images/avatar/" . $defaultPictures[Person::GENDER_UNKNOWN];
       }
+    }
+  }
+
+  public static function getPersonPicture($gender) {
+    $defaultPictures = Person::getDefaultPictures();
+    if(array_key_exists($gender, $defaultPictures)) {
+      return "/images/avatar/" . $defaultPictures[$gender];
+    } else {
+      return "/images/avatar/" . $defaultPictures[Person::GENDER_UNKNOWN];
     }
   }
 
