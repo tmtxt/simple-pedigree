@@ -102,6 +102,10 @@ class Person extends CActiveRecord
     return Yii::getPathOfAlias("personOriginalURL") . "/" . $picture;
   }
 
+  public static function getPictureUrlSmall($picture) {
+    return Yii::getPathOfAlias("personSmallURL") . "/" . $picture;
+  }
+
   protected function getDateValue($date) {
     $result = "";
     $date = new DateTime($date);

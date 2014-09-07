@@ -12,6 +12,8 @@ $pre_config = CMap::mergeArray(
 //Yii::setPathOfAlias('uploadURL', '/images/uploads/');
 Yii::setPathOfAlias('personOriginalPath', realpath(dirname(__FILE__). '/../../images/person/original/'));
 Yii::setPathOfAlias('personOriginalURL', '/images/person/original/');
+Yii::setPathOfAlias('personSmallPath', realpath(dirname(__FILE__). '/../../images/person/small/'));
+Yii::setPathOfAlias('personSmallURL', '/images/person/small/');
 Yii::setPathOfAlias('personDefaultURL', '/images/person/default/');
 
 return CMap::mergeArray(array(
