@@ -85,6 +85,10 @@ module.exports = React.createClass({
 
             </div>
             <div className="modal-footer">
+              <a href={this.props.person.treeUrl}
+                className="btn btn-default">
+                View tree from this person
+              </a>
               <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
