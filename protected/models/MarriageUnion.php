@@ -112,3 +112,4 @@ class MarriageUnion extends CActiveRecord
 		));
 	}
 }
+?>

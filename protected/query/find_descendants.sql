@@ -5,6 +5,9 @@ WITH RECURSIVE nodes(
      child_name,
      child_picture,
      child_gender,
+     child_marriage_ids,
+     child_marriage_names,
+     child_marriage_pictures,
      path) AS (
 	SELECT
 		r."inside_parent_id",
@@ -13,6 +16,9 @@ WITH RECURSIVE nodes(
     p.name,
     p.picture,
     p.gender,
+    ARRAY(SELECT outside_person_id FROM marriage_union WHERE inside_person_id = r.child_id ORDER BY inside_person_id, outside_person_id),
+    ARRAY(SELECT outside_person_name FROM marriage_union WHERE inside_person_id = r.child_id ORDER BY inside_person_id, outside_person_id),
+    ARRAY(SELECT outside_person_picture FROM marriage_union WHERE inside_person_id = r.child_id ORDER BY inside_person_id, outside_person_id),
 		ARRAY[r."inside_parent_id"]
 	FROM "hierarchy_union" AS r, person AS p
 	WHERE r."inside_parent_id" = :root_id
@@ -27,6 +33,9 @@ WITH RECURSIVE nodes(
     p.name,
     p.picture,
     p.gender,
+    ARRAY(SELECT outside_person_id FROM marriage_union WHERE inside_person_id = r.child_id ORDER BY inside_person_id, outside_person_id),
+    ARRAY(SELECT outside_person_name FROM marriage_union WHERE inside_person_id = r.child_id ORDER BY inside_person_id, outside_person_id),
+    ARRAY(SELECT outside_person_picture FROM marriage_union WHERE inside_person_id = r.child_id ORDER BY inside_person_id, outside_person_id),
 		path || r."inside_parent_id"
 	FROM "hierarchy_union" AS r, nodes AS nd, person AS p
 	WHERE r."inside_parent_id" = nd.child_id
@@ -38,6 +47,9 @@ SELECT
         child_name as name,
         child_picture as picture,
         child_gender AS gender,
+        array_to_string(child_marriage_ids, ',') AS marriage_ids,
+        array_to_string(child_marriage_names, ',') AS marriage_names,
+        array_to_string(child_marriage_pictures, ',') AS marriage_pictures,
         inside_parent_id,
         outside_parent_id,
         array_to_string(path, ',') AS "path"

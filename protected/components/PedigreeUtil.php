@@ -52,6 +52,7 @@ class PedigreeUtil {
     $tree["name"] = $root->name;
     $tree["id"] = $root->id;
     $tree["picture"] = empty($root->picture) ? Person::getPersonPicture($root->gender) : Person::getPictureUrlSmall($root->picture);
+    $tree["marriage"] = $root->getMarriages();
     $tree["children"] = array();
 
     foreach($query as $result) {
@@ -60,6 +61,19 @@ class PedigreeUtil {
       $person["name"] = $result["name"];
       $person["id"] = $result["id"];
       $person["picture"] = empty($result["picture"]) ? Person::getPersonPicture($result["gender"]) : Person::getPictureUrlSmall($result["picture"]);
+      // person marriages
+      $marriageIds = explode(",", $result["marriage_ids"]);
+      $marriageNames = explode(",", $result["marriage_names"]);
+      $marriagePictures = explode(",", $result["marriage_pictures"]);
+      $marriages = array();
+      for($i = 0; $i< count($marriageIds); $i++) {
+        array_push($marriages, array(
+          "id" => $marriageIds[$i],
+          "name" => $marriageNames[$i],
+          "picture" => $marriagePictures[$i]
+        ));
+      }
+      $person["marriages"] = $marriages;
       $person["children"] = array();
       PedigreeUtil::appendChild($tree, $result["path"], $person);
     }

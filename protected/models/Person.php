@@ -136,6 +136,28 @@ class Person extends CActiveRecord
     );
   }
 
+  public function getMarriages() {
+    $marriages = array();
+
+    $marriagesHusband = $this->marriagesHusband;
+    foreach($marriagesHusband as $marriage) {
+      array_push($marriages, array(
+        "id" => $marriage->wife_id,
+        "name" => $marriage->wife->name
+      ));
+    }
+
+    $marriagesWife = $this->marriagesWife;
+    foreach($marriagesWife as $marriage) {
+      array_push($marriages, array(
+        "id" => $marriage->husband_id,
+        "name" => $marriage->husband->name
+      ));
+    }
+
+    return $marriages;
+  }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -180,8 +202,8 @@ class Person extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'marriages' => array(self::HAS_MANY, 'Marriage', 'husband_id'),
-			'marriages1' => array(self::HAS_MANY, 'Marriage', 'wife_id'),
+			'marriagesHusband' => array(self::HAS_MANY, 'Marriage', 'husband_id'),
+			'marriagesWife' => array(self::HAS_MANY, 'Marriage', 'wife_id'),
 			'pedigrees' => array(self::HAS_MANY, 'Pedigree', 'root_id'),
 			'hierarchies' => array(self::HAS_MANY, 'Hierarchy', 'father_id'),
 			'hierarchies1' => array(self::HAS_MANY, 'Hierarchy', 'mother_id'),
