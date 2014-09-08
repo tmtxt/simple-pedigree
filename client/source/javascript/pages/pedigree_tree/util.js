@@ -1,6 +1,10 @@
 var d3 = require('d3');
+var React = require('react');
+var jquery = require('jquery');
 
 var Config = require('./config.js');
+var PersonInfoModal = require('views/person_info_modal.jsx');
+var GetData = require('./get_data.js');
 
 var linkHeight = Config.defaultLinkHeight;
 
@@ -33,3 +37,16 @@ function getTransitionDuration() {
   return d3.event && d3.event.altKey ? 5000 : 500;
 }
 exports.getTransitionDuration = getTransitionDuration;
+
+function showInfoModal(personId) {
+  GetData.getPersonInfo(personId).then(function(person){
+    console.log(person);
+    React.renderComponent(PersonInfoModal({person: person}),
+                          document.getElementById('js-person-info-modal'));
+    jquery('.js-info-modal').modal();
+  }, function(){
+    console.log("error");
+  });
+  
+}
+exports.showInfoModal = showInfoModal;

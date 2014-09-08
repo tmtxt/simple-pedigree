@@ -33,6 +33,7 @@ function enableMarriage() {
         .attr("y", -68)
         .attr("height", "40px")
         .attr("width", "40px")
+      
         .transition()
         .duration(duration)
         .attr('transform', 'translate (' + ((45 * order) + 22) + ',0)');
