@@ -1,9 +1,16 @@
 exports.nodesList = null;
 
-function reAlign(zoomListener, center) {
+function reAlign(zoomListener, center, rootGroup) {
   var nodesList = exports.nodesList;
-  var node = findNodeNearestToCenter(nodesList, zoomListener, center);
-  console.log(node);
+  var nearestNode = findNodeNearestToCenter(nodesList, zoomListener, center);
+
+  var translateX, translateY;
+  translateX = (center.x - nearestNode.x);
+  translateY = (center.y + 80 - nearestNode.y);
+
+  rootGroup.transition().duration(500)
+    .attr("transform", "translate(" + translateX + "," + translateY + ")");
+  zoomListener.translate([translateX, translateY]);
 }
 exports.reAlign = reAlign;
 

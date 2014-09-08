@@ -35,7 +35,7 @@ function enableZoom(rootSvg, rootGroup, zoomListener) {
       zoomHandler(rootGroup);
     })
     .on("zoomend", function(){
-      Align.reAlign(zoomListener, {x: rootSvg.attr("width") / 2, y: 0});
+      Align.reAlign(zoomListener, {x: rootSvg.attr("width") / 2, y: 0}, rootGroup);
     });
   zoomListener(rootSvg);
 }
