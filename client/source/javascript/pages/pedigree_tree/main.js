@@ -96,7 +96,7 @@ function update(source) {
   NodeCircle.appendCircles(nodeEnter, update);
   NodeName.appendNames(nodeEnter);
   NodePicture.appendPictures(nodeEnter);
-  // NodeMarriage.appendMarriage(nodeEnter, enableMarriage);
+  NodeMarriage.appendMarriage(nodeEnter);
 	// compute the new tree height
   Util.updateTreeDiagramHeight(root);
 
