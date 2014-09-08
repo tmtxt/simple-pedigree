@@ -52,7 +52,7 @@ class PedigreeUtil {
     $tree["name"] = $root->name;
     $tree["id"] = $root->id;
     $tree["picture"] = empty($root->picture) ? Person::getPersonPicture($root->gender) : Person::getPictureUrlSmall($root->picture);
-    $tree["marriage"] = $root->getMarriages();
+    $tree["marriages"] = $root->getMarriages();
     $tree["children"] = array();
 
     foreach($query as $result) {

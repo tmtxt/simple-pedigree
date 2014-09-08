@@ -14,6 +14,7 @@ var NodeName = require('./node_name.js');
 var NodePicture = require('./node_picture.js');
 var Config = require('./config.js');
 var Zoom = require('./zoom.js');
+var NodeMarriage = require('./node_marriage.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
@@ -22,6 +23,7 @@ var tree, diagonal;
 var rootSvg, rootGroup;
 var root;
 var rootId = window.root;
+var enableMarriage = false;
 
 // size of tree diagram
 var treeWidth = jquery(treeContainerId).width();
@@ -43,6 +45,9 @@ rootGroup = rootSvg.append("svg:g")
 // zoom handler
 Zoom.init(rootSvg, rootGroup);
 
+// marriage info
+NodeMarriage.init();
+
 // get the data from server and start rendering
 GetData.getTreeData().then(function(data){
   renderTree(data);
@@ -53,6 +58,16 @@ function renderTree(tree) {
   root = tree;
   root.x0 = treeWidth / 2;
 	root.y0 = 0;
+
+  // marriage info
+  jquery('.js-enable-marriage').change(function(){
+    if(jquery(this).is(':checked')) {
+      enableMarriage = true;
+    } else {
+      enableMarriage = false;
+    }
+    update(root);
+  });
 
   // Initialize the display to show a few nodes.
   if(root.children)
@@ -81,6 +96,7 @@ function update(source) {
   NodeCircle.appendCircles(nodeEnter, update);
   NodeName.appendNames(nodeEnter);
   NodePicture.appendPictures(nodeEnter);
+  // NodeMarriage.appendMarriage(nodeEnter, enableMarriage);
 	// compute the new tree height
   Util.updateTreeDiagramHeight(root);
 

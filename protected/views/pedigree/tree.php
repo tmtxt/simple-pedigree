@@ -11,6 +11,10 @@
       Reset Zoom
     </button>
   </label>
+
+  <label>
+    <input class="js-enable-marriage" type="checkbox">Enable Marriage
+  </label>
 </div>
 
 <div id="js-tree-container">
