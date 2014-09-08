@@ -15,6 +15,7 @@ var NodePicture = require('./node_picture.js');
 var Config = require('./config.js');
 var Zoom = require('./zoom.js');
 var NodeMarriage = require('./node_marriage.js');
+var Align = require('./align.js');
 
 // the container id of the tree
 var treeContainerId = "#js-tree-container";
@@ -24,6 +25,7 @@ var rootSvg, rootGroup;
 var root;
 var rootId = window.root;
 var enableMarriage = false;
+var nodesList;
 
 // size of tree diagram
 var treeWidth = jquery(treeContainerId).width();
@@ -81,6 +83,7 @@ function renderTree(tree) {
 function update(source) {
   var duration = Util.getTransitionDuration();
   var nodes = tree.nodes(root).reverse(); // compute new tree layout
+  Align.nodesList = nodes;
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * linkHeight; });

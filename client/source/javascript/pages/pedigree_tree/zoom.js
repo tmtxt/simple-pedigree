@@ -1,6 +1,8 @@
 var d3 = require('d3');
 var jquery = require('jquery');
 
+var Align = require('./align.js');
+
 function init(rootSvg, rootGroup) {
   // create the zoom listener
   var zoomListener = d3.behavior.zoom()
@@ -28,9 +30,13 @@ function initEnableCheckbox(rootSvg, rootGroup, zoomListener) {
 }
 
 function enableZoom(rootSvg, rootGroup, zoomListener) {
-  zoomListener.on("zoom", function(){
-    zoomHandler(rootGroup);
-  });
+  zoomListener
+    .on("zoom", function(){
+      zoomHandler(rootGroup);
+    })
+    .on("zoomend", function(){
+      Align.reAlign(zoomListener, {x: rootSvg.attr("width") / 2, y: 0});
+    });
   zoomListener(rootSvg);
 }
 exports.enableZoom = enableZoom;

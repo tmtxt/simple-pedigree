@@ -50,3 +50,4 @@ function showInfoModal(personId) {
   
 }
 exports.showInfoModal = showInfoModal;
+
