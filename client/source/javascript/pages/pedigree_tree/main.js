@@ -83,7 +83,6 @@ function renderTree(tree) {
 function update(source) {
   var duration = Util.getTransitionDuration();
   var nodes = tree.nodes(root).reverse(); // compute new tree layout
-  Align.nodesList = nodes;
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * linkHeight; });
