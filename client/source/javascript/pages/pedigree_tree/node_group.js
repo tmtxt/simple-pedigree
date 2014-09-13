@@ -1,13 +1,16 @@
 // just to create a unique id
 var i = 0;
 
-function selectNodeGroups(rootGroup, nodes) {
-  var nodeGroups = rootGroup.selectAll("g.node")
-    .data(nodes, function(d) { return d.id || (d.id = ++i); });
+function selectNodeGroups(page) {
+  // select all the group <g.node> inside rootGroup and bind the data to all
+  // those groups
+  var nodeGroups = page.rootGroup.selectAll("g.node")
+    .data(page.nodesList, function(d) { return d.id || (d.id = ++i); });
   return nodeGroups;
 }
 exports.selectNodeGroups = selectNodeGroups;
 
+// append the new node group for the data bound if that node not exist
 function appendNodeGroups(nodeGroups, source) {
   var nodeEnter = nodeGroups.enter().append("svg:g")
     .attr("class", "node")

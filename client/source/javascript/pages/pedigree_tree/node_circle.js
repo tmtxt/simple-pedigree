@@ -1,8 +1,13 @@
 var Toggle = require('./toggle.js');
+var Render = require('./render');
 
-function appendCircles(nodeEnter, update) {
+// append the circle to the node
+function appendCircles(page, nodeEnter) {
   nodeEnter.append("svg:circle")
-		.on("click", function(d) { Toggle.toggle(d); update(d); });
+		.on("click", function(d) {
+      Toggle.toggle(d); // toggle the node
+      Render.update(page, d); // render the children
+    });
 }
 exports.appendCircles = appendCircles;
 

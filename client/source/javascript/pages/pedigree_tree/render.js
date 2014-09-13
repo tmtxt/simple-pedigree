@@ -44,12 +44,15 @@ function update(page, source) {
   Position.calculateNodesY(page);
   Position.offsetNodesPosition(page);
 
+  // select the groups of node, each group represent a person, bind the data
+  // from page.root to those groups
+  var nodeGroups = NodeGroup.selectNodeGroups(page);
+
   // ENTER
-  // create the node group
-  var nodeGroups = NodeGroup.selectNodeGroups(page.rootGroup, page.nodesList);
+  // create new node group if not exist
   var nodeEnter = NodeGroup.appendNodeGroups(nodeGroups, source);
   // create the elements inside that node group
-  NodeCircle.appendCircles(nodeEnter, update);
+  NodeCircle.appendCircles(page, nodeEnter);
   NodeName.appendNames(nodeEnter);
   NodePicture.appendPictures(nodeEnter);
   NodeMarriage.appendMarriage(nodeEnter);
