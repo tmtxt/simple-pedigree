@@ -1,6 +1,5 @@
 var jquery = require('jquery');
 
-var Init = require('./init.js');
 var GetData = require('./get_data.js');
 var Toggle = require('./toggle.js');
 var Position = require('./position.js');
@@ -27,7 +26,7 @@ function render(page) {
     } else {
       page.enableMarriage = false;
     }
-    update(root);
+    update(page, root);
   });
 
   // Initialize the display to show a few nodes.
@@ -41,17 +40,13 @@ exports.render = render;
 
 function update(page, source) {
   var duration = Util.getTransitionDuration();
-  var nodes = page.treeLayout.nodes(page.root).reverse(); // compute new tree layout
-
-  // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * page.linkHeight; });
-
-	// move all the node down a bit, otherwise they will be at the border
-  Position.offsetNodesPosition(nodes);
+  Position.calculateNodesList(page);
+  Position.calculateNodesY(page);
+  Position.offsetNodesPosition(page);
 
   // ENTER
   // create the node group
-  var nodeGroups = NodeGroup.selectNodeGroups(page.rootGroup, nodes);
+  var nodeGroups = NodeGroup.selectNodeGroups(page.rootGroup, page.nodesList);
   var nodeEnter = NodeGroup.appendNodeGroups(nodeGroups, source);
   // create the elements inside that node group
   NodeCircle.appendCircles(nodeEnter, update);
@@ -73,14 +68,15 @@ function update(page, source) {
   var nodeExit = NodeGroup.removeUnusedNodeGroups(nodeGroups, duration, source);
 
   // Update the links
-  var links = Link.selectLinks(page.rootGroup, page.treeLayout, nodes);
+  var links = Link.selectLinks(page.rootGroup, page.treeLayout, page.nodesList);
   Link.createLinks(links, source, page.diagonal, duration);
   Link.transitionLinks(links, source, page.diagonal, duration);
   Link.removeUnusedLinks(links, source, page.diagonal, duration);
 
   // Stash the old positions for transition.
-  nodes.forEach(function(d) {
+  page.nodesList.forEach(function(d) {
     d.x0 = d.x;
     d.y0 = d.y;
   });
 }
+exports.update = update;
