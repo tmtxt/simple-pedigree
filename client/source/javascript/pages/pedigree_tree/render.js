@@ -1,8 +1,5 @@
-// libraries
 var jquery = require('jquery');
-var d3 = require('d3');
 
-// other modules
 var Init = require('./init.js');
 var GetData = require('./get_data.js');
 var Toggle = require('./toggle.js');
@@ -17,64 +14,18 @@ var Config = require('./config.js');
 var Zoom = require('./zoom.js');
 var NodeMarriage = require('./node_marriage.js');
 var Align = require('./align.js');
-var Render = require('./render.js');
 
-// Global Page object
-var page = {
-  // Configuration
-  treeContainerId: null,
-  defaultLinkHeight: null,
-  enableMarriage: null,
-
-  // Size
-  treeWidth: null,
-  treeHeight: null,
-  linkHeight: null,
-
-  // Layout
-  treeLayout: null,
-  diagonal: null,
-
-  // SVG elements
-  rootSvg: null,
-  rootGroup: null,
-
-  // Data
-  root: null                    // The tree data
-};
-Init.init(page);
-
-var root;
-var rootId = window.root;
-var enableMarriage = false;
-var nodesList;
-
-// zoom handler
-Zoom.init(page.rootSvg, page.rootGroup);
-
-// marriage info
-NodeMarriage.init();
-
-// Start the application
-// get the data from server and start rendering
-GetData.getTreeData().then(function(data){
-  // assign data to the page object
-  page.root = data;
-  Render.render(page);
-});
-
-// render
-function renderTree(tree) {
-  root = tree;
+function render(page) {
+  var root = page.root;
   root.x0 = page.treeWidth / 2;
 	root.y0 = 0;
 
   // marriage info
   jquery('.js-enable-marriage').change(function(){
     if(jquery(this).is(':checked')) {
-      enableMarriage = true;
+      page.enableMarriage = true;
     } else {
-      enableMarriage = false;
+      page.enableMarriage = false;
     }
     update(root);
   });
@@ -84,13 +35,13 @@ function renderTree(tree) {
     root.children.forEach(Toggle.toggleAll);
 
   // update the new position
-  update(root);
+  update(page, root);
 }
+exports.render = render;
 
-// 
-function update(source) {
+function update(page, source) {
   var duration = Util.getTransitionDuration();
-  var nodes = page.treeLayout.nodes(root).reverse(); // compute new tree layout
+  var nodes = page.treeLayout.nodes(page.root).reverse(); // compute new tree layout
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * page.linkHeight; });
@@ -108,7 +59,7 @@ function update(source) {
   NodePicture.appendPictures(nodeEnter);
   NodeMarriage.appendMarriage(nodeEnter);
 	// compute the new tree height
-  Util.updateTreeDiagramHeight(root);
+  Util.updateTreeDiagramHeight(page.root);
 
 	// UPDATE
   // Transition nodes to their new position.
