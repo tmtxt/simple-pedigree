@@ -1,4 +1,4 @@
-function appendNames(nodeEnter) {
+function appendNames(page, nodeEnter) {
   nodeEnter.append("svg:text");
 }
 exports.appendNames = appendNames;

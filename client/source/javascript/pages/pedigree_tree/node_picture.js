@@ -1,6 +1,6 @@
 var Util = require('./util.js');
 
-function appendPictures(nodeEnter) {
+function appendPictures(page, nodeEnter) {
   nodeEnter.append("svg:image")
     .attr("xlink:href", function(d){
       return d.picture;

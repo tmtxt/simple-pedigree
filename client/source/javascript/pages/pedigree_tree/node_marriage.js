@@ -61,7 +61,8 @@ function disableMarriage() {
     .remove();
 }
 
-function appendMarriage(nodeEnter) {
+// append marriage info to the current node
+function appendMarriage(page, nodeEnter) {
   // whether marriage info is enable or not?
   if(Config.enableMarriage) {
     // get the new nodes (an array contains all the node, null for element

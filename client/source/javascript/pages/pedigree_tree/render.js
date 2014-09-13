@@ -53,14 +53,14 @@ function update(page, source) {
   var nodeEnter = NodeGroup.appendNodeGroups(nodeGroups, source);
   // create the elements inside that node group
   NodeCircle.appendCircles(page, nodeEnter);
-  NodeName.appendNames(nodeEnter);
-  NodePicture.appendPictures(nodeEnter);
-  NodeMarriage.appendMarriage(nodeEnter);
+  NodeName.appendNames(page, nodeEnter);
+  NodePicture.appendPictures(page, nodeEnter);
+  NodeMarriage.appendMarriage(page, nodeEnter);
 	// compute the new tree height
   Util.updateTreeDiagramHeight(page.root);
 
 	// UPDATE
-  // Transition nodes to their new position.
+  // Update the data and transition nodes to their new position.
   var nodeUpdate = NodeGroup.transitionNodeGroups(nodeGroups, duration);
   // update the node circle and text
   NodeCircle.updateCircles(nodeUpdate);
