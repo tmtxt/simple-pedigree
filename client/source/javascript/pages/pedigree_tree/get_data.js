@@ -4,7 +4,7 @@
 var q = require('q');
 var jquery = require('jquery');
 
-//
+// current root id
 var rootId = window.rootId;
 
 // get tree data from server
