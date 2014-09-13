@@ -29,20 +29,15 @@ var rootId = window.root;
 var enableMarriage = false;
 var nodesList;
 
-// size of tree diagram
-var treeWidth = jquery(page.treeContainerId).width();
-var treeHeight = 1000;
-var linkHeight = Config.defaultLinkHeight; // connection link height
-
 // basic layout for the tree
 // create a tree layout using d3js
-tree = d3.layout.tree().size([treeWidth, treeHeight]);
+tree = d3.layout.tree().size([page.treeWidth, page.treeHeight]);
 diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 
 // create the svg tag and append to the body of the website
 rootSvg = d3.select(page.treeContainerId).append("svg:svg")
-  .attr("width", treeWidth)
-  .attr("height", treeHeight);
+  .attr("width", page.treeWidth)
+  .attr("height", page.treeHeight);
 rootGroup = rootSvg.append("svg:g")
   .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
@@ -60,7 +55,7 @@ GetData.getTreeData().then(function(data){
 // render
 function renderTree(tree) {
   root = tree;
-  root.x0 = treeWidth / 2;
+  root.x0 = page.treeWidth / 2;
 	root.y0 = 0;
 
   // marriage info
@@ -87,7 +82,7 @@ function update(source) {
   var nodes = tree.nodes(root).reverse(); // compute new tree layout
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * linkHeight; });
+  nodes.forEach(function(d) { d.y = d.depth * page.linkHeight; });
 
 	// move all the node down a bit, otherwise they will be at the border
   Position.offsetNodesPosition(nodes);

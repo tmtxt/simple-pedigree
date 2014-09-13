@@ -3,6 +3,7 @@ var d3 = require('d3');
 
 function init(page) {
   initConfig(page);
+  initSize(page);
 }
 exports.init = init;
 
@@ -18,8 +19,11 @@ function initConfig(page) {
   page.enableMarriage = false;
 }
 
+// init size of the tree layout and its components
 function initSize(page) {
-  
+  page.treeWidth = jquery(page.treeContainerId).width();
+  page.treeHeight = 1000;
+  page.linkHeight = page.defaultLinkHeight;
 }
 
 function initLayout(page) {
