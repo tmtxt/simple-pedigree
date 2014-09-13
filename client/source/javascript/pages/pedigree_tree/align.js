@@ -2,14 +2,14 @@ var d3 = require('d3');
 
 var Position = require('./position.js');
 
-function reAlign(zoomListener, center, rootGroup) {
+function reAlign(page, zoomListener, center) {
   var nearestNode = findNodeNearestToCenter(zoomListener, center);
 
   var translateX, translateY;
   translateX = (center.x - nearestNode.__data__.x);
   translateY = (center.y + 80 - nearestNode.__data__.y);
 
-  rootGroup.transition().duration(500)
+  page.rootGroup.transition().duration(500)
     .attr("transform", "translate(" + translateX + "," + translateY + ")");
   zoomListener.translate([translateX, translateY]);
   zoomListener.scale(1);

@@ -35,7 +35,8 @@ function enableZoom(page, zoomListener) {
       zoomHandler(page);
     })
     .on("zoomend", function(){
-      Align.reAlign(zoomListener, {x: page.rootSvg.attr("width") / 2, y: 0}, page.rootGroup);
+      var center = {x: page.rootSvg.attr("width") / 2, y: 0};
+      Align.reAlign(page, zoomListener, center);
     });
   zoomListener
   (page.rootSvg);

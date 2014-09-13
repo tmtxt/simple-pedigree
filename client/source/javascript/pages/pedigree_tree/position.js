@@ -23,6 +23,6 @@ function offsetNodesPosition(page){
 exports.offsetNodesPosition = offsetNodesPosition;
 
 function calculatePosition(nearestNode) {
-  console.log(nearestNode);
+  
 }
 exports.calculatePosition = calculatePosition;
