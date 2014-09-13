@@ -3,6 +3,7 @@ var jquery = require('jquery');
 var d3 = require('d3');
 
 // other modules
+var Init = require('./init.js');
 var GetData = require('./get_data.js');
 var Toggle = require('./toggle.js');
 var Position = require('./position.js');
@@ -17,8 +18,9 @@ var Zoom = require('./zoom.js');
 var NodeMarriage = require('./node_marriage.js');
 var Align = require('./align.js');
 
-// the container id of the tree
-var treeContainerId = "#js-tree-container";
+// the Page object
+var page = {};
+Init.init(page);
 
 var tree, diagonal;
 var rootSvg, rootGroup;
@@ -28,7 +30,7 @@ var enableMarriage = false;
 var nodesList;
 
 // size of tree diagram
-var treeWidth = jquery(treeContainerId).width();
+var treeWidth = jquery(page.treeContainerId).width();
 var treeHeight = 1000;
 var linkHeight = Config.defaultLinkHeight; // connection link height
 
@@ -38,7 +40,7 @@ tree = d3.layout.tree().size([treeWidth, treeHeight]);
 diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 
 // create the svg tag and append to the body of the website
-rootSvg = d3.select(treeContainerId).append("svg:svg")
+rootSvg = d3.select(page.treeContainerId).append("svg:svg")
   .attr("width", treeWidth)
   .attr("height", treeHeight);
 rootGroup = rootSvg.append("svg:g")
