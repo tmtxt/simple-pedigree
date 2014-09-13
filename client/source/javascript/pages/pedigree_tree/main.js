@@ -32,7 +32,7 @@ var page = {
 // Init
 Init.init(page);
 Zoom.init(page);
-NodeMarriage.init();
+NodeMarriage.init(page);
 
 // Start the application
 // get the data from server and start rendering

@@ -1,24 +1,29 @@
+// Libraries
 var jquery = require('jquery');
 var d3 = require('d3');
 var underscore = require('underscore');
 
+// Modules
 var Util = require('./util.js');
-var Config = require('./config.js');
 
-function init() {
-  jquery('.js-enable-marriage').change(function(){
-    if(jquery(this).is(':checked')) {
-      enableMarriage();
+// Other variables
+var checkboxEnableMarriage = jquery('.js-enable-marriage');
+
+// Initialize
+function init(page) {
+  checkboxEnableMarriage.change(function(){
+    if(checkboxEnableMarriage.is(':checked')) {
+      enableMarriage(page);
     } else {
-      disableMarriage();
+      disableMarriage(page);
     }
   });
 }
 exports.init = init;
 
-function enableMarriage() {
+function enableMarriage(page) {
   var duration = Util.getTransitionDuration();
-  Config.enableMarriage = true;
+  page.enableMarriage = true;
   
   // get all visible nodes
   var nodes = d3.selectAll('g.node')[0];
@@ -49,9 +54,9 @@ function enableMarriage() {
   });
 }
 
-function disableMarriage() {
+function disableMarriage(page) {
   var duration = Util.getTransitionDuration();
-  Config.enableMarriage = false;
+  page.enableMarriage = false;
 
   // remove all marriage images
   d3.selectAll('image.marriage-image')
@@ -64,7 +69,7 @@ function disableMarriage() {
 // append marriage info to the current node
 function appendMarriage(page, nodeEnter) {
   // whether marriage info is enable or not?
-  if(Config.enableMarriage) {
+  if(page.enableMarriage) {
     // get the new nodes (an array contains all the node, null for element
     // already exist)
     underscore.each(nodeEnter[0], function(node) {
