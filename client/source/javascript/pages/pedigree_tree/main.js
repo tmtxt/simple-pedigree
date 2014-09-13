@@ -22,21 +22,13 @@ var Align = require('./align.js');
 var page = {};
 Init.init(page);
 
-var rootSvg, rootGroup;
 var root;
 var rootId = window.root;
 var enableMarriage = false;
 var nodesList;
 
-// create the svg tag and append to the body of the website
-rootSvg = d3.select(page.treeContainerId).append("svg:svg")
-  .attr("width", page.treeWidth)
-  .attr("height", page.treeHeight);
-rootGroup = rootSvg.append("svg:g")
-  .attr("transform", "translate(" + 0 + "," + 0 + ")");
-
 // zoom handler
-Zoom.init(rootSvg, rootGroup);
+Zoom.init(page.rootSvg, page.rootGroup);
 
 // marriage info
 NodeMarriage.init();
@@ -83,7 +75,7 @@ function update(source) {
 
   // ENTER
   // create the node group
-  var nodeGroups = NodeGroup.selectNodeGroups(rootGroup, nodes);
+  var nodeGroups = NodeGroup.selectNodeGroups(page.rootGroup, nodes);
   var nodeEnter = NodeGroup.appendNodeGroups(nodeGroups, source);
   // create the elements inside that node group
   NodeCircle.appendCircles(nodeEnter, update);
@@ -105,7 +97,7 @@ function update(source) {
   var nodeExit = NodeGroup.removeUnusedNodeGroups(nodeGroups, duration, source);
 
   // Update the links
-  var links = Link.selectLinks(rootGroup, page.treeLayout, nodes);
+  var links = Link.selectLinks(page.rootGroup, page.treeLayout, nodes);
   Link.createLinks(links, source, page.diagonal, duration);
   Link.transitionLinks(links, source, page.diagonal, duration);
   Link.removeUnusedLinks(links, source, page.diagonal, duration);

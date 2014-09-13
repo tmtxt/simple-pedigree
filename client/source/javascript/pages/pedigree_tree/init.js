@@ -5,6 +5,7 @@ function init(page) {
   initConfig(page);
   initSize(page);
   initLayout(page);
+  initSvg(page);
 }
 exports.init = init;
 
@@ -33,4 +34,16 @@ function initLayout(page) {
   // create a tree layout using d3js
   page.treeLayout = d3.layout.tree().size([page.treeWidth, page.treeHeight]);
   page.diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
+}
+
+// init the SVG elements
+function initSvg(page) {
+  // SVG root
+  page.rootSvg = d3.select(page.treeContainerId).append("svg:svg")
+    .attr("width", page.treeWidth)
+    .attr("height", page.treeHeight);
+
+  // group
+  page.rootGroup = page.rootSvg.append("svg:g")
+    .attr("transform", "translate(" + 0 + "," + 0 + ")");
 }
