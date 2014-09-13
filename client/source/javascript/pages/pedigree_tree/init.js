@@ -4,6 +4,7 @@ var d3 = require('d3');
 function init(page) {
   initConfig(page);
   initSize(page);
+  initLayout(page);
 }
 exports.init = init;
 
@@ -26,11 +27,10 @@ function initSize(page) {
   page.linkHeight = page.defaultLinkHeight;
 }
 
+// init the layout of the tree
 function initLayout(page) {
-  var tree, diagonal;
-
   // basic layout for the tree
   // create a tree layout using d3js
-  tree = d3.layout.tree().size([treeWidth, treeHeight]);
-  diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
+  page.treeLayout = d3.layout.tree().size([page.treeWidth, page.treeHeight]);
+  page.diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 }

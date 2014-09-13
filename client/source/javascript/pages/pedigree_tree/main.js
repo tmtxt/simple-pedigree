@@ -22,17 +22,11 @@ var Align = require('./align.js');
 var page = {};
 Init.init(page);
 
-var tree, diagonal;
 var rootSvg, rootGroup;
 var root;
 var rootId = window.root;
 var enableMarriage = false;
 var nodesList;
-
-// basic layout for the tree
-// create a tree layout using d3js
-tree = d3.layout.tree().size([page.treeWidth, page.treeHeight]);
-diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
 
 // create the svg tag and append to the body of the website
 rootSvg = d3.select(page.treeContainerId).append("svg:svg")
@@ -79,7 +73,7 @@ function renderTree(tree) {
 // 
 function update(source) {
   var duration = Util.getTransitionDuration();
-  var nodes = tree.nodes(root).reverse(); // compute new tree layout
+  var nodes = page.treeLayout.nodes(root).reverse(); // compute new tree layout
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d) { d.y = d.depth * page.linkHeight; });
@@ -111,10 +105,10 @@ function update(source) {
   var nodeExit = NodeGroup.removeUnusedNodeGroups(nodeGroups, duration, source);
 
   // Update the links
-  var links = Link.selectLinks(rootGroup, tree, nodes);
-  Link.createLinks(links, source, diagonal, duration);
-  Link.transitionLinks(links, source, diagonal, duration);
-  Link.removeUnusedLinks(links, source, diagonal, duration);
+  var links = Link.selectLinks(rootGroup, page.treeLayout, nodes);
+  Link.createLinks(links, source, page.diagonal, duration);
+  Link.transitionLinks(links, source, page.diagonal, duration);
+  Link.removeUnusedLinks(links, source, page.diagonal, duration);
 
   // Stash the old positions for transition.
   nodes.forEach(function(d) {
