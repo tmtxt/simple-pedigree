@@ -66,7 +66,7 @@ function update(page, source) {
 
   // EXIT
   // Transition exiting nodes to the parent's new position.
-  var nodeExit = NodeGroup.removeUnusedNodeGroups(nodeGroups, duration, source);
+  var nodeExit = NodeGroup.removeUnusedNodeGroups(page, nodeGroups, duration, source);
 
   // Update the links
   var links = Link.selectLinks(page.rootGroup, page.treeLayout, page.nodesList);

@@ -29,7 +29,7 @@ function transitionNodeGroups(page, nodeGroups, duration) {
 }
 exports.transitionNodeGroups = transitionNodeGroups;
 
-function removeUnusedNodeGroups(nodeGroups, duration, source) {
+function removeUnusedNodeGroups(page, nodeGroups, duration, source) {
   var nodeExit = nodeGroups.exit().transition()
     .duration(duration)
     .attr("transform", function(d) { return "translate(" + source.x + "," + source.y + ")"; })
