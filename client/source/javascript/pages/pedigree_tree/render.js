@@ -56,8 +56,6 @@ function update(page, source) {
   NodeName.appendNames(page, nodeEnter);
   NodePicture.appendPictures(page, nodeEnter);
   NodeMarriage.appendMarriage(page, nodeEnter);
-	// compute the new tree height
-  Util.updateTreeDiagramHeight(page.root);
 
 	// UPDATE
   // Update the data and transition nodes to their new position.
@@ -75,6 +73,9 @@ function update(page, source) {
   Link.createLinks(links, source, page.diagonal, duration);
   Link.transitionLinks(links, source, page.diagonal, duration);
   Link.removeUnusedLinks(links, source, page.diagonal, duration);
+
+  // compute the new tree height
+  Util.updateTreeDiagramHeight(page);
 
   // Stash the old positions for transition.
   page.nodesList.forEach(function(d) {

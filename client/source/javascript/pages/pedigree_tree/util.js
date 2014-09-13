@@ -26,10 +26,11 @@ function findMaxDepth(root) {
 }
 exports.findMaxDepth = findMaxDepth;
 
-function updateTreeDiagramHeight(root) {
-  var maxDepth = findMaxDepth(root);
+function updateTreeDiagramHeight(page) {
+  var maxDepth = findMaxDepth(page.root);
 	var newHeight = (maxDepth + 1) * linkHeight;
 	d3.select("svg").attr("height", newHeight);
+  page.treeHeight = newHeight;
 }
 exports.updateTreeDiagramHeight = updateTreeDiagramHeight;
 
