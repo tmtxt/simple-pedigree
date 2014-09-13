@@ -11,7 +11,7 @@ function appendCircles(page, nodeEnter) {
 }
 exports.appendCircles = appendCircles;
 
-function updateCircles(nodeUpdate) {
+function updateCircles(page, nodeUpdate) {
   nodeUpdate.select("circle")
     .attr("r", 10)
     .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });

@@ -50,7 +50,7 @@ function update(page, source) {
 
   // ENTER
   // create new node group if not exist
-  var nodeEnter = NodeGroup.appendNodeGroups(nodeGroups, source);
+  var nodeEnter = NodeGroup.appendNodeGroups(page, nodeGroups, source);
   // create the elements inside that node group
   NodeCircle.appendCircles(page, nodeEnter);
   NodeName.appendNames(page, nodeEnter);
@@ -59,10 +59,10 @@ function update(page, source) {
 
 	// UPDATE
   // Update the data and transition nodes to their new position.
-  var nodeUpdate = NodeGroup.transitionNodeGroups(nodeGroups, duration);
+  var nodeUpdate = NodeGroup.transitionNodeGroups(page, nodeGroups, duration);
   // update the node circle and text
-  NodeCircle.updateCircles(nodeUpdate);
-  NodeName.updateNames(nodeUpdate);
+  NodeCircle.updateCircles(page, nodeUpdate);
+  NodeName.updateNames(page, nodeUpdate);
 
   // EXIT
   // Transition exiting nodes to the parent's new position.

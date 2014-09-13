@@ -11,7 +11,7 @@ function selectNodeGroups(page) {
 exports.selectNodeGroups = selectNodeGroups;
 
 // append the new node group for the data bound if that node not exist
-function appendNodeGroups(nodeGroups, source) {
+function appendNodeGroups(page, nodeGroups, source) {
   var nodeEnter = nodeGroups.enter().append("svg:g")
     .attr("class", "node")
     .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; });
@@ -19,7 +19,7 @@ function appendNodeGroups(nodeGroups, source) {
 }
 exports.appendNodeGroups = appendNodeGroups;
 
-function transitionNodeGroups(nodeGroups, duration) {
+function transitionNodeGroups(page, nodeGroups, duration) {
   var nodeUpdate = nodeGroups.transition()
     .duration(duration)
     .attr("transform", function(d) { 

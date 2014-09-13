@@ -3,7 +3,7 @@ function appendNames(page, nodeEnter) {
 }
 exports.appendNames = appendNames;
 
-function updateNames(nodeUpdate) {
+function updateNames(page, nodeUpdate) {
   nodeUpdate.select("text")
     .text(function(d) { return d.name; })
     .attr("y", -19)
