@@ -1,22 +1,8 @@
-// libraries
-var jquery = require('jquery');
-var d3 = require('d3');
-
-// other modules
+// Modules
 var Init = require('./init.js');
 var GetData = require('./get_data.js');
-var Toggle = require('./toggle.js');
-var Position = require('./position.js');
-var Util = require('./util.js');
-var Link = require('./link.js');
-var NodeGroup = require('./node_group.js');
-var NodeCircle = require('./node_circle.js');
-var NodeName = require('./node_name.js');
-var NodePicture = require('./node_picture.js');
-var Config = require('./config.js');
 var Zoom = require('./zoom.js');
 var NodeMarriage = require('./node_marriage.js');
-var Align = require('./align.js');
 var Render = require('./render.js');
 
 // Global Page object
@@ -42,12 +28,10 @@ var page = {
   // Data
   root: null                    // The tree data
 };
+
+// Init
 Init.init(page);
-
-// zoom handler
-Zoom.init(page.rootSvg, page.rootGroup);
-
-// marriage info
+Zoom.init(page);
 NodeMarriage.init();
 
 // Start the application
