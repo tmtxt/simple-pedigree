@@ -69,10 +69,10 @@ function update(page, source) {
   var nodeExit = NodeGroup.removeUnusedNodeGroups(page, nodeGroups, duration, source);
 
   // Update the links
-  var links = Link.selectLinks(page.rootGroup, page.treeLayout, page.nodesList);
-  Link.createLinks(links, source, page.diagonal, duration);
-  Link.transitionLinks(links, source, page.diagonal, duration);
-  Link.removeUnusedLinks(links, source, page.diagonal, duration);
+  var links = Link.selectLinks(page);
+  Link.createLinks(page, links, source, duration);
+  Link.transitionLinks(page, links, source, duration);
+  Link.removeUnusedLinks(page, links, source, duration);
 
   // compute the new tree height
   Util.updateTreeDiagramHeight(page);
