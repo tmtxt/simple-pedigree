@@ -12,7 +12,29 @@ class PersonController extends Controller
   }
 
   public function actionDetail() {
-    $this->render("detail");
+    $personId = Util::get($_GET, "id");
+
+    try {
+      // validation
+      if($personId == null) {
+        throw new Exception(__FUNCTION__ . " > Person Id is empty");
+      }
+
+      // get the person from database
+      $person = Person::model()->find("id = :id", array(":id" => $personId));
+      if($person == null) {
+        throw new Exception(__FUNCTION__ . " > Cannot find person");
+      }
+
+      $this->render("detail", array(
+        "person" => $person->getInfoTranslated()
+      ));
+    } catch (Exception $e) {
+      Yii::log(print_r(__FUNCTION__ . " > " . $e->getMessage(), true), 'error');
+      $this->render("detail", array(
+        "person" => null
+      ));
+    }
   }
 
 	// Uncomment the following methods and override them if needed
