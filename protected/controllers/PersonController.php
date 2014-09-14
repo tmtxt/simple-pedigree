@@ -11,6 +11,10 @@ class PersonController extends Controller
     $this->render("add_child");
   }
 
+  public function actionDetail() {
+    $this->render("detail");
+  }
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
