@@ -8,7 +8,7 @@ class PersonController extends Controller
 	}
 
   public function actionAddChild() {
-
+    $this->render("add_child");
   }
 
 	// Uncomment the following methods and override them if needed
