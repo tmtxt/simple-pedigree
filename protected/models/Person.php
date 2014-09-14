@@ -132,7 +132,8 @@ class Person extends CActiveRecord
       "otherInformation" => empty($this->other_information) ? $unknownText : $this->other_information,
       "birthDate" => empty($this->birth_date) ? $unknownText : $this->getDateValue($this->birth_date),
       "deathDate" => empty($this->death_date) ? $unknownText : $this->getDateValue($this->death_date),
-      "treeUrl" => Yii::app()->createUrl("/pedigree/tree", array("root" => $this->id))
+      "treeUrl" => Yii::app()->createUrl("/pedigree/tree", array("root" => $this->id)),
+      "detailUrl" => Yii::app()->createUrl("/person/detail", array("id" => $this->id))
     );
   }
 

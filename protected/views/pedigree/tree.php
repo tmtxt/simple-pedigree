@@ -27,7 +27,7 @@
 <?php
 $clientScript = Yii::app()->clientScript;
 $clientScript->registerCssFile('/client/dist/stylesheet/pages/pedigree-tree.css');
-$clientScript->registerScriptFile("/client/dist/javascript/pages/pedigree_tree/main.js",
+$clientScript->registerScriptFile("/client/dist/javascript/pages/pedigree-tree/main.js",
                                   CClientScript::POS_END);
 
 if($rootId == null) {
