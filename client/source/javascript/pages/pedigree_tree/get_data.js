@@ -31,7 +31,7 @@ function getPersonInfo(personId) {
       data: {
         personId: personId
       },
-      url: '/pedigree/getPersonInfo',
+      url: '/person/getPersonInfo',
       success: function(data) {
         if(data.success) {
           resolve(data.person);
