@@ -1,8 +1,11 @@
+// libraries
 var d3 = require('d3');
 var jquery = require('jquery');
 
+// modules
 var Align = require('./align.js');
 
+// init
 function init(page) {
   // create the zoom listener
   var zoomListener = d3.behavior.zoom()
@@ -15,10 +18,6 @@ function init(page) {
 }
 exports.init = init;
 
-function zoomHandler(page) {
-  page.rootGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-}
-
 function initEnableCheckbox(page, zoomListener) {
   jquery('.js-enable-zoom').change(function(){
     if(jquery(this).is(':checked')) {
@@ -27,6 +26,25 @@ function initEnableCheckbox(page, zoomListener) {
       disableZoom(page, zoomListener);
     }
   });
+}
+
+function initResetButton(page, zoomListener) {
+  jquery('.js-reset-zoom').click(function(){
+    enableZoom(page, zoomListener);
+    page.rootGroup
+      .transition()
+      .duration(300)
+      .attr("transform", "translate(" + 0 + "," + 0 + ")");
+    zoomListener.translate([0,0]).scale(1);
+
+    if(jquery('.js-enable-zoom').is(':checked') === false){
+      disableZoom(page, zoomListener);
+    }
+  });
+}
+
+function zoomHandler(page) {
+  page.rootGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 
 function enableZoom(page, zoomListener) {
@@ -44,25 +62,14 @@ function enableZoom(page, zoomListener) {
 exports.enableZoom = enableZoom;
 
 function disableZoom(page, zoomListener) {
-  zoomListener.on("zoom", null).on("zoomend", null);
-  page.rootSvg.on("mousedown.zoom", null).on("wheel.zoom", null)
+  zoomListener
+    .on("zoom", null)
+    .on("zoomend", null);
+  page.rootSvg
+    .on("mousedown.zoom", null)
+    .on("wheel.zoom", null)
     .on("mousemove.zoom", null)
     .on("dblclick.zoom", null)
     .on("touchstart.zoom", null);
 }
 exports.disableZoom = disableZoom;
-
-function initResetButton(page, zoomListener) {
-  jquery('.js-reset-zoom').click(function(){
-    enableZoom(page, zoomListener);
-    page.rootGroup
-      .transition()
-      .duration(300)
-      .attr("transform", "translate(" + 0 + "," + 0 + ")");
-    zoomListener.translate([0,0]).scale(1);
-
-    if(jquery('.js-enable-zoom').is(':checked') === false){
-      disableZoom(page, zoomListener);
-    }
-  });
-}
