@@ -90,6 +90,10 @@ module.exports = React.createClass({
 
             </div>
             <div className="modal-footer">
+              <a href={"/person/addChild/parentId/" + this.props.person.id}
+                 className="btn btn-default">
+                Add child
+              </a>
               <a href={this.props.person.treeUrl}
                  className="btn btn-default">
                 View tree from this person
