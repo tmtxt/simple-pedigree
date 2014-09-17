@@ -13,7 +13,7 @@
     <!-- Core JS & IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <?php
     $clientScript = Yii::app()->clientScript;
-
+    $clientScript->registerCssFile("/client/dist/stylesheet/commons/common.css");
     $clientScript->registerScriptFile('/client/dist/javascript/libs/libs.js', CClientScript::POS_HEAD);
     $clientScript->registerScriptFile('/client/dist/javascript/share/share.js', CClientScript::POS_END);
     ?>
