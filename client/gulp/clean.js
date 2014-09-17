@@ -5,7 +5,7 @@ var underscore = require('underscore');
 var fs = require('fs');
 
 var BASE_DIR = require('./devdirs.js').BASE_DIR;
-var SYMLINKS_MAPPING = require('./bower.js').SYMLINKS_MAPPING;
+var SYMLINKS_MAPPING = require('./config.js').SYMLINKS_MAPPING;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Clean all unecessary files (dist files, symlink)

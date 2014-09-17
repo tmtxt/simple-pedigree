@@ -14,10 +14,11 @@ var streamify = require('gulp-streamify');
 var rename = require('gulp-rename');
 
 var BASE_DIR = require('./devdirs.js').BASE_DIR;
-var lr = require('./live-reload.js');
+var LIB_MAP = require('./config.js').LIB_MAP;
 var errorHandler = require('./error-handler.js').browserifyHandler;
 var gDeploy = require('./deploy.js');
 var gWatch = require('./watch.js');
+var gConfig = require('./config.js');
 
 ////////////////////////////////////////////////////////////////////////////////
 // User config
@@ -32,24 +33,6 @@ var BROWSERIFY_CONFIG = {
   fullPaths: true
 };
 
-// Literalify config
-// Define the libraries that live in the global context here
-// key: the module name to use in require('moduleName')
-// value: the object that lives in global context
-// To load the library: require('library_name');
-var LIB_MAP = {
-  'jquery': 'window.$',
-  'underscore': 'window._',
-  'react': 'window.React',
-  'backbone': 'window.Backbone',
-  'backbone-react-component': 'window.Backbone.React.Component',
-  'kinetic': 'window.Kinetic',
-  'document': 'window.document',
-  'math': 'window.Math',
-  'eventEmitter': 'window.EventEmitter',
-  'd3': 'window.d3',
-  'q': 'window.Q'
-};
 var LITERALIFY_CONFIG = literalify.configure(LIB_MAP); // don't edit this line
 // if you don't really know what you are doing
 
@@ -61,12 +44,12 @@ gulp.task('browserify-pages-nowatch', function(){
 });
 
 gulp.task('browserify-pages-watch', function(){
-  gWatch.ENABLE_WATCH = true;
+  gConfig.ENABLE_WATCH = true;
   browserifyPages();
 });
 
 gulp.task('browserify-pages-production', function(){
-  gDeploy.ENABLE_DEBUG = false;
+  gConfig.ENABLE_DEBUG = false;
   browserifyPages();
 });
 
@@ -82,10 +65,10 @@ function browserifyPages(){
       var mainFile = sourcePath + '/' + folder + '/main.js';
 
       // start browserify
-      BROWSERIFY_CONFIG.debug = gDeploy.ENABLE_DEBUG;
+      BROWSERIFY_CONFIG.debug = gConfig.ENABLE_DEBUG;
       var b = browserify(BROWSERIFY_CONFIG);
       
-      if(gWatch.ENABLE_WATCH) {
+      if(gConfig.ENABLE_WATCH) {
         b = watchify(b);
         b.on('update', function(){
           bundlePage(b, distPath + '/' + folder);
@@ -104,19 +87,19 @@ function bundlePage(b, dist){
   b.bundle()
     .on('error', errorHandler)
     .pipe(source('main.js'))
-    .pipe(gulpif(gDeploy.ENABLE_DEBUG === false, streamify(uglify())))
-    .pipe(gulpif(gDeploy.ENABLE_RENAME === true && gDeploy.ENABLE_DEBUG === false,
+    .pipe(gulpif(gConfig.ENABLE_DEBUG === false, streamify(uglify())))
+    .pipe(gulpif(gConfig.ENABLE_RENAME === true && gConfig.ENABLE_DEBUG === false,
                  streamify(rename({suffix: '.min'}))))
     .pipe(gulp.dest(dist))
-    .pipe(gulpif(gWatch.ENABLE_WATCH, livereload()));
+    .pipe(gulpif(gConfig.ENABLE_WATCH, livereload()));
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Browserify share.js
 function browserifyShare(){
-  BROWSERIFY_CONFIG.debug = gDeploy.ENABLE_DEBUG;
+  BROWSERIFY_CONFIG.debug = gConfig.ENABLE_DEBUG;
   var b = browserify(BROWSERIFY_CONFIG);
-  if(gWatch.ENABLE_WATCH) {
+  if(gConfig.ENABLE_WATCH) {
     b = watchify(b);
     b.on('update', function(){
       bundleShare(b);
@@ -137,11 +120,11 @@ function bundleShare(b) {
   b.bundle()
     .on('error', errorHandler)
     .pipe(source('share.js'))
-    .pipe(gulpif(gDeploy.ENABLE_DEBUG === false, streamify(uglify())))
-    .pipe(gulpif(gDeploy.ENABLE_RENAME === true && gDeploy.ENABLE_DEBUG === false,
+    .pipe(gulpif(gConfig.ENABLE_DEBUG === false, streamify(uglify())))
+    .pipe(gulpif(gConfig.ENABLE_RENAME === true && gConfig.ENABLE_DEBUG === false,
                  streamify(rename({suffix: '.min'}))))
     .pipe(gulp.dest(BASE_DIR.dist.javascript.share.path))
-    .pipe(gulpif(gWatch.ENABLE_WATCH, livereload()));
+    .pipe(gulpif(gConfig.ENABLE_WATCH, livereload()));
 }
 
 gulp.task('browserify-share-nowatch', function(){
@@ -149,12 +132,12 @@ gulp.task('browserify-share-nowatch', function(){
 });
 
 gulp.task('browserify-share-watch', function(){
-  gWatch.ENABLE_WATCH = true;
+  gConfig.ENABLE_WATCH = true;
   browserifyShare();
 });
 
 gulp.task('browserify-share-production', function(){
-  gDeploy.ENABLE_DEBUG = false;
+  gConfig.ENABLE_DEBUG = false;
   browserifyShare();
 });
 

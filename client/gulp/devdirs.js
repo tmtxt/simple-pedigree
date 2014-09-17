@@ -25,6 +25,7 @@ var BASE_DIR = {
       libs: { name: 'libs' }
     },
     assets : { name: 'assets' }
+    
   },
   dist: {
     name: 'dist',

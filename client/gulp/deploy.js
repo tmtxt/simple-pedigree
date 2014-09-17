@@ -1,11 +1,5 @@
 var gulp = require('gulp');
 
-// change this if you want to rename
-exports.ENABLE_RENAME = false;
-
-// DON'T CHANGE THIS
-exports.ENABLE_DEBUG = true;
-
 ////////////////////////////////////////////////////////////////////////////////
 // Setting up the project
 gulp.task('development', ['copy-assets',
@@ -22,3 +16,7 @@ gulp.task('production', ['copy-assets',
                          'bundle-libs-manual-production',
                          'browserify-production'],
           function(){});
+
+// aliases
+gulp.task('dev', ['development']);
+gulp.task('prod', ['production']);

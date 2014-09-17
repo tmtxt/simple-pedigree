@@ -14,11 +14,11 @@ var path = require('path');
 var util = require('gulp-util');
 
 var BASE_DIR = require('./devdirs.js').BASE_DIR;
-var lr = require('./live-reload.js');
 var errorHandler = require('./error-handler.js').standardHandler;
 var stylesheetWatchHandler = require('./error-handler.js').stylesheetWatchHandler;
 var gDeploy = require('./deploy.js');
 var gWatch = require('./watch.js');
+var gConfig = require('./config.js');
 
 ////////////////////////////////////////////////////////////////////////////////
 // LESS Parser config
@@ -28,7 +28,7 @@ var LESS_PARSER_CONFIG = {
 };
 
 function disableSourceMap(){
-  gDeploy.ENABLE_DEBUG = false;
+  gConfig.ENABLE_DEBUG = false;
   LESS_PARSER_CONFIG.generateSourceMap = false;
 }
 
@@ -57,8 +57,8 @@ gulp.task('less-commons-production', ['symlink-bower-css'], function(){
 // Watch tasks
 
 gulp.task('less-commons-watch', function(){
-  gDeploy.ENABLE_DEBUG = true;
-  gWatch.ENABLE_WATCH = true;
+  gConfig.ENABLE_DEBUG = true;
+  gConfig.ENABLE_WATCH = true;
 
   var graph = {};
   var graphRev = {};
@@ -77,8 +77,8 @@ gulp.task('less-commons-watch', function(){
 });
 
 gulp.task('less-pages-watch', function(){
-  gDeploy.ENABLE_DEBUG = true;
-  gWatch.ENABLE_WATCH = true;
+  gConfig.ENABLE_DEBUG = true;
+  gConfig.ENABLE_WATCH = true;
   
   // get list of less files in pages folder
   var pagesLessFiles = fs.readdirSync(BASE_DIR.source.stylesheet.pages.path);
@@ -145,13 +145,13 @@ function transformLess(input) {
   var stream = gulp.src(input)
     .pipe(less(LESS_PARSER_CONFIG))
     .on('error', errorHandler)
-    .pipe(gulpif(gDeploy.ENABLE_DEBUG === false, minify()))
-    .pipe(gulpif(gDeploy.ENABLE_RENAME === true && gDeploy.ENABLE_DEBUG === false,
+    .pipe(gulpif(gConfig.ENABLE_DEBUG === false, minify()))
+    .pipe(gulpif(gConfig.ENABLE_RENAME === true && gConfig.ENABLE_DEBUG === false,
                  rename({suffix: '.min'})))
     .pipe(gulp.dest(outFolder))
-    .pipe(gulpif(gWatch.ENABLE_WATCH, livereload()));
+    .pipe(gulpif(gConfig.ENABLE_WATCH, livereload()));
 
-  if(gWatch.ENABLE_WATCH) {
+  if(gConfig.ENABLE_WATCH) {
     stream.on('data', function(e){
       util.log(util.colors.green(path.basename(e.path)), 'compiled');
     });

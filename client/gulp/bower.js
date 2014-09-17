@@ -11,53 +11,13 @@ var rename = require('gulp-rename');
 var gulpif = require('gulp-if');
 
 var BASE_DIR = require('./devdirs.js').BASE_DIR;
+var SYMLINKS_MAPPING = require('./config.js').SYMLINKS_MAPPING;
+var LIBRARY_MAIN_FILES = require('./config.js').LIBRARY_MAIN_FILES;
+var EXCLUDED_LIBRARIES = require('./config.js').EXCLUDED_LIBRARIES;
+var LIBRARY_ASSETS = require('./config.js').LIBRARY_ASSETS;
 var errorHandler = require('./error-handler.js').standardHandler;
 var gDeploy = require('./deploy.js');
-
-////////////////////////////////////////////////////////////////////////////////
-// CONFIG
-
-// Bower packages' main files.
-// ONLY use this if the task bundle-libraries-auto does not work for you and you
-// have to use the bundle-libraries task to bundle it manually
-// 
-// Define the path (inside BASE_DIR) to main js executable files of the libraries
-// used for bundling everything into one files
-var LIBRARY_MAIN_FILES = ['bower/jquery/dist/jquery.js',
-                          'bower/underscore/underscore.js',
-                          'bower/bootstrap/dist/js/bootstrap.js',
-                          'bower/react/react.js',
-                          'bower/eventEmitter/EventEmitter.js',
-                          'bower/masonry/dist/masonry.pkgd.js',
-                          'bower/d3/d3.js',
-                          'bower/q/q.js'];
-
-// Excluded libraries
-// Specify the libraries name that you want to exclude when run the
-// bundle-libraries-auto task
-var EXCLUDED_LIBRARIES = ['holderjs'];
-
-// Define what you want to copy from source to dist here.
-// Some libraries use the relative path to assets so we need to copy it to the
-// right place in dist folder (Usually under stylesheet folder)
-// key: folder to copy
-// value: destination to copy
-var LIBRARY_ASSETS = {};
-LIBRARY_ASSETS [BASE_DIR.bower.path + '/bootstrap/fonts/**/*.*'] =
-  BASE_DIR.dist.stylesheet.path + '/fonts';
-LIBRARY_ASSETS [BASE_DIR.bower.path + '/fontawesome/fonts/**/*.*'] =
-  BASE_DIR.dist.stylesheet.path + '/fonts';
-
-// Define the folder you want to symlink here
-// symlink key -> value
-// Because the symlink is system dependent so you need to use process.cwd() as
-// the prefix and path.normalize()
-var SYMLINKS_MAPPING = {};
-SYMLINKS_MAPPING [BASE_DIR.bower.path + '/bootstrap/less'] =
-  BASE_DIR.source.stylesheet.libs.path + '/bootstrap';
-SYMLINKS_MAPPING [BASE_DIR.bower.path + '/' + 'fontawesome/less'] =
-  BASE_DIR.source.stylesheet.libs.path +   '/fontawesome';
-exports.SYMLINKS_MAPPING = SYMLINKS_MAPPING;
+var gConfig = require('./config.js');
 
 ////////////////////////////////////////////////////////////////////////////////
 // Auto install bower components
@@ -75,7 +35,7 @@ gulp.task('symlink-bower-css', ['bower'], function(cb){
   underscore.each(SYMLINKS_MAPPING, function(dest, source){
     var destFull = path.normalize(process.cwd() + '/' + dest);
     var sourceFull = path.normalize(process.cwd() + '/' + source);
-    
+
     // check if the destination is already exist
     var stat;
     try{
@@ -100,8 +60,8 @@ gulp.task('bundle-libs-manual-development', ['bower'], function(){
   return bundleLibsManual();
 });
 
-gulp.task('bundle-libs-manualy-production', ['bower'], function(){
-  gDeploy.ENABLE_DEBUG = false;
+gulp.task('bundle-libs-manual-production', ['bower'], function(){
+  gConfig.ENABLE_DEBUG = false;
   return bundleLibsManual();
 });
 
@@ -111,7 +71,7 @@ gulp.task('bundle-libs-auto-development', ['bower'], function(){
 });
 
 gulp.task('bundle-libs-auto-production', ['bower'], function(){
-  gDeploy.ENABLE_DEBUG = false;
+  gConfig.ENABLE_DEBUG = false;
   return bundleLibsAuto();
 });
 
@@ -189,8 +149,8 @@ function bundleLibraries(mainFiles){
   return gulp.src(mainFiles)
     .pipe(concat('libs.js'))
     .on('error', errorHandler)
-    .pipe(gulpif(gDeploy.ENABLE_DEBUG === false, uglify()))
-    .pipe(gulpif(gDeploy.ENABLE_RENAME === true && gDeploy.ENABLE_DEBUG === false,
+    .pipe(gulpif(gConfig.ENABLE_DEBUG === false, uglify()))
+    .pipe(gulpif(gConfig.ENABLE_RENAME === true && gConfig.ENABLE_DEBUG === false,
                  rename({suffix: '.min'})))
     .pipe(gulp.dest(BASE_DIR.dist.javascript.libs.path));
 }
