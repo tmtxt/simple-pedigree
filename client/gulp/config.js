@@ -5,10 +5,8 @@ var BASE_DIR = require('./devdirs.js').BASE_DIR;
 // Because the symlink is system dependent so you need to use process.cwd() as
 // the prefix and path.normalize()
 var SYMLINKS_MAPPING = {};
-SYMLINKS_MAPPING [BASE_DIR.bower.path + '/bootstrap/less'] =
-  BASE_DIR.source.stylesheet.libs.path + '/bootstrap';
-SYMLINKS_MAPPING [BASE_DIR.bower.path + '/' + 'fontawesome/less'] =
-  BASE_DIR.source.stylesheet.libs.path +   '/fontawesome';
+SYMLINKS_MAPPING [BASE_DIR.bower.path] =
+  BASE_DIR.source.stylesheet.libs.path +   '/bower';
 exports.SYMLINKS_MAPPING = SYMLINKS_MAPPING;
 
 // Bower packages' main files.
