@@ -14,6 +14,7 @@
     <?php
     $clientScript = Yii::app()->clientScript;
     $clientScript->registerCssFile("/client/dist/stylesheet/commons/common.css");
+    $clientScript->registerCssFile("/client/bower/ms-dropdown/css/msdropdown/dd.css");
     $clientScript->registerScriptFile('/client/dist/javascript/libs/libs.js', CClientScript::POS_HEAD);
     $clientScript->registerScriptFile('/client/dist/javascript/share/share.js', CClientScript::POS_END);
     ?>

@@ -6,6 +6,7 @@ var aliveStatusSelect = jquery('.js-alive-status-select');
 var deathDateDiv = jquery('.js-death-date-div');
 var birthDateInput = jquery('.js-birth-date-input');
 var deathDateInput = jquery('.js-death-date-input');
+var marriageSelect = jquery('.js-marriage-select');
 
 // hide death date by default
 deathDateDiv.hide();
@@ -26,3 +27,5 @@ birthDateInput.datepicker({
 deathDateInput.datepicker({
   autoclose: true
 });
+
+// marriageSelect.msDropdown();

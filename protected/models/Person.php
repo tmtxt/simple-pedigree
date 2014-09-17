@@ -76,7 +76,7 @@ class Person extends CActiveRecord
     );
   }
 
-  protected function getPicture() {
+  public function getPicture() {
     if(!empty($this->picture)) {
       return Yii::getPathOfAlias("personOriginalURL") . "/" . $this->picture;
     } else {
@@ -215,6 +215,7 @@ class Person extends CActiveRecord
 			'hierarchies' => array(self::HAS_MANY, 'Hierarchy', 'father_id'),
 			'hierarchies1' => array(self::HAS_MANY, 'Hierarchy', 'mother_id'),
 			'hierarchies2' => array(self::HAS_MANY, 'Hierarchy', 'child_id'),
+      "marriagesCount" => array(self::STAT, "MarriageUnion", "inside_person_id"),
 		);
 	}
 

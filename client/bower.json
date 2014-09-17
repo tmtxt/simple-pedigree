@@ -31,6 +31,8 @@
     "d3": "~3.4.11",
     "q": "1.0.1",
     "bootstrap-datepicker": "~1.3.0",
-    "ckeditor": "~4.4.4"
+    "ckeditor": "~4.4.4",
+    "ms-dropdown": "https://github.com/marghoobsuleman/ms-Dropdown.git",
+    "ddslick": "*"
   }
 }

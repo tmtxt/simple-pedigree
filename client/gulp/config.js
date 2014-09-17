@@ -23,6 +23,8 @@ var LIBRARY_MAIN_FILES = ['bower/jquery/dist/jquery.js',
                           'bower/eventEmitter/EventEmitter.js',
                           'bower/masonry/dist/masonry.pkgd.js',
                           'bower/d3/d3.js',
+                          'bower/ms-dropdown/js/msdropdown/jquery.dd.js',
+                          'bower/ddslick/jquery.ddslick.js',
                           'bower/q/q.js'];
 exports.LIBRARY_MAIN_FILES = LIBRARY_MAIN_FILES;
 

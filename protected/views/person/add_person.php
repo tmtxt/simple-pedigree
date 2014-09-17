@@ -15,6 +15,40 @@ $this->redirect("/pedigree/tree");
 <form action="">
   <div class="row">
     <div class="col-md-6">
+      <?php if($action == PersonController::ACTION_ADD_CHILD) {
+              if($parent->marriagesCount == 0) { ?>
+        <div class="form-group">
+          <label>
+            "<?= $parent->name ?>"
+            <?= Yii::t('app', 'has no information about marriage.') ?>
+          </label>
+        </div>
+      <?php } else { ?>
+        <div class="form-group">
+          <label>
+            <?= Yii::t('app', 'Select Marriage') ?>
+          </label>
+          <select class="form-control js-marriage-select">
+            <?php foreach($parent->marriagesHusband as $marriage) { ?>
+              <option
+                data-image="<?= $marriage->wife->getPictureUrlSmall($marriage->wife->picture) ?>"
+                value="<?= $marriage->wife->id ?>">
+                <?= $marriage->wife->name ?>
+              </option>
+            <?php } ?>
+            <?php foreach($parent->marriagesWife as $marriage) { ?>
+              <option
+                data-image="<?= $marriage->husband->getPictureUrlSmall($marriage->husband->picture) ?>"
+                value="<?= $marriage->husband->id ?>">
+                <?= $marriage->husband->name ?>
+              </option>
+            <?php } ?>
+          </select>
+        </div>
+      <?php }
+      }
+      ?>
+
       <div class="form-group">
         <label><?= Yii::t('app', 'Full Name') ?></label>
         <input type="text" class="form-control" placeholder="<?= Yii::t('app', 'Enter Full Name') ?>">
