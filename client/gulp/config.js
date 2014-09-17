@@ -18,6 +18,7 @@ exports.SYMLINKS_MAPPING = SYMLINKS_MAPPING;
 var LIBRARY_MAIN_FILES = ['bower/jquery/dist/jquery.js',
                           'bower/underscore/underscore.js',
                           'bower/bootstrap/dist/js/bootstrap.js',
+                          'bower/bootstrap-datepicker/js/bootstrap-datepicker.js',
                           'bower/react/react.js',
                           'bower/eventEmitter/EventEmitter.js',
                           'bower/masonry/dist/masonry.pkgd.js',
