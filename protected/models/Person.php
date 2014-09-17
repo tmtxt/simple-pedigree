@@ -32,7 +32,7 @@ class Person extends CActiveRecord
   const ALIVE_STATUS_DEATH = 1;
   const ALIVE_STATUS_UNKNOWN = 2;
 
-  protected function getAliveStatuses() {
+  public static function getAliveStatuses() {
     return array(
       Person::ALIVE_STATUS_ALIVE => Yii::t('app', 'Alive'),
       Person::ALIVE_STATUS_DEATH => Yii::t('app', 'Death'),
@@ -51,7 +51,7 @@ class Person extends CActiveRecord
   const GENDER_GAY = 3;
   const GENDER_LESBIAN = 4;
 
-  protected function getGenders() {
+  public static function getGenders() {
     return array(
       Person::GENDER_UNKNOWN => Yii::t('app', 'Unknown'),
       Person::GENDER_MALE => Yii::t('app', 'Male'),
