@@ -2,13 +2,35 @@
 
 class PersonController extends Controller
 {
+  const ACTION_ADD_CHILD = 1;
+
 	public function actionIndex()
 	{
 		$this->render('index');
 	}
 
   public function actionAddChild() {
-    $this->render("add_person");
+    $action = PersonController::ACTION_ADD_CHILD;
+    $parentId = Util::get($_GET, "parentId");
+
+    try {
+      if($parentId == null) {
+        throw new Exception(__FUNCTION__ . " > Parent ID is empty");
+      }
+
+      // get the parent from db
+      $parent = Person::model()->findByPk($parentId);
+
+      // render
+      $this->render("add_person", array(
+        "action" => $action,
+        "parent" => $parent
+      ));
+
+    } catch (Exception $e) {
+      Yii::log(print_r($e->getMessage(), true), 'debug');
+      $this->redirect("/pedigree/tree");
+    }
   }
 
   public function actionDetail() {
@@ -80,6 +102,6 @@ class PersonController extends Controller
 		 ),
 		 );
 	   }
-	   */
+	 */
 }
 ?>

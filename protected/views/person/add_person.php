@@ -1,5 +1,16 @@
 <? $this->pageTitle = Yii::app()->name . ' - Welcome' ?>
-<h1>Add Child</h1>
+<?php
+if($action == PersonController::ACTION_ADD_CHILD) {
+?>
+  <h1>
+    <?= Yii::t('app', 'Add child for ') ?>
+    "<?= $parent->name ?>"
+  </h1>
+<?php
+} else {
+$this->redirect("/pedigree/tree");
+}
+?>
 
 <form action="">
   <div class="row">
@@ -11,7 +22,7 @@
 
       <div class="form-group">
         <label><?= Yii::t('app', 'Birth Date') ?></label>
-        <input type="text" class="form-control" data-provide="datepicker" data-date-autoclose="true">
+        <input type="text" class="form-control js-birth-date-input">
       </div>
 
       <div class="form-group js-alive-status-div">
@@ -25,12 +36,14 @@
 
       <div class="form-group js-death-date-div">
         <label><?= Yii::t('app', 'Death Date') ?></label>
-        <input type="text" class="form-control" data-provide="datepicker" data-date-autoclose="true">
+        <input type="text" class="form-control js-death-date-input">
       </div>
+    </div>
 
+    <div class="col-md-6">
       <div class="form-group">
         <label><?= Yii::t('app', 'Job') ?></label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" placeholder="<?= Yii::t('app', 'Enter Job') ?>">
       </div>
 
       <div class="form-group">
@@ -49,9 +62,13 @@
 
       <div class="form-group">
         <label><?= Yii::t('app', 'Phone No') ?></label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" placeholder="<?= Yii::t('app', 'Enter Phone Number') ?>">
       </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-md-12">
       <div class="form-group">
         <label><?= Yii::t('app', 'History') ?></label>
         <textarea class="form-control" rows="4"></textarea>
@@ -61,10 +78,12 @@
         <label><?= Yii::t('app', 'Other Information') ?></label>
         <textarea class="form-control" rows="4"></textarea>
       </div>
-
     </div>
-    <div class="col-md-6">
-      <input class="btn btn-success" type="submit" value="Insert"/>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <input type="submit" value="Insert" class="btn btn-primary">
     </div>
   </div>
 </form>
