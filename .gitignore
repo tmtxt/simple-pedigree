@@ -10,3 +10,4 @@
 /protected/runtime/
 /protected/scripts/*
 .DS_Store
+/images/person/*
