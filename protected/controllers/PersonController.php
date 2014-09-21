@@ -113,6 +113,7 @@ class PersonController extends Controller
       }
 
       $transaction->commit();
+      $this->redirect($this->createUrl("/person/detail", array("id" => $person->id)));
     } catch (Exception $e) {
       Yii::log(print_r($e->getMessage(), true), 'debug');
       echo $e->getMessage();
