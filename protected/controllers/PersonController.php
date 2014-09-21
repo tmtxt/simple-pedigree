@@ -3,15 +3,14 @@
 class PersonController extends Controller
 {
   const ACTION_ADD_CHILD = 1;
+  const ACTION_ADD_MARRIAGE = 2;
 
 	public function actionIndex()
 	{
 		$this->render('index');
 	}
 
-  public function actionAddChildProcess() {
-    $parentId = Util::get($_POST, "parent-id");
-    $parentPartnerId = Util::get($_POST, "parent-partner-id");
+  protected function processPerson($person) {
     $name = Util::get($_POST, "name");
     $birthDate = Util::get($_POST, "birth-date");
     $aliveStatus = Util::get($_POST, "alive-status");
@@ -24,6 +23,70 @@ class PersonController extends Controller
     $otherInformation = Util::get($_POST, "other_information");
     $picture = Util::get($_FILES, "picture");
 
+    $person->name = $name;
+    $person->alive_status = $aliveStatus;
+    $person->job = $job;
+    $person->address = $address;
+    $person->phone_no = $phoneNo;
+    $person->history = $history;
+    $person->other_information = $otherInformation;
+
+    // process the gender
+    $genders = Person::getGenders();
+    if(array_key_exists($gender, $genders)) {
+      $person->gender = $gender;
+    } else {
+      $person->gender = Person::GENDER_UNKNOWN;
+    }
+
+    // processing the date
+    if($birthDate != null) {
+      $person->birth_date = date_format(date_create_from_format("d/m/Y", $birthDate), "Y-m-d");
+    }
+    if($aliveStatus == Person::ALIVE_STATUS_DEATH)  {
+      if($deathDate != null) {
+        $death = date_format(date_create_from_format("d/m/Y", $deathDate), "Y-m-d");
+        if($person->birth_date > $death) {
+          $person->death_date = $person->birth_date;
+        } else {
+          $person->death_date = $death;
+        }
+      } else {
+        $person->death_date = $person->birth_date;
+      }
+    }
+
+    if(!$person->validate()) {
+      throw new Exception(__FUNCTION__ . " > Person Validation fails");
+    }
+    if(!$person->save()) {
+      throw new Exception(__FUNCTION__ . " > Person Save fails");
+    }
+
+    // process the picture
+    if($picture != null) {
+      $tmpName = $picture["tmp_name"];
+      $pictureFile = getimagesize($tmpName);
+      $newName = md5($person->id . "-picture-");
+      $newName = $newName . image_type_to_extension($pictureFile[2]);
+      $content = file_get_contents($tmpName);
+      $path = Yii::getPathOfAlias("personOriginalPath") . "/" . $newName;
+      if(!file_put_contents($path, $content)) {
+        throw new Exception(__FUNCTION__ . " > Write picture fail");
+      }
+      $person->picture = $newName;
+      if(!$person->save()) {
+        throw new Exception(__FUNCTION__ . " > Person Save fails");
+      }
+    }
+
+    return $person;
+  }
+
+  public function actionAddChildProcess() {
+    $parentId = Util::get($_POST, "parent-id");
+    $parentPartnerId = Util::get($_POST, "parent-partner-id");
+
     $transaction = Yii::app()->db->beginTransaction();
 
     try {
@@ -34,62 +97,7 @@ class PersonController extends Controller
 
       // create a new person
       $person = new Person();
-      $person->name = $name;
-      $person->alive_status = $aliveStatus;
-      $person->job = $job;
-      $person->address = $address;
-      $person->phone_no = $phoneNo;
-      $person->history = $history;
-      $person->other_information = $otherInformation;
-
-      // process the gender
-      $genders = Person::getGenders();
-      if(array_key_exists($gender, $genders)) {
-        $person->gender = $gender;
-      } else {
-        $person->gender = Person::GENDER_UNKNOWN;
-      }
-
-      // processing the date
-      if($birthDate != null) {
-        $person->birth_date = date_format(date_create_from_format("d/m/Y", $birthDate), "Y-m-d");
-      }
-      if($aliveStatus == Person::ALIVE_STATUS_DEATH)  {
-        if($deathDate != null) {
-          $death = date_format(date_create_from_format("d/m/Y", $deathDate), "Y-m-d");
-          if($person->birth_date > $death) {
-            $person->death_date = $person->birth_date;
-          } else {
-            $person->death_date = $death;
-          }
-        } else {
-          $person->death_date = $person->birth_date;
-        }
-      }
-
-      if(!$person->validate()) {
-        throw new Exception(__FUNCTION__ . " > Person Validation fails");
-      }
-      if(!$person->save()) {
-        throw new Exception(__FUNCTION__ . " > Person Save fails");
-      }
-
-      // process the picture
-      if($picture != null) {
-        $tmpName = $picture["tmp_name"];
-        $pictureFile = getimagesize($tmpName);
-        $newName = md5($person->id . "-picture-");
-        $newName = $newName . image_type_to_extension($pictureFile[2]);
-        $content = file_get_contents($tmpName);
-        $path = Yii::getPathOfAlias("personOriginalPath") . "/" . $newName;
-        if(!file_put_contents($path, $content)) {
-          throw new Exception(__FUNCTION__ . " > Write picture fail");
-        }
-        $person->picture = $newName;
-        if(!$person->save()) {
-          throw new Exception(__FUNCTION__ . " > Person Save fails");
-        }
-      }
+      $this->processPerson($person);
 
       // process the hierarchy
       $hierarchy = new Hierarchy();
@@ -118,6 +126,34 @@ class PersonController extends Controller
       Yii::log(print_r($e->getMessage(), true), 'debug');
       echo $e->getMessage();
       $transaction->rollback();
+    }
+  }
+
+  public function actionAddMarriageProcess() {
+
+  }
+
+  public function actionAddMarriage() {
+    $action = PersonController::ACTION_ADD_MARRIAGE;
+    $personId = Util::get($_GET, "id");
+
+    try {
+      if($personId == null) {
+        throw new Exception(__FUNCTION__ . " > Person ID is empty");
+      }
+
+      // get the person from db
+      $person = Person::model()->findByPk($personId);
+
+      // render
+      $this->render("add_person", array(
+        "action" => $action,
+        "person" => $person
+      ));
+
+    } catch (Exception $e) {
+      Yii::log(print_r($e->getMessage(), true), 'debug');
+      $this->redirect("/pedigree/tree");
     }
   }
 

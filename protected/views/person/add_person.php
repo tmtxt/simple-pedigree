@@ -7,6 +7,13 @@ if($action == PersonController::ACTION_ADD_CHILD) {
     "<?= $parent->name ?>"
   </h1>
 <?php
+} else if($action == PersonController::ACTION_ADD_MARRIAGE) {
+?>
+  <h1>
+    <?= Yii::t('app', 'Add marriage for ') ?>
+    "<?= $person->name ?>"
+  </h1>
+<?php
 } else {
 $this->redirect("/pedigree/tree");
 }
@@ -18,10 +25,14 @@ $this->redirect("/pedigree/tree");
   ?>
     action="/person/addChildProcess"
   <?php
+  } else if($action == PersonController::ACTION_ADD_MARRIAGE) {
+  ?>
+    action="/person/addMarriageProcess"
+  <?php
   }
   ?>
-    enctype="multipart/form-data"
-    method="POST">
+       enctype="multipart/form-data"
+  method="POST">
   <div class="row">
     <div class="col-md-6">
       <?php if($action == PersonController::ACTION_ADD_CHILD) {
