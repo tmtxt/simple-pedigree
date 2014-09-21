@@ -31,8 +31,8 @@ $this->redirect("/pedigree/tree");
   <?php
   }
   ?>
-       enctype="multipart/form-data"
-  method="POST">
+    enctype="multipart/form-data"
+    method="POST">
   <div class="row">
     <div class="col-md-6">
       <?php if($action == PersonController::ACTION_ADD_CHILD) {
@@ -83,6 +83,10 @@ $this->redirect("/pedigree/tree");
             </div>
           </div>
         <?php }
+        } else if($action == PersonController::ACTION_ADD_MARRIAGE) {
+        ?>
+          <input type="hidden" name="partner-id" value="<?= $person->id ?>">
+        <?php
         }
         ?>
 

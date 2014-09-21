@@ -149,7 +149,7 @@ class Person extends CActiveRecord
         "name" => $marriage->wife->name,
         "picture" => empty($marriage->wife->picture) ?
                    Person::getPersonPicture($marriage->wife->gender) :
-                   Person::getPictureUrlSmall($marriage->wife->picture)
+                   Person::getPictureUrl($marriage->wife->picture)
       ));
     }
 
@@ -160,7 +160,7 @@ class Person extends CActiveRecord
         "name" => $marriage->husband->name,
         "picture" => empty($marriage->husband->picture) ?
                    Person::getPersonPicture($marriage->husband->gender) :
-                   Person::getPictureUrlSmall($marriage->husband->picture)
+                   Person::getPictureUrl($marriage->husband->picture)
       ));
     }
 

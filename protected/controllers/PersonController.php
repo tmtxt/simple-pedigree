@@ -130,7 +130,46 @@ class PersonController extends Controller
   }
 
   public function actionAddMarriageProcess() {
+    $partnerId = Util::get($_POST, "partner-id");
+    $transaction = Yii::app()->db->beginTransaction();
 
+    try {
+      // required information
+      if($partnerId == null) {
+        throw new Exception(__FUNCTION__ . " > Partner Id is empty");
+      }
+
+      // create a new person
+      $person = new Person();
+      $this->processPerson($person);
+
+      // process the marriage
+      $marriage = new Marriage();
+      $partner = Person::model()->findByPk($partnerId);
+      if($partner == null) {
+        throw new Exception(__FUNCTION__ . " > Partner not found");
+      }
+      if($partner->gender == Person::GENDER_MALE || $partner->gender == Person::GENDER_UNKNOWN) {
+        $marriage->husband_id = $partnerId;
+        $marriage->wife_id = $person->id;
+      } else {
+        $marriage->wife_id = $partnerId;
+        $marriage->husband_id = $person->id;
+      }
+      if(!$marriage->validate()) {
+        throw new Exception(__FUNCTION__ . " > Marriage Validation fails");
+      }
+      if(!$marriage->save()) {
+        throw new Exception(__FUNCTION__ . " > Marriage Save fails");
+      }
+
+      $transaction->commit();
+      $this->redirect($this->createUrl("/person/detail", array("id" => $person->id)));
+    } catch(Exception $e) {
+      Yii::log(print_r($e->getMessage(), true), 'debug');
+      echo $e->getMessage();
+      $transaction->rollback();
+    }
   }
 
   public function actionAddMarriage() {
