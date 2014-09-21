@@ -51,7 +51,7 @@ class PedigreeUtil {
     $tree = array();
     $tree["name"] = $root->name;
     $tree["id"] = $root->id;
-    $tree["picture"] = empty($root->picture) ? Person::getPersonPicture($root->gender) : Person::getPictureUrlSmall($root->picture);
+    $tree["picture"] = empty($root->picture) ? Person::getPersonPicture($root->gender) : Person::getPictureUrl($root->picture);
     $tree["marriages"] = $root->getMarriages();
     $tree["children"] = array();
 
@@ -60,7 +60,7 @@ class PedigreeUtil {
       $person = array();
       $person["name"] = $result["name"];
       $person["id"] = $result["id"];
-      $person["picture"] = empty($result["picture"]) ? Person::getPersonPicture($result["gender"]) : Person::getPictureUrlSmall($result["picture"]);
+      $person["picture"] = empty($result["picture"]) ? Person::getPersonPicture($result["gender"]) : Person::getPictureUrl($result["picture"]);
       // person marriages
       $marriageIds = explode(",", $result["marriage_ids"]);
       $marriageNames = explode(",", $result["marriage_names"]);
@@ -71,7 +71,7 @@ class PedigreeUtil {
         array_push($marriages, array(
           "id" => $marriageIds[$i],
           "name" => $marriageNames[$i],
-          "picture" => empty($marriagePictures[$i]) ? Person::getPersonPicture($marriageGenders[$i]) : Person::getPictureUrlSmall($marriagePictures[$i])
+          "picture" => empty($marriagePictures[$i]) ? Person::getPersonPicture($marriageGenders[$i]) : Person::getPictureUrl($marriagePictures[$i])
         ));
       }
       $person["marriages"] = $marriages;

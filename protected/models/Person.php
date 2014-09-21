@@ -53,11 +53,11 @@ class Person extends CActiveRecord
 
   public static function getGenders() {
     return array(
-      Person::GENDER_UNKNOWN => Yii::t('app', 'Unknown'),
       Person::GENDER_MALE => Yii::t('app', 'Male'),
       Person::GENDER_FEMALE => Yii::t('app', 'Female'),
       Person::GENDER_GAY => Yii::t('app', 'Gay'),
-      Person::GENDER_LESBIAN => Yii::t('app', 'Lesbian')
+      Person::GENDER_LESBIAN => Yii::t('app', 'Lesbian'),
+      Person::GENDER_UNKNOWN => Yii::t('app', 'Unknown')
     );
   }
 

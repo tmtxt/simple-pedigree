@@ -20,6 +20,7 @@ $this->redirect("/pedigree/tree");
   <?php
   }
   ?>
+    enctype="multipart/form-data"
     method="POST">
   <div class="row">
     <div class="col-md-6">
@@ -103,7 +104,7 @@ $this->redirect("/pedigree/tree");
     <div class="col-md-6">
       <div class="form-group">
         <label><?= Yii::t('app', 'Picture') ?></label>
-        <input type="file" name="picture">
+        <input type="file" name="picture" enctype="multipart/form-data">
       </div>
 
       <div class="form-group">
@@ -121,7 +122,7 @@ $this->redirect("/pedigree/tree");
         <label><?= Yii::t('app', 'Gender') ?></label>
         <?php
         echo CHtml::dropDownList("gender", null,
-                                 Person::getAliveStatuses(),
+                                 Person::getGenders(),
                                  array("class" => "form-control"));
         ?>
       </div>

@@ -22,9 +22,11 @@ aliveStatusSelect.change(function(){
 
 // initialize date picker
 birthDateInput.datepicker({
+  language: 'vi',
   autoclose: true
 });
 deathDateInput.datepicker({
+  language: 'vi',
   autoclose: true
 });
 
