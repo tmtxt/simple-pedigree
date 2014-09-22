@@ -18,3 +18,11 @@ sql: |
   history TEXT,
   other_information TEXT
   );
+
+---
+table: person
+from: txt_1
+to: txt_2
+sql: |
+  ALTER TABLE person ALTER COLUMN birth_date DROP DEFAULT;
+  ALTER TABLE person ALTER COLUMN death_date DROP DEFAULT;
