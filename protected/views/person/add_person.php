@@ -162,7 +162,7 @@ $this->redirect("/pedigree/tree");
           ?>
             <div class="row">
               <div class="col-md-2">
-                <img src="<?= $person->getPictureUrl($person->picture) ?>" class="img-responsive" />
+                <img src="<?= $person->getPicture() ?>" class="img-responsive" />
               </div>
               <div class="col-md-10">
                 <input type="file" name="picture" enctype="multipart/form-data">
