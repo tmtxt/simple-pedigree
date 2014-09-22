@@ -114,14 +114,14 @@ $this->redirect("/pedigree/tree");
           <label><?= Yii::t('app', 'Death Date') ?></label>
           <input type="text" class="form-control js-death-date-input" name="death-date">
         </div>
+
+        <div class="form-group">
+          <label><?= Yii::t('app', 'Picture') ?></label>
+          <input type="file" name="picture" enctype="multipart/form-data">
+        </div>
     </div>
 
     <div class="col-md-6">
-      <div class="form-group">
-        <label><?= Yii::t('app', 'Picture') ?></label>
-        <input type="file" name="picture" enctype="multipart/form-data">
-      </div>
-
       <div class="form-group">
         <label><?= Yii::t('app', 'Job') ?></label>
         <input type="text" class="form-control" name="job"

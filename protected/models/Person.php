@@ -28,9 +28,18 @@
  */
 class Person extends CActiveRecord
 {
+  // CONST
+  // Alive status
   const ALIVE_STATUS_ALIVE = 0;
   const ALIVE_STATUS_DEATH = 1;
   const ALIVE_STATUS_UNKNOWN = 2;
+
+  // Gender
+  const GENDER_UNKNOWN = 0;
+  const GENDER_MALE = 1;
+  const GENDER_FEMALE = 2;
+  const GENDER_GAY = 3;
+  const GENDER_LESBIAN = 4;
 
   public static function getAliveStatuses() {
     return array(
@@ -40,16 +49,10 @@ class Person extends CActiveRecord
     );
   }
 
-  protected function getAliveStatus() {
+  public function getAliveStatusText() {
     $statuses = $this->getAliveStatuses();
     return Util::get($statuses, $this->alive_status, $statuses[Person::ALIVE_STATUS_UNKNOWN]);
   }
-
-  const GENDER_UNKNOWN = 0;
-  const GENDER_MALE = 1;
-  const GENDER_FEMALE = 2;
-  const GENDER_GAY = 3;
-  const GENDER_LESBIAN = 4;
 
   public static function getGenders() {
     return array(
@@ -61,7 +64,7 @@ class Person extends CActiveRecord
     );
   }
 
-  protected function getGender() {
+  public function getGenderText() {
     $genders = $this->getGenders();
     return Util::get($genders, $this->gender, $genders[Person::GENDER_UNKNOWN]);
   }
@@ -122,10 +125,10 @@ class Person extends CActiveRecord
     return array(
       "id" => $this->id,
       "name" => empty($this->name) ? $unknownText : $this->name,
-      "aliveStatus" => $this->getAliveStatus(),
+      "aliveStatus" => $this->getAliveStatusText(),
       "job" => empty($this->job) ? $unknownText : $this->job,
       "address" => empty($this->address) ? $unknownText : $this->address,
-      "gender" => $this->getGender(),
+      "gender" => $this->getGenderText(),
       "picture" => $this->getPicture(),
       "phoneNo" => empty($this->phone_no) ? $unknownText : $this->phone_no,
       "history" => empty($this->history) ? $unknownText : $this->history,
