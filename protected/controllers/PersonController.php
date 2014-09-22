@@ -36,6 +36,33 @@ class PersonController extends Controller
     }
   }
 
+  public function actionEditProcess() {
+    $personId = Util::get($_POST, "id");
+    $transaction = Yii::app()->db->beginTransaction();
+
+    try {
+      // required information
+      if($personId == null) {
+        throw new Exception(__FUNCTION__ . " > Person Id is empty");
+      }
+
+      // get the person from the database
+      $person = Person::model()->findByPk($personId);
+      if($person == null) {
+        throw new Exception(__FUNCTION__ . " > Person not found");
+      }
+
+      $this->processPerson($person);
+
+      $transaction->commit();
+      $this->redirect($this->createUrl("/person/detail", array("id" => $personId)));
+    } catch (Exception $e) {
+      Yii::log(print_r($e->getMessage(), true), 'debug');
+      echo $e->getMessage();
+      $transaction->rollback();
+    }
+  }
+
   protected function processPerson($person) {
     $name = Util::get($_POST, "name");
     $birthDate = Util::get($_POST, "birth-date");
@@ -46,7 +73,7 @@ class PersonController extends Controller
     $gender = Util::get($_POST, "gender");
     $phoneNo = Util::get($_POST, "phone-no");
     $history = Util::get($_POST, "history");
-    $otherInformation = Util::get($_POST, "other_information");
+    $otherInformation = Util::get($_POST, "other-information");
     $picture = Util::get($_FILES, "picture");
 
     $person->name = $name;
@@ -90,7 +117,7 @@ class PersonController extends Controller
     }
 
     // process the picture
-    if($picture != null) {
+    if($picture != null && !empty($picture["tmp_name"])) {
       $tmpName = $picture["tmp_name"];
       $pictureFile = getimagesize($tmpName);
       $newName = md5($person->id . "-picture-");

@@ -48,8 +48,8 @@ $this->redirect("/pedigree/tree");
   <?php
   }
   ?>
-       enctype="multipart/form-data"
-  method="POST">
+    enctype="multipart/form-data"
+    method="POST">
 
   <?php ////////////////////////////////////////////////////////////////////// ?>
   <?php // BEGIN FORM CONTENT ?>
@@ -112,6 +112,13 @@ $this->redirect("/pedigree/tree");
         ?>
           <input type="hidden" name="partner-id" value="<?= $person->id ?>">
         <?php
+
+        /////////////////////////////////////////////////////////////////
+        // If $action is Edit, just a hidden input to store the person id
+        } else if($action == PersonController::ACTION_EDIT) {
+        ?>
+          <input type="hidden" name="id" value="<?= $person->id ?>">
+        <?php
         }
         ?>
 
@@ -155,7 +162,7 @@ $this->redirect("/pedigree/tree");
           ?>
             <div class="row">
               <div class="col-md-2">
-                <img src="<?= $person->getPictureUrlSmall($person->picture) ?>" class="img-responsive" />
+                <img src="<?= $person->getPictureUrl($person->picture) ?>" class="img-responsive" />
               </div>
               <div class="col-md-10">
                 <input type="file" name="picture" enctype="multipart/form-data">
