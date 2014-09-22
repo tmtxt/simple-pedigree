@@ -19,6 +19,10 @@ module.exports = React.createClass({
               <PersonDetail person={this.props.person} />
             </div>
             <div className="modal-footer">
+              <a href={this.props.person.editUrl}
+                 className="btn btn-default">
+                Edit Info
+              </a>
               <a href={this.props.person.addMarriageUrl}
                  className="btn btn-default">
                 Add marriage

@@ -54,6 +54,17 @@ class Person extends CActiveRecord
     return Util::get($statuses, $this->alive_status, $statuses[Person::ALIVE_STATUS_UNKNOWN]);
   }
 
+  public function getAliveStatus() {
+    $statuses = $this->getAliveStatuses();
+    if($this->alive_status == null) {
+      return Person::ALIVE_STATUS_UNKNOWN;
+    } else if(!array_key_exists($this->alive_status, $statuses)) {
+      return Person::ALIVE_STATUS_UNKNOWN;
+    } else {
+      return $this->alive_status;
+    }
+  }
+
   public static function getGenders() {
     return array(
       Person::GENDER_MALE => Yii::t('app', 'Male'),
@@ -62,6 +73,17 @@ class Person extends CActiveRecord
       Person::GENDER_LESBIAN => Yii::t('app', 'Lesbian'),
       Person::GENDER_UNKNOWN => Yii::t('app', 'Unknown')
     );
+  }
+
+  public function getGender() {
+    $genders = $this->getGenders();
+    if($this->gender == null) {
+      return Person::GENDER_UNKNOWN;
+    } else if(!array_key_exists($this->gender, $genders)) {
+      return Person::GENDER_UNKNOWN;
+    } else {
+      return $this->gender;
+    }
   }
 
   public function getGenderText() {
@@ -139,7 +161,24 @@ class Person extends CActiveRecord
       "detailUrl" => Yii::app()->createUrl("/person/detail", array("id" => $this->id)),
       "addChildUrl" => Yii::app()->createUrl("/person/addChild", array("parentId" => $this->id)),
       "addMarriageUrl" => Yii::app()->createUrl("/person/addMarriage", array("id" => $this->id)),
+      "editUrl" => Yii::app()->createUrl("/person/edit", array("id" => $this->id))
     );
+  }
+
+  public function getBirthDate() {
+    if($this->birth_date == null) {
+      return "";
+    } else {
+      return date_format(new DateTime($this->birth_date), "d/m/Y");
+    }
+  }
+
+  public function getDeathDate() {
+    if($this->death_date == null) {
+      return "";
+    } else {
+      return date_format(new DateTime($this->death_date), "d/m/Y");
+    }
   }
 
   public function getMarriages() {

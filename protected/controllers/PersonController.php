@@ -4,11 +4,37 @@ class PersonController extends Controller
 {
   const ACTION_ADD_CHILD = 1;
   const ACTION_ADD_MARRIAGE = 2;
+  const ACTION_EDIT = 3;
 
 	public function actionIndex()
 	{
 		$this->render('index');
 	}
+
+  public function actionEdit() {
+    $id = Util::get($_GET, "id");
+    $action = PersonController::ACTION_EDIT;
+
+    try {
+      if($id == null) {
+        throw new Exception(__FUNCTION__ . " > Person Id is empty");
+      }
+
+      // get the person from database
+      $person = Person::model()->findByPk($id);
+      if($person == null) {
+        throw new Exception(__FUNCTION__ . " > Person not found");
+      }
+
+      $this->render("add_person", array(
+        "action" => $action,
+        "person" => $person
+      ));
+    } catch (Exception $e) {
+      Yii::log(print_r($e->getMessage(), true), 'debug');
+      $this->redirect("/pedigree/tree");
+    }
+  }
 
   protected function processPerson($person) {
     $name = Util::get($_POST, "name");
